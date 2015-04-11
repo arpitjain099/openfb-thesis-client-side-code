@@ -1,0 +1,5 @@
+1. add checker code in js for email and strong passwords 
+2. #write python script to add data from csv file a recruiter uploads
+3. user signup using phonenumber as primary key - using way2sms api to send messages via sms
+4. create a dashboard for recruiter
+5. check if action is needed in user/recruiter signup html forms or not - my guess is that is not needed!

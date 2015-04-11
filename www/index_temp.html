@@ -1,0 +1,16 @@
+<script>
+function loadTweets() {
+    var request = new XMLHttpRequest();
+    request.open("POST", "http://172.27.20.232/thesis/testingexternalurl.php?test=da", true);
+    request.onreadystatechange=function()
+  {
+  if (request.readyState==4 && request.status==200)
+    {
+   alert(request.responseText);
+    }
+  }
+    console.log("asking for tweets");
+    request.send();
+}
+</script>
+<button  onclick="loadTweets()"></button>

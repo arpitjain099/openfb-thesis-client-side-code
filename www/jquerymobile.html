@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Include meta tag to ensure proper rendering and touch zooming -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+  <!-- Include jQuery Mobile stylesheets -->
+  <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
+  <!-- Include the jQuery library -->
+  <script src="jquery-1.11.1.min.js"></script>
+  <!-- Include the jQuery Mobile library -->
+  <script src="jquery.mobile-1.4.5.min.js"></script>
+  <script>
+function loadXMLDoc()
+{
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+    }
+  }
+xmlhttp.open("GET","response.php?username=2",true);
+xmlhttp.send();
+}
+</script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+  <div data-role="header">
+    <h1>Insert Page Title Here</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <p>Insert Content Here</p>
+  </div>
+
+  <div data-role="footer">
+    <h1>Insert Footer Text Here</h1>
+  </div>
+  <div data-role="controlgroup" data-type="horizontal" data-mini="true"><a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-plus ui-btn-b">Add</a><a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-delete ui-btn-b">Delete</a><a href="#" class="ui-shadow ui-btn ui-corner-all ui-btn-icon-left ui-icon-grid ui-btn-b">More</a>
+</div>
+
+<div data-role="fieldcontain"><form>
+    <label for="name">Text Input:</label>
+    <input type="text" name="name" id="name" value=""  />
+        <input type="submit" value="Submit"onclick="loadXMLDoc()">
+  </form>
+
+</div>  
+<div id="myDiv"></div>
+</div> 
+
+</body>
+</html>

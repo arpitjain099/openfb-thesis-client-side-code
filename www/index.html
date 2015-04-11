@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Include meta tag to ensure proper rendering and touch zooming -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <!-- Include jQuery Mobile stylesheets -->
+  <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
+  <!-- Include the jQuery library -->
+  <script src="jquery-1.11.1.min.js"></script>
+  <!-- Include the jQuery Mobile library -->
+
+
+    <link rel="stylesheet" href="ratchet.css">
+    <link rel="stylesheet" href="styles.css">
+  <script src="jquery.mobile-1.4.5.min.js"></script>
+    <script>
+ 
+function loadXMLDoc()
+{
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+
+
+
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    console.log("working?");
+   if(xmlhttp.responseText=="wrong credentials")
+    {//document.getElementById("status").innerHTML="Wrong credentials entered. Please try again!";
+  alert("Wrong credentials entered. Please try again!");
+location.reload();
+
+}
+    else {document.cookie="email=".concat(document.getElementById("loginform").elements[0].value);
+    //alert("da");
+   console.log("cookie set");
+   alert("Login successful");
+ }
+   //alert(readCookie("username"));
+    }
+  }
+
+
+xmlhttp.open("POST","http://172.27.20.232/thesis/checkcredentials.php",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+//alert();
+xmlhttp.send("email=".concat(document.getElementById("loginform").elements[0].value).concat("&password=".concat(document.getElementById("loginform").elements[1].value)));
+
+//xmlhttp.send();
+}
+function recruitersignup() {
+    window.location.assign("freelancersignup.html")
+}
+</script>
+</head>
+<body>
+
+<div data-role="page" id="pageone"><div data-role="header">
+    <h1>Existing User</h1>
+  </div>
+<script src="jquery-1.11.0.min.js"></script> 
+<script src="jquery.squirrel.min.js"></script> 
+<div data-role="fieldcontain">
+<div id="status">
+<form class="squirrel" id="loginform">
+    <label for="name">Email *</label>
+    <input type="text" name="name" id="email" value="" required />
+
+    <label for="name">Password *</label>
+    <input type="password" name="name" id="password" value="" required />
+    <input type="submit" value="Login"onclick="loadXMLDoc()">
+  </form>
+
+</div>  
+<div data-role="header">
+    <h1>New User</h1>
+  </div>
+  <div data-role="main" class="ui-content">
+    
+    <input type="button" onclick="recruitersignup()"value="Signup">
+
+  </div>
+
+  <button class="btn btn-block" onclick="login()">Login with Facebook</button>
+</div>
+  
+</div> 
+
+<script src="cordova.js"></script>
+
+<script src="openfb.js"></script>
+
+<script>
+
+     // Defaults to sessionStorage for storing the Facebook token
+     openFB.init({appId: 364393280422455});
+
+    //  Uncomment the line below to store the Facebook token in localStorage instead of sessionStorage
+    //  openFB.init({appId: 'YOUR_FB_APP_ID', tokenStore: window.localStorage});
+//working phonegap fb login system
+    function login() {
+        openFB.login(
+                function(response) {
+                    if(response.status === 'connected') {
+                        alert('Facebook login succeeded!');
+                        openFB.api({
+            path: '/me',
+            success: function(data) {
+                console.log(JSON.stringify(data));
+                //alert(data.email);
+                //document.getElementById("userPic").src = 'http://graph.facebook.com/' + data.id + '/picture?type=small';
+
+
+
+                
+                if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    if(xmlhttp.responseText=="user exists")
+    {//document.getElementById("status").innerHTML="Wrong credentials entered. Please try again!";
+  //alert("Username already taken. Try a new one!");
+  window.location = 'activityarea.html';
+
+
+}
+    else {
+      alert("User registered!")
+      window.location = 'activityarea.html';
+     }
+    }
+  }
+xmlhttp.open("POST","http://172.27.20.232/thesis/freelancerfacebooksubmission.php",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+//alert();
+
+sts="name=".concat(data.name.toString());
+
+
+sts=sts.concat("&email=").concat(data.email.toString());
+sts=sts.concat("&photo=").concat('http://graph.facebook.com/' + data.id + '/picture?type=small');
+//alert(sts);
+
+//'http://graph.facebook.com/' + data.id + '/picture?type=small';
+xmlhttp.send(sts);
+
+
+
+
+
+
+            },
+            error: errorHandler});
+
+                    } else {
+                        alert('Facebook login failed!');
+                        console.log(response.error)
+                    }
+                }, {scope: 'email,read_stream,publish_stream'});
+    }
+
+    
+
+    function share() {
+        openFB.api({
+            method: 'POST',
+            path: '/me/feed',
+            params: {
+                message: document.getElementById('Message').value || 'Testing Facebook APIs'
+            },
+            success: function() {
+                alert('the item was posted on Facebook');
+            },
+            error: errorHandler});
+    }
+
+    function revoke() {
+        openFB.revokePermissions(
+                function() {
+                    alert('Permissions revoked');
+                },
+                errorHandler);
+    }
+
+    function logout() {
+        openFB.logout(
+                function() {
+                    alert('Logout successful');
+                },
+                errorHandler);
+    }
+
+    function errorHandler(error) {
+        alert(error.message);
+    }
+
+</script>
+</body>
+</html>

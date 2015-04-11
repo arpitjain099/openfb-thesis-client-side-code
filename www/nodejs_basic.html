@@ -1,0 +1,23 @@
+<script src='http://requirejs.org/docs/release/2.1.15/minified/require.js' type='text/javascript'></script>
+<script>
+
+ var mysql =  require('mysql');
+   var connection =  mysql.createConnection({
+  	host : "localhost",
+  	user : "root",
+  	password: ""
+  });
+     connection.connect();
+
+     var strQuery = "select * from users";	
+  
+  connection.query('select id; select password; ', function(err, result){
+  if(err){
+  	throw err;
+  }else{
+  	console.log(result[0]);       // Column1 as a result
+  	console.log(result[1]);       // Column2 as a result
+  	//console.log(result[2]);       // Column3 as a result
+  }
+});
+</script>

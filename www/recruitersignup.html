@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Include meta tag to ensure proper rendering and touch zooming -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+  <!-- Include jQuery Mobile stylesheets -->
+  <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
+  <!-- Include the jQuery library -->
+  <script src="jquery-1.11.1.min.js"></script>
+  <!-- Include the jQuery Mobile library -->
+  <script src="jquery.mobile-1.4.5.min.js"></script>
+
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+<script type="text/javascript">
+  function loadXMLDoc()
+{
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+
+
+
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+   if(xmlhttp.responseText=="user exists")
+    {//document.getElementById("status").innerHTML="Wrong credentials entered. Please try again!";
+  alert("Username already taken. Try a new one!");
+  window.location = 'recruitersignup.html';
+
+
+}
+    else {
+      alert("User registered. Proceed to login page.")
+      window.location = 'recruiter.html';
+     }
+   //alert(readCookie("username"));
+    }
+  }
+
+
+xmlhttp.open("POST","recruitersignupsubmission.php",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+//alert();
+sts="name=".concat(document.getElementById("signupform").elements[0].value);
+sts=sts.concat("&username=").concat(document.getElementById("signupform").elements[1].value);
+sts=sts.concat("&password=").concat(document.getElementById("signupform").elements[2].value);
+sts=sts.concat("&email=").concat(document.getElementById("signupform").elements[3].value);
+sts=sts.concat("&phone=").concat(document.getElementById("signupform").elements[4].value);
+sts=sts.concat("&address=").concat(document.getElementById("signupform").elements[5].value);
+//alert(sts);
+xmlhttp.send(sts);
+
+//xmlhttp.send();
+}
+
+</script>
+<script src="jquery-1.11.0.min.js"></script> 
+<script src="jquery.squirrel.min.js"></script> 
+<div data-role="fieldcontain">
+<form method="post" class="squirrel" id="signupform">
+<label for="name">Name *</label>
+    <input type="text" name="name" id="name" value=""  />
+
+    <label for="name">Username *</label>
+    <input type="text" name="username" id="username" value="" required />
+
+    <label for="name">Password *</label>
+    <input type="password" name="password" id="password" value="" required />
+
+    <label for="name">E-Mail *</label>
+    <input type="text" name="email" id="email" value=""  />
+
+    <label for="name">Phone</label>
+    <input type="text" name="phone" id="phone" value=""  />
+    
+    <label for="name">Address</label>
+    <input type="text" name="address" id="address" value=""  />
+    
+    <input type="submit" value="Signup" onclick="loadXMLDoc()">
+  </form>
+
+</div>  
+
+
+  
+</div> 
+
+</body>
+</html>

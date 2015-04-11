@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Include meta tag to ensure proper rendering and touch zooming -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+  <!-- Include jQuery Mobile stylesheets -->
+  <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
+  <!-- Include the jQuery library -->
+  <script src="jquery-1.11.1.min.js"></script>
+  <!-- Include the jQuery Mobile library -->
+  <script src="jquery.mobile-1.4.5.min.js"></script>
+    <script>
+    function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+function loadXMLDoc()
+{
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+
+
+
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    console.log("working?");
+   if(xmlhttp.responseText=="wrong credentials")
+    {//document.getElementById("status").innerHTML="Wrong credentials entered. Please try again!";
+  alert("Wrong credentials entered. Please try again!");
+location.reload();
+
+}
+    else {document.cookie="username=".concat(document.getElementById("loginform").elements[0].value);
+   console.log("cookie set");}
+   //alert(readCookie("username"));
+    }
+  }
+
+
+xmlhttp.open("POST","172.27.20.232/thesis/checkcredentials.php",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+//alert();
+xmlhttp.send("username=".concat(document.getElementById("loginform").elements[0].value).concat("&password=".concat(document.getElementById("loginform").elements[1].value)));
+
+//xmlhttp.send();
+}
+function recruitersignup() {
+    window.location.assign("recruitersignup.html")
+}
+</script>
+</head>
+<body>
+
+<div data-role="page" id="pageone"><div data-role="header">
+    <h1>Existing User</h1>
+  </div>
+<script src="jquery-1.11.0.min.js"></script> 
+<script src="jquery.squirrel.min.js"></script> 
+<div data-role="fieldcontain">
+<div id="status">
+<form class="squirrel" id="loginform">
+    <label for="name">Username *</label>
+    <input type="text" name="name" id="username" value="" required />
+
+    <label for="name">Password *</label>
+    <input type="password" name="name" id="password" value="" required />
+    <input type="submit" value="Login"onclick="loadXMLDoc()">
+  </form>
+
+</div>  
+<div data-role="header">
+    <h1>New User</h1>
+  </div>
+  <div data-role="main" class="ui-content">
+    
+    <input type="button" onclick="recruitersignup()"value="Signup">
+  </div>
+</div>
+  
+</div> 
+
+</body>
+</html>

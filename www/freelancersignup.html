@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Include meta tag to ensure proper rendering and touch zooming -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+  <!-- Include jQuery Mobile stylesheets -->
+  <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
+  <!-- Include the jQuery library -->
+  <script src="jquery-1.11.1.min.js"></script>
+  
+
+  <!-- Include the jQuery Mobile library -->
+  <script src="jquery.mobile-1.4.5.min.js"></script>
+  <script>
+      //alert(document.getElementById("student").checked);
+      $(document).ready(function () {
+ var booRadio;
+   // toggleFields(); //call this first so we start out with the correct visibility depending on the selected form values
+    //this will call our toggleFields function every time the selection value of our underAge field changes
+    if (document.getElementById("collegename").checked==true)
+      {//alert("dadasa");
+        $("#studentcheck").show();
+      }
+    else 
+        {    //  document.getElementById("student").checked=false;
+      //this.checked = false;
+        $("#studentcheck").hide();}
+    $("#collegename").change(function () {
+if (document.getElementById("collegename").checked==true){
+ // alert("daxa");
+
+  if(booRadio == this){
+                this.checked = false;
+        booRadio = null;
+            }else{
+            booRadio = this;
+        }
+
+}
+       // toggleFields();
+       //console.log("dadasaxaa");
+    if (document.getElementById("collegename").checked==true)
+      {//alert("dadasa");
+        $("#studentcheck").show();
+      }
+    else 
+        {    //  document.getElementById("student").checked=false;
+      //this.checked = false;
+  
+        $("#studentcheck").hide();}
+    });
+
+});
+
+      
+        </script>
+    <script>
+function loadXMLDoc()
+{
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    if(xmlhttp.responseText=="user exists")
+    {//document.getElementById("status").innerHTML="Wrong credentials entered. Please try again!";
+  alert("Email ID already taken. Try a new one!");
+  window.location = 'freelancersignup.html';
+
+
+}
+    else {
+      alert("User registered. Proceed to login page.")
+      window.location = 'index.html';
+     }
+    }
+  }
+xmlhttp.open("POST","http://172.27.20.232/thesis/freelancersignupsubmission.php",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+//alert();
+
+//sts="username=".concat(document.getElementById("signupform").elements[0].value);
+sts="password=".concat(document.getElementById("signupform").elements[1].value);
+sts=sts.concat("&name=").concat(document.getElementById("signupform").elements[2].value);
+sts=sts.concat("&email=").concat(document.getElementById("signupform").elements[0].value);
+sts=sts.concat("&collegename=").concat(document.getElementById("signupform").elements[3].value);
+//alert(sts);
+xmlhttp.send(sts);
+
+
+}
+function recruitersignup() {
+    window.location.assign("recruitersignup.html")
+}
+</script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+<script>
+
+</script>
+<div data-role="fieldcontain">
+<form method="POST" class="squirrel" id="signupform">
+
+
+    <label for="name">E-Mail *</label>
+    <input type="text" name="name" id="email" value="" required />
+
+    <label for="name">Password *</label>
+    <input type="password" name="name" id="password" value="" required />
+
+    <label for="name">Name </label>
+    <input type="text" name="name" id="name" value="" />
+
+
+    <label for="name">Phone number (+91) </label>
+    <input type="number" name="name" id="phonenumber" value="" ></input>
+
+    <label for="name">Student?
+    <input type="radio" name="student" id="collegename" value="" /></label>
+    
+      
+        <div id="studentcheck">
+        <p>College name
+            <input type="text" name="parent_name" id = "colgname" />
+        </p>
+        
+        
+    </div>
+    
+    
+    <input type="submit" value="Sign up"onclick="loadXMLDoc()">
+  </form>
+
+</div>  
+
+
+  
+</div> 
+
+</body>
+</html>
