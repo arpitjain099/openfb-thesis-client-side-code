@@ -74,13 +74,22 @@ xmlhttp.onreadystatechange=function()
     if(xmlhttp.responseText=="user exists")
     {//document.getElementById("status").innerHTML="Wrong credentials entered. Please try again!";
   alert("Email ID already taken. Try a new one!");
-  window.location = 'freelancersignup.html';
+  //window.open('freelancersignup.html');
+      window.location.assign("freelancersignup.html");
+
 
 
 }
-    else {
-      alert("User registered. Proceed to login page.")
-      window.location = 'index.html';
+    else if (xmlhttp.responseText=="user inserted"){
+      alert("User registered. Proceed to login page.");
+      window.location.assign("index.html");
+      //window.open('index.html');
+     }
+     else if(xmlhttp.responseText=="Exception caught")
+     {
+      alert("Some error occurred. Please try again!");
+      window.location.assign("freelancersignup.html");
+      //window.open('freelancersignup.html');
      }
     }
   }
@@ -92,7 +101,8 @@ xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 sts="password=".concat(document.getElementById("signupform").elements[1].value);
 sts=sts.concat("&name=").concat(document.getElementById("signupform").elements[2].value);
 sts=sts.concat("&email=").concat(document.getElementById("signupform").elements[0].value);
-sts=sts.concat("&collegename=").concat(document.getElementById("signupform").elements[3].value);
+sts=sts.concat("&phonenumber=").concat(document.getElementById("signupform").elements[3].value);
+sts=sts.concat("&collegename=").concat(document.getElementById("signupform").elements[4].value);
 //alert(sts);
 xmlhttp.send(sts);
 
@@ -107,12 +117,16 @@ function recruitersignup() {
 
 <div data-role="page" id="pageone">
 <script>
+function sampleaction(){
+
+  location.assign('index.html');
+  //alert("aa");
+}
 
 </script>
 <div data-role="fieldcontain">
-<form method="POST" class="squirrel" id="signupform">
-
-
+<form data-ajax="false" method="POST" class="squirrel" id="signupform">
+<button onclick="sampleaction()"></button>
     <label for="name">E-Mail *</label>
     <input type="text" name="name" id="email" value="" required />
 
@@ -123,8 +137,8 @@ function recruitersignup() {
     <input type="text" name="name" id="name" value="" />
 
 
-    <label for="name">Phone number (+91) </label>
-    <input type="number" name="name" id="phonenumber" value="" ></input>
+    <label for="name">Phone number (+91) * </label>
+    <input type="number" name="name" id="phonenumber" value="" required></input>
 
     <label for="name">Student?
     <input type="radio" name="student" id="collegename" value="" /></label>
