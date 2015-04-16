@@ -11,55 +11,27 @@
   <script src="jquery-1.11.1.min.js"></script>
   <!-- Include the jQuery Mobile library -->
   <script src="jquery.mobile-1.4.5.min.js"></script>
-      <script>
-function loadXMLDoc()
-{
-
-
-if (window.XMLHttpRequest)
-  {// code for IE7+, Firefox, Chrome, Opera, Safari
-  xmlhttp=new XMLHttpRequest();
-  }
-else
-  {// code for IE6, IE5
-  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  //oForm = document.forms[0];
-  //userName = oForm.elements["username"];
-  //passWord = oForm.elements["password"];
-  username=document.cookie;
-
-  //alert(userName.value);
-  //alert(passWord.value);
-
-
-  xmlhttp.onreadystatechange=function() {
-    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-      //alert(xmlhttp.responseText);
-      if(xmlhttp.responseText=="true")//alert("daaxa");
-      {
-        document.cookie=""+userName.value.toString();
-         window.location.assign("user_nav.html");
-      }
-      else {
-        alert("Wrong credentials entered, please try again");
-       window.location.assign("freelancer.html"); 
-      }
-    }
-  }
-xmlhttp.open("GET","response.php?username="+userName.value.toString()+"&&password="+passWord.value.toString(),true);
-xmlhttp.send();
-//alert("daa");
-}
-function freelancersignup() {
-    window.location.assign("freelancersignup.html")
-}
-</script>
+  
+     
 <script>
 $(document).ready(function () {
-  loadXMLDoc();
+  //loadXMLDoc();
 document.getElementById("username").innerHTML="Hello " + document.cookie+"!";//.toString();
-});</script>
+});
+
+ function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+        alert("ada");
+    }
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+      alert("cordova working");
+        // Now safe to use device APIs
+    }
+
+</script>
 </head>
 <body>
 

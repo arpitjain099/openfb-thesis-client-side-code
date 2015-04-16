@@ -60,15 +60,14 @@ if (document.getElementById("collegename").checked==true){
 function loadXMLDoc()
 {
 
-     var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-     var phoneno = /^\d{10}$/; 
-     if(document.getElementById("loginform").elements[3].value && phoneno.test(document.getElementById("loginform").elements[3].value)){
 
 
-     if(re.test(document.getElementById("loginform").elements[0].value))
+     //var re = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+     //alert(document.getElementById("signupform").elements[0].value);
+     //if(re.test(document.getElementById("signupform").elements[0].value))
 
 
-{
+
 if (window.XMLHttpRequest)
   {// code for IE7+, Firefox, Chrome, Opera, Safari
   xmlhttp=new XMLHttpRequest();
@@ -101,7 +100,7 @@ xmlhttp.onreadystatechange=function()
      //}
     }
   }
-xmlhttp.open("POST","http://172.27.20.232/thesis/freelancersignupsubmission.php",true);
+xmlhttp.open("POST","http://172.27.30.129/thesis/freelancersignupsubmission.php",true);
 xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 //alert();
 
@@ -115,11 +114,11 @@ sts=sts.concat("&collegename=").concat(document.getElementById("signupform").ele
 xmlhttp.send(sts);
 
 
+
+
 }
-else alert("Invalid email");
-}
-else alert("Invalid phonenumber!");
-}
+
+
 </script>
 </head>
 <body>
@@ -132,21 +131,21 @@ else alert("Invalid phonenumber!");
 <form method="POST" class="squirrel" id="signupform">
 
 
-    <label for="name">E-Mail </label>
-    <input type="text" name="name" id="email" value=""  required/>
+    <label for="name">E-Mail *</label>
+    <input type="text" id="email" value=""  required/>
 
-    <label for="name">Password </label>
-    <input type="password" name="name" id="password" value=""  required/>
+    <label for="name">Password * </label>
+    <input type="password"  id="password" value=""  required/>
 
-    <label for="name">Name </label>
-    <input type="text" name="name" id="name" value="" required/>
+    <label for="name">Name</label>
+    <input type="text"  id="name" value=""/>
 
 
-    <label for="name">Phone number (+91)  </label>
-    <input type="number" name="name" id="phonenumber" value="" ></input>
+    <label for="name">Phone number (+91) </label>
+    <input type="number"  id="phonenumber" value="" ></input>
 
     <label for="name">Student?</label>
-    <input type="radio" name="student" id="collegename" value="" />
+    <input type="radio"  id="collegename" value="" />
     
       
         <div id="studentcheck">

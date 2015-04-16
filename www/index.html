@@ -22,12 +22,6 @@
 function loadXMLDoc()
 {
 
-  
-    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-     if(re.test(document.getElementById("loginform").elements[0].value))
-
-
-{
   if (window.XMLHttpRequest)
   {// code for IE7+, Firefox, Chrome, Opera, Safari
   xmlhttp=new XMLHttpRequest();
@@ -44,7 +38,7 @@ xmlhttp.onreadystatechange=function()
   {
   if (xmlhttp.readyState==4 && xmlhttp.status==200)
     {
-    console.log("working?");
+    
    if(xmlhttp.responseText=="wrong credentials")
     {//document.getElementById("status").innerHTML="Wrong credentials entered. Please try again!";
   alert("Wrong credentials entered. Please try again!");
@@ -54,21 +48,21 @@ location.reload();
     else {document.cookie="email=".concat(document.getElementById("loginform").elements[0].value);
     //alert("da");
    console.log("cookie set");
-   alert("Login successful");
+   //alert("Login successful");
+   window.location.assign('notifications.html');
+
  }
    //alert(readCookie("username"));
     }
   }
 
 
-xmlhttp.open("POST","http://172.27.20.232/thesis/checkcredentials.php",true);
+xmlhttp.open("POST","http://172.27.30.129/thesis/checkcredentials.php",true);
 xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 //alert();
 xmlhttp.send("email=".concat(document.getElementById("loginform").elements[0].value).concat("&password=".concat(document.getElementById("loginform").elements[1].value)));
 
 //xmlhttp.send();
-}
-else alert("Invalid email")
 }
 function recruitersignup() {
     window.location.assign("freelancersignup.html")
@@ -86,10 +80,10 @@ function recruitersignup() {
 <div id="status">
 <form class="squirrel" id="loginform">
     <label for="name">Email *</label>
-    <input type="text" name="name" id="email" value="" required />
+    <input type="text"  id="email" value="" required />
 
     <label for="name">Password *</label>
-    <input type="password" name="name" id="password" value="" required />
+    <input type="password"  id="password" value="" required />
     <input type="submit" value="Login"onclick="loadXMLDoc()">
   </form>
 
@@ -150,17 +144,23 @@ xmlhttp.onreadystatechange=function()
     if(xmlhttp.responseText=="user exists")
     {//document.getElementById("status").innerHTML="Wrong credentials entered. Please try again!";
   //alert("Username already taken. Try a new one!");
-  window.location = 'activityarea.html';
+  window.location.assign('notifications.html');
 
 
 }
-    else {
-      alert("User registered!")
-      window.location = 'activityarea.html';
+    else if (xmlhttp.responseText=="user inserted"){
+      alert("User registered!");
+      document.cookie="email=".concat(data.email.toString());
+      window.location.assign('activityarea.html');
+
+     }
+     else {
+      alert("Something bad happened! Please try again!!")
+      window.location.assign('index.html');
      }
     }
   }
-xmlhttp.open("POST","http://172.27.20.232/thesis/freelancerfacebooksubmission.php",true);
+xmlhttp.open("POST","http://172.27.30.129/thesis/freelancerfacebooksubmission.php",true);
 xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 //alert();
 
