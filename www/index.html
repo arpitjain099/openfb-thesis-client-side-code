@@ -21,7 +21,14 @@
  
 function loadXMLDoc()
 {
-if (window.XMLHttpRequest)
+
+  
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+     if(re.test(document.getElementById("loginform").elements[0].value))
+
+
+{
+  if (window.XMLHttpRequest)
   {// code for IE7+, Firefox, Chrome, Opera, Safari
   xmlhttp=new XMLHttpRequest();
   }
@@ -60,6 +67,8 @@ xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 xmlhttp.send("email=".concat(document.getElementById("loginform").elements[0].value).concat("&password=".concat(document.getElementById("loginform").elements[1].value)));
 
 //xmlhttp.send();
+}
+else alert("Invalid email")
 }
 function recruitersignup() {
     window.location.assign("freelancersignup.html")

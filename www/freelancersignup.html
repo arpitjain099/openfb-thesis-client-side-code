@@ -59,6 +59,16 @@ if (document.getElementById("collegename").checked==true){
     <script>
 function loadXMLDoc()
 {
+
+     var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+     var phoneno = /^\d{10}$/; 
+     if(document.getElementById("loginform").elements[3].value && phoneno.test(document.getElementById("loginform").elements[3].value)){
+
+
+     if(re.test(document.getElementById("loginform").elements[0].value))
+
+
+{
 if (window.XMLHttpRequest)
   {// code for IE7+, Firefox, Chrome, Opera, Safari
   xmlhttp=new XMLHttpRequest();
@@ -71,26 +81,24 @@ xmlhttp.onreadystatechange=function()
   {
   if (xmlhttp.readyState==4 && xmlhttp.status==200)
     {
-    if(xmlhttp.responseText=="user exists")
-    {//document.getElementById("status").innerHTML="Wrong credentials entered. Please try again!";
-  alert("Email ID already taken. Try a new one!");
-  //window.open('freelancersignup.html');
-      window.location.assign("freelancersignup.html");
+      alert(xmlhttp.responseText);
+      window.location.assign('index.html');
+
+    //if(xmlhttp.responseText=="user exists")
+    //document.getElementById("status").innerHTML="Wrong credentials entered. Please try again!";
+  //alert("Email ID already taken. Try a new one!");
+//window.location.assign('index.html');
 
 
-
-}
-    else if (xmlhttp.responseText=="user inserted"){
-      alert("User registered. Proceed to login page.");
-      window.location.assign("index.html");
-      //window.open('index.html');
-     }
-     else if(xmlhttp.responseText=="Exception caught")
-     {
-      alert("Some error occurred. Please try again!");
-      window.location.assign("freelancersignup.html");
-      //window.open('freelancersignup.html');
-     }
+    //else if (xmlhttp.responseText=="user inserted"){
+     // alert("User registered. Proceed to login page.")
+      //window.location.assign('index.html');
+     
+     //else if(xmlhttp.responseText=="Exception caught")
+     //{
+      //alert("Some error occurred. Please try again!")
+      //window.location.assign('index.html');
+     //}
     }
   }
 xmlhttp.open("POST","http://172.27.20.232/thesis/freelancersignupsubmission.php",true);
@@ -108,8 +116,9 @@ xmlhttp.send(sts);
 
 
 }
-function recruitersignup() {
-    window.location.assign("recruitersignup.html")
+else alert("Invalid email");
+}
+else alert("Invalid phonenumber!");
 }
 </script>
 </head>
@@ -117,31 +126,27 @@ function recruitersignup() {
 
 <div data-role="page" id="pageone">
 <script>
-function sampleaction(){
-
-  location.assign('index.html');
-  //alert("aa");
-}
 
 </script>
 <div data-role="fieldcontain">
-<form data-ajax="false" method="POST" class="squirrel" id="signupform">
-<button onclick="sampleaction()"></button>
-    <label for="name">E-Mail *</label>
-    <input type="text" name="name" id="email" value="" required />
+<form method="POST" class="squirrel" id="signupform">
 
-    <label for="name">Password *</label>
-    <input type="password" name="name" id="password" value="" required />
+
+    <label for="name">E-Mail </label>
+    <input type="text" name="name" id="email" value=""  required/>
+
+    <label for="name">Password </label>
+    <input type="password" name="name" id="password" value=""  required/>
 
     <label for="name">Name </label>
-    <input type="text" name="name" id="name" value="" />
+    <input type="text" name="name" id="name" value="" required/>
 
 
-    <label for="name">Phone number (+91) * </label>
-    <input type="number" name="name" id="phonenumber" value="" required></input>
+    <label for="name">Phone number (+91)  </label>
+    <input type="number" name="name" id="phonenumber" value="" ></input>
 
-    <label for="name">Student?
-    <input type="radio" name="student" id="collegename" value="" /></label>
+    <label for="name">Student?</label>
+    <input type="radio" name="student" id="collegename" value="" />
     
       
         <div id="studentcheck">
