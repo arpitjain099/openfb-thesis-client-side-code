@@ -12,16 +12,103 @@
   <!-- Include the jQuery Mobile library -->
   <script src="jquery.mobile-1.4.5.min.js"></script>
   
-     
+     <style type="text/css">
+     div#question {
+    
+    text-align: center;
+}
+</style>
 <script>
 $(document).ready(function () {
+var json = [
+    {
+    "id":"John",
+    "value":1
+    }, 
+    {
+    "id":"John",
+    "value":2
+    }, 
+    {
+    "id":"John",
+    "value":3
+    }, 
+    {
+    "id":"John",
+    "value":4
+    }, 
+    {
+    "id":"John",
+    "value":5
+    }, 
+    {
+    "id":"John",
+    "value":6
+    }, 
+    {
+    "id":"John",
+    "value":7
+    }, 
+    {
+    "id":"John",
+    "value":8
+    }, 
+    {
+    "id":"John",
+    "value":9
+    }, 
+    {
+    "id":"John",
+    "value":10
+    }
+];
+var userinfo=[
+{
+"userid":"gogo",
+"badge":1
+},
+{
+"userid":"gogo",
+"badge":2
+},
+{
+"userid":"gogo",
+"badge":3
+},
+{
+"userid":"gogo",
+"badge":4
+}
+
+];
+var sampletask=[{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "yolo", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":20 }];
+
+
   //loadXMLDoc();
 document.getElementById("username").innerHTML="Hello " + document.cookie+"!";//.toString();
+//document.getElementById("mission").innerHTML=json.length;
+if(sampletask[0].tasksymbol==1){
+document.getElementById('question').style.display = "block";
+document.getElementById("question").innerHTML=sampletask[0].question;//.toString();
+document.getElementById('img').style.display = "block";
+document.getElementById("img").src=sampletask[0].imgurl;
+
+
+}
+//if tasksymbol is 15 then - document.getElementById('welcomeDiv').style.display = "block";
+
+
+
+//alert(userinfo[0].badge);
+//var logoindex=userinfo[0].badge;
+//document.getElementById("badgeimage").src="badges/".concat(logoindex.toString()).concat('.png');
+onLoad();
 });
 
  function onLoad() {
         document.addEventListener("deviceready", onDeviceReady, false);
-        alert("ada");
+        
+        //alert("ada");
     }
 
     // device APIs are available
@@ -51,19 +138,25 @@ document.getElementById("username").innerHTML="Hello " + document.cookie+"!";//.
 
 
 
-<div data-role="fieldcontain"><form>
-    <label for="name">Username</label>
-    <input type="text" name="name" id="username" value=""  />
+<div data-role="fieldcontain" id="mission">
+  <div id="timer"></div>
 
-    <label for="name">Password</label>
-    <input type="password" name="name" id="password" value=""  />
-    
-    <input type="submit" value="Login"onclick="registeruser()">
-  </form>
 
 </div>  
-
-
+<center><img id="badgeimage" width="10%" height="10%"></img> </center>
+<div id="heading" style="display:none;"></div>
+<div id="summary" style="display:none;"></div>
+<div id="question" style="display:none;"></div> 
+<div id="textcontent" style="display:none;"></div> 
+<img id="img1" width="10%" height="10%" style="display:none;"></img>
+<img id="img2" width="10%" height="10%" style="display:none;"></img>
+<img id="img" width="50%" style="display:none;"></img>
+<div id="welcomeDiv" style="display:none;">
+<audio controls id="mp3">
+  
+  <source src="horse.mp3" type="audio/mpeg">
+</audio>
+</div>
   
 </div> 
 
