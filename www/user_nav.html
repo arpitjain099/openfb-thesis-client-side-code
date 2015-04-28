@@ -11,10 +11,209 @@
   <script src="jquery-1.11.1.min.js"></script>
   <!-- Include the jQuery Mobile library -->
   <script src="jquery.mobile-1.4.5.min.js"></script>
-<script>
+  
+     <style type="text/css">
+     div#question {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+div#heading {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+div#summary {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+div#textcontent {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+div#question {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+img#img1{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+img#img2{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+
+img#img{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+audio#mp3{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+button#tick1{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+button#tick2{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+</style>
+<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+function startTimer(duration, display) {
+    
+}
+
+
 $(document).ready(function () {
-document.getElementById("username").innerHTML="Hello " + document.cookie+"!";//.toString();
-});</script>
+var json = [
+    {
+    "id":"John",
+    "value":1
+    }, 
+    {
+    "id":"John",
+    "value":2
+    }, 
+    {
+    "id":"John",
+    "value":3
+    }, 
+    {
+    "id":"John",
+    "value":4
+    }, 
+    {
+    "id":"John",
+    "value":5
+    }, 
+    {
+    "id":"John",
+    "value":6
+    }, 
+    {
+    "id":"John",
+    "value":7
+    }, 
+    {
+    "id":"John",
+    "value":8
+    }, 
+    {
+    "id":"John",
+    "value":9
+    }, 
+    {
+    "id":"John",
+    "value":10
+    }
+];
+var userinfo=[
+{
+"userid":"gogo",
+"badge":1
+},
+{
+"userid":"gogo",
+"badge":2
+},
+{
+"userid":"gogo",
+"badge":3
+},
+{
+"userid":"gogo",
+"badge":4
+}
+
+];
+var sampletask=[{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "yolo", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }];
+
+
+  //loadXMLDoc();
+//document.getElementById("username").innerHTML="Hello " + document.cookie+"!";//.toString();
+//document.getElementById("mission").innerHTML=json.length;
+if(sampletask[0].tasksymbol==1){
+document.getElementById('question').style.display = "block";
+document.getElementById("question").innerHTML=sampletask[0].question;//.toString();
+document.getElementById('img').style.display = "block";
+document.getElementById("img").src=sampletask[0].imgurl;
+
+jQuery(function ($) {
+    var timeduration = sampletask[0].time,
+        display = $('#timer');
+    
+    var timer = timeduration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            timer = alert("timeout");
+        }
+    }, 1000);
+});
+
+}
+//if tasksymbol is 15 then - document.getElementById('welcomeDiv').style.display = "block";
+
+
+
+//alert(userinfo[0].badge);
+//var logoindex=userinfo[0].badge;
+//document.getElementById("badgeimage").src="badges/".concat(logoindex.toString()).concat('.png');
+onLoad();
+});
+
+ function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+        
+        //alert("ada");
+    }
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+      alert("cordova working");
+        // Now safe to use device APIs
+    }
+
+</script>
 </head>
 <body>
 
@@ -34,18 +233,28 @@ document.getElementById("username").innerHTML="Hello " + document.cookie+"!";//.
 
 
 
-<div data-role="fieldcontain"><form>
-    <label for="name">Username</label>
-    <input type="text" name="name" id="username" value=""  />
+<div data-role="fieldcontain" id="mission">
+  <div id="timer"></div>
 
-    <label for="name">Password</label>
-    <input type="password" name="name" id="password" value=""  />
-    
-    <input type="submit" value="Login"onclick="registeruser()">
-  </form>
 
 </div>  
-
+<center><img id="badgeimage" width="10%" height="10%"></img> </center>
+<div id="timer"></div>
+<div id="heading" style="display:none;"></div>
+<div id="summary" style="display:none;"></div>
+<div id="question" style="display:none;"></div> 
+<div id="textcontent" style="display:none;"></div> 
+<img id="img1" width="40%"  style="display:none;"></img>
+<img id="img2" width="40%" style="display:none;"></img>
+<img id="img" width="80%" style="display:none;"></img>
+<button id="tick1" width="40%" style="display:none;"></button>
+<button id="tick2" width="40%" style="display:none;"></button>
+<!--<button id="fivesmall1" width="15%" height="30%"></button>-->
+<audio controls id="mp3" style="display:none;">
+  
+  <source type="audio/mpeg">
+</audio>
+</div>
 
   
 </div> 
