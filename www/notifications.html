@@ -14,11 +14,87 @@
   
      <style type="text/css">
      div#question {
-    
+    padding-left: 5%;
+    padding-right: 5%;
     text-align: center;
 }
+
+div#heading {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+div#summary {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+div#textcontent {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+div#question {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+img#img1{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+img#img2{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+
+img#img{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+audio#mp3{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+button#tick1{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+button#tick2{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
 </style>
-<script>
+<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+function startTimer(duration, display) {
+    
+}
+
+
 $(document).ready(function () {
 var json = [
     {
@@ -85,7 +161,7 @@ var sampletask=[{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:
 
 
   //loadXMLDoc();
-document.getElementById("username").innerHTML="Hello " + document.cookie+"!";//.toString();
+//document.getElementById("username").innerHTML="Hello " + document.cookie+"!";//.toString();
 //document.getElementById("mission").innerHTML=json.length;
 if(sampletask[0].tasksymbol==1){
 document.getElementById('question').style.display = "block";
@@ -93,6 +169,25 @@ document.getElementById("question").innerHTML=sampletask[0].question;//.toString
 document.getElementById('img').style.display = "block";
 document.getElementById("img").src=sampletask[0].imgurl;
 
+jQuery(function ($) {
+    var timeduration = sampletask[0].time,
+        display = $('#timer');
+    
+    var timer = timeduration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            timer = alert("timeout");
+        }
+    }, 1000);
+});
 
 }
 //if tasksymbol is 15 then - document.getElementById('welcomeDiv').style.display = "block";
@@ -144,17 +239,20 @@ onLoad();
 
 </div>  
 <center><img id="badgeimage" width="10%" height="10%"></img> </center>
+<div id="timer"></div>
 <div id="heading" style="display:none;"></div>
 <div id="summary" style="display:none;"></div>
 <div id="question" style="display:none;"></div> 
 <div id="textcontent" style="display:none;"></div> 
-<img id="img1" width="10%" height="10%" style="display:none;"></img>
-<img id="img2" width="10%" height="10%" style="display:none;"></img>
-<img id="img" width="50%" style="display:none;"></img>
-<div id="welcomeDiv" style="display:none;">
-<audio controls id="mp3">
+<img id="img1" width="40%"  style="display:none;"></img>
+<img id="img2" width="40%" style="display:none;"></img>
+<img id="img" width="80%" style="display:none;"></img>
+<button id="tick1" width="40%" style="display:none;"></button>
+<button id="tick2" width="40%" style="display:none;"></button>
+<button id="fivesmall1" width="15%" height="30%"></button>
+<audio controls id="mp3" style="display:none;">
   
-  <source src="horse.mp3" type="audio/mpeg">
+  <source type="audio/mpeg">
 </audio>
 </div>
   
