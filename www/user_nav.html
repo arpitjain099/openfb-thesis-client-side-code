@@ -26,6 +26,8 @@ div#heading {
 }
 
 
+
+
 div#summary {
     padding-left: 5%;
     padding-right: 5%;
@@ -45,7 +47,7 @@ div#question {
     padding-right: 5%;
     text-align: center;
 }
-
+/*
 img#img1{
    padding-left: 5%;
     padding-right: 5%;
@@ -66,27 +68,27 @@ img#img{
     padding-right: 5%;
     text-align: center;
 }
-
+*/
 audio#mp3{
    padding-left: 5%;
     padding-right: 5%;
     text-align: center;
 }
 
-
-button#tick1{
+/*
+img#tick1{
    padding-left: 5%;
     padding-right: 5%;
     text-align: center;
 }
 
 
-button#tick2{
+img#tick2{
    padding-left: 5%;
     padding-right: 5%;
     text-align: center;
 }
-
+*/
 </style>
 <script type="text/javascript" src="jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
@@ -96,6 +98,9 @@ function startTimer(duration, display) {
 
 
 $(document).ready(function () {
+
+
+
 var json = [
     {
     "id":"John",
@@ -157,18 +162,31 @@ var userinfo=[
 }
 
 ];
-var sampletask=[{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "yolo", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }];
+var sampletask=[
+{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 },
+{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
+,
+{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
+];
+for(i=0;i<sampletask.length;i++)
 
 
   //loadXMLDoc();
 //document.getElementById("username").innerHTML="Hello " + document.cookie+"!";//.toString();
 //document.getElementById("mission").innerHTML=json.length;
-if(sampletask[0].tasksymbol==1){
+{
+  var temp=sampletask[i];
+  if(temp.tasksymbol==1){
+  document.getElementById('imagelink').style.display = "block";
+  document.getElementById('imagelink').href = "http://www.google.com";
+  
 document.getElementById('question').style.display = "block";
-document.getElementById("question").innerHTML=sampletask[0].question;//.toString();
-document.getElementById('img').style.display = "block";
-document.getElementById("img").src=sampletask[0].imgurl;
-
+document.getElementById("question").innerHTML=temp.question;//.toString();
+document.getElementById("img").style.display = "block";
+document.getElementById("img").src=temp.imgurl;
+document.getElementById('tick1').style.display = "block";
+document.getElementById('tick2').style.display = "block";
+document.getElementById('break').style.display = "block";
 jQuery(function ($) {
     var timeduration = sampletask[0].time,
         display = $('#timer');
@@ -189,6 +207,12 @@ jQuery(function ($) {
     }, 1000);
 });
 
+function submittick1click(){
+alert("faad");
+console.log("aa");
+}
+
+
 }
 //if tasksymbol is 15 then - document.getElementById('welcomeDiv').style.display = "block";
 
@@ -198,6 +222,7 @@ jQuery(function ($) {
 //var logoindex=userinfo[0].badge;
 //document.getElementById("badgeimage").src="badges/".concat(logoindex.toString()).concat('.png');
 onLoad();
+}
 });
 
  function onLoad() {
@@ -239,21 +264,32 @@ onLoad();
 
 </div>  
 <center><img id="badgeimage" width="10%" height="10%"></img> </center>
-<div id="timer"></div>
+<center><div id="timer"></div></center>
 <div id="heading" style="display:none;"></div>
 <div id="summary" style="display:none;"></div>
 <div id="question" style="display:none;"></div> 
 <div id="textcontent" style="display:none;"></div> 
-<img id="img1" width="40%"  style="display:none;"></img>
-<img id="img2" width="40%" style="display:none;"></img>
-<img id="img" width="80%" style="display:none;"></img>
-<button id="tick1" width="40%" style="display:none;"></button>
-<button id="tick2" width="40%" style="display:none;"></button>
-<!--<button id="fivesmall1" width="15%" height="30%"></button>-->
+<tr>
+<td><img id="img1" width="20%" style="display:none;"></img></td>
+<td><img id="img2" width="20%" style="display:none;"></img></td>
+</tr>
+<a id="imagelink" ><img hspace="10%" id="img" width="80%" style="display:none;"></img></a>
 <audio controls id="mp3" style="display:none;">
   
   <source type="audio/mpeg">
 </audio>
+<br id="break"style="display:none;"> 
+<img hspace="10%"id="tick1" width="40%" src="images/greentick.png"style="display:none;" onclick="submittick1click()"></img>
+<img hspace="10%"id="tick2" width="40%" src="images/redtick.png" style="display:none;" onclick="submittick2click()"></img>
+<!--<button id="fivesmall1" width="15%" height="30%"></button>-->
+<script type="text/javascript">
+  
+  function submittick1click(){
+
+    //send data to our server
+console.log("tick1 clicked");
+}
+</script>
 </div>
 
   
