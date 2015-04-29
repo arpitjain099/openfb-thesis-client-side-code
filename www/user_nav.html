@@ -182,7 +182,7 @@ for(i=0;i<sampletask.length;i++)
 //document.getElementById("mission").innerHTML=json.length;
 {
   var temp=sampletask[i];
-  if(temp.tasksymbol==1 || temp.tasksymbol==3 || temp.tasksymbol==6){
+  if(temp.tasksymbol==1 || temp.tasksymbol==3 || temp.tasksymbol==6 || temp.tasksymbol==9){
   document.getElementById('imagelink').style.display = "block";
   //document.getElementById('imagelink').href = "http://www.google.com";
   
@@ -219,7 +219,7 @@ jQuery(function ($) {
 
 
 //post={"question":question,"taskid":username+'_'+str(count),"username":username,"imgurl":"","textcontent":row[1],"mp3url":"","img1":"","img2":"","heading":"","summary":"","tasksymbol":2,"dateofadding":str(strftime("%d-%m-%Y %H:%M:%S", gmtime()))}
-else if (temp.tasksymbol==2){
+else if (temp.tasksymbol==2 || temp.tasksymbol==10 ||temp.tasksymbol==11 || temp.tasksymbol==12){
   
   
 document.getElementById('question').style.display = "block";
@@ -286,7 +286,7 @@ jQuery(function ($) {
 });
 }
 
-else if (temp.tasksymbol==7){
+else if (temp.tasksymbol==7 || temp.tasksymbol==8 || temp.tasksymbol==13 || temp.tasksymbol==14){
 //alert("fa");
   
 //.toString();
@@ -373,8 +373,8 @@ onLoad();
 <div id="textcontent" style="display:none;"></div> 
 <table id="imageoptiontable" style="width:100%" style="display:none;">
 <tr>
-<td><img hspace="35%" id="img1" width="30%" style="display:none;" onclick="img1onclick()"></img></td>
-<td><img hspace="35%" id="img2" width="30%" style="display:none;" onclick="img2onclick()"></img></td>
+<td><img hspace="10%" id="img1" width="50%" style="display:none;" onclick="img1onclick()"></img></td>
+<td><img hspace="10%" id="img2" width="50%" style="display:none;" onclick="img2onclick()"></img></td>
 </tr>
 </table>
 <a id="imagelink" ><img hspace="10%" id="img" width="80%" style="display:none;"></img></a>
