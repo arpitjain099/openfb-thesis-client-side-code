@@ -75,6 +75,12 @@ audio#mp3{
     text-align: center;
 }
 
+div#timer{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
 /*
 img#tick1{
    padding-left: 5%;
@@ -163,10 +169,10 @@ var userinfo=[
 
 ];
 var sampletask=[
-{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 },
-{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
-,
-{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
+{"question":"question","taskid":"username+'_'+str(count)","username":"username","imgurl":"","textcontent":"","mp3url":"","img1":"http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg","img2":"http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg","heading":"","summary":"","tasksymbol":7,"dateofadding":"ffa", "time":2000}//,
+//{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
+//,
+//{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
 ];
 for(i=0;i<sampletask.length;i++)
 
@@ -176,9 +182,9 @@ for(i=0;i<sampletask.length;i++)
 //document.getElementById("mission").innerHTML=json.length;
 {
   var temp=sampletask[i];
-  if(temp.tasksymbol==1){
+  if(temp.tasksymbol==1 || temp.tasksymbol==3 || temp.tasksymbol==6){
   document.getElementById('imagelink').style.display = "block";
-  document.getElementById('imagelink').href = "http://www.google.com";
+  //document.getElementById('imagelink').href = "http://www.google.com";
   
 document.getElementById('question').style.display = "block";
 document.getElementById("question").innerHTML=temp.question;//.toString();
@@ -187,8 +193,9 @@ document.getElementById("img").src=temp.imgurl;
 document.getElementById('tick1').style.display = "block";
 document.getElementById('tick2').style.display = "block";
 document.getElementById('break').style.display = "block";
+document.getElementById('ticktable').style.display = "block";
 jQuery(function ($) {
-    var timeduration = sampletask[0].time,
+    var timeduration = temp.time,
         display = $('#timer');
     
     var timer = timeduration, minutes, seconds;
@@ -206,16 +213,111 @@ jQuery(function ($) {
         }
     }, 1000);
 });
-
-function submittick1click(){
-alert("faad");
-console.log("aa");
-}
-
-
 }
 //if tasksymbol is 15 then - document.getElementById('welcomeDiv').style.display = "block";
 
+
+
+//post={"question":question,"taskid":username+'_'+str(count),"username":username,"imgurl":"","textcontent":row[1],"mp3url":"","img1":"","img2":"","heading":"","summary":"","tasksymbol":2,"dateofadding":str(strftime("%d-%m-%Y %H:%M:%S", gmtime()))}
+else if (temp.tasksymbol==2){
+  
+  
+document.getElementById('question').style.display = "block";
+document.getElementById("question").innerHTML=temp.question;//.toString();
+document.getElementById('textcontent').style.display = "block";
+document.getElementById("textcontent").innerHTML=temp.textcontent;
+document.getElementById('tick1').style.display = "block";
+document.getElementById('tick2').style.display = "block";
+document.getElementById('break').style.display = "block";
+document.getElementById('ticktable').style.display = "block";
+jQuery(function ($) {
+    var timeduration = temp.time,
+        display = $('#timer');
+    
+    var timer = timeduration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            timer = alert("timeout");
+        }
+    }, 1000);
+});
+}
+  
+else if (temp.tasksymbol==4 || temp.tasksymbol==5){
+//alert("fa");
+  
+//.toString();
+document.getElementById('heading').style.display = "block";
+document.getElementById("heading").innerHTML=temp.heading;
+document.getElementById('summary').style.display = "block";
+document.getElementById("summary").innerHTML="Summary: ".concat(temp.summary);
+document.getElementById('question').style.display = "block";
+document.getElementById("question").innerHTML=temp.question;
+document.getElementById('tick1').style.display = "block";
+document.getElementById('tick2').style.display = "block";
+document.getElementById('break').style.display = "block";
+document.getElementById('ticktable').style.display = "block";
+jQuery(function ($) {
+    var timeduration = temp.time,
+        display = $('#timer');
+    
+    var timer = timeduration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            timer = alert("timeout");
+        }
+    }, 1000);
+});
+}
+
+else if (temp.tasksymbol==7){
+//alert("fa");
+  
+//.toString();
+
+document.getElementById('question').style.display = "block";
+document.getElementById("question").innerHTML=temp.question;
+document.getElementById('img1').style.display = "block";
+document.getElementById('img2').style.display = "block";
+document.getElementById('img1').src = temp.img1;
+document.getElementById('img2').src = temp.img2;
+document.getElementById('imageoptiontable').style.display = "block";
+jQuery(function ($) {
+    var timeduration = temp.time,
+        display = $('#timer');
+    
+    var timer = timeduration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            timer = alert("timeout");
+        }
+    }, 1000);
+});
+}
 
 
 //alert(userinfo[0].badge);
@@ -246,9 +348,9 @@ onLoad();
 <div data-role="navbar" data-position="fixed">
 
   <ul>
-    <li><a href="user_nav.html" data-icon="home" data-theme="b">Home</a></li>
-    <li><a href="notifications.html" data-icon="home" data-theme="a">Notifications</a></li>
-    <li> <a href="settings.html" data-icon="grid" data-theme="a">Settings</a></li>
+    <li><a href="user_nav.html" data-icon="home" data-theme="b"></a></li>
+    <li><a href="notifications.html" data-icon="star" data-theme="a"></a></li>
+    <li> <a href="settings.html" data-icon="gear" data-theme="a"></a></li>
   </ul>
   
   <h1 id="username"></h1>
@@ -264,23 +366,28 @@ onLoad();
 
 </div>  
 <center><img id="badgeimage" width="10%" height="10%"></img> </center>
-<center><div id="timer"></div></center>
+<div id="timer"></div>
 <div id="heading" style="display:none;"></div>
 <div id="summary" style="display:none;"></div>
 <div id="question" style="display:none;"></div> 
 <div id="textcontent" style="display:none;"></div> 
+<table id="imageoptiontable" style="width:100%" style="display:none;">
 <tr>
-<td><img id="img1" width="20%" style="display:none;"></img></td>
-<td><img id="img2" width="20%" style="display:none;"></img></td>
+<td><img hspace="35%" id="img1" width="30%" style="display:none;" onclick="img1onclick()"></img></td>
+<td><img hspace="35%" id="img2" width="30%" style="display:none;" onclick="img2onclick()"></img></td>
 </tr>
+</table>
 <a id="imagelink" ><img hspace="10%" id="img" width="80%" style="display:none;"></img></a>
 <audio controls id="mp3" style="display:none;">
   
   <source type="audio/mpeg">
 </audio>
 <br id="break"style="display:none;"> 
-<img hspace="10%"id="tick1" width="40%" src="images/greentick.png"style="display:none;" onclick="submittick1click()"></img>
-<img hspace="10%"id="tick2" width="40%" src="images/redtick.png" style="display:none;" onclick="submittick2click()"></img>
+<table style="width:100%" style="display:none;" id="ticktable">
+<tr>
+<td><img hspace="35%"id="tick1" width="30%" src="images/greentick.png"style="display:none;" onclick="submittick1click()"></img></td>
+<td><img hspace="35%"id="tick2" width="30%" src="images/redtick.png" style="display:none;" onclick="submittick2click()"></img></td></tr></table>
+
 <!--<button id="fivesmall1" width="15%" height="30%"></button>-->
 <script type="text/javascript">
   
@@ -288,6 +395,28 @@ onLoad();
 
     //send data to our server
 console.log("tick1 clicked");
+//xml http call to server to dump results
+}
+
+ function submittick2click(){
+
+    //send data to our server
+console.log("tick2 clicked");
+//xml http call to server to dump results
+}
+
+ function img1onclick(){
+
+    //send data to our server
+console.log("img1 clicked");
+//xml http call to server to dump results
+}
+
+ function img2onclick(){
+
+    //send data to our server
+console.log("img2 clicked");
+//xml http call to server to dump results
 }
 </script>
 </div>
