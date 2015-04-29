@@ -69,6 +69,9 @@ img#img{
     text-align: center;
 }
 */
+audio { width: 80%;
+padding-left: 10%;
+padding-right: 10%; }
 audio#mp3{
    padding-left: 5%;
     padding-right: 5%;
@@ -169,7 +172,7 @@ var userinfo=[
 
 ];
 var sampletask=[
-{"question":"question","taskid":"username+'_'+str(count)","username":"username","imgurl":"","textcontent":"","mp3url":"","img1":"http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg","img2":"http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg","heading":"","summary":"","tasksymbol":7,"dateofadding":"ffa", "time":2000}//,
+{"question":"question","taskid":"username+'_'+str(count)","username":"username","imgurl":"","textcontent":"","mp3url":"http://dw.mp3-funda.com/2013/Raanjhanaa-2013/[SongsPK.info]%2004%20-%20Ay%20Sakhi.mp3","img1":"","img2":"","heading":"","summary":"","tasksymbol":15,"dateofadding":"ffa", "time":2000}//,
 //{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
 //,
 //{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
@@ -319,6 +322,43 @@ jQuery(function ($) {
 });
 }
 
+else if (temp.tasksymbol==15){
+//alert("fa");
+  
+//.toString();
+document.getElementById('question').style.display = "block";
+document.getElementById("question").innerHTML=temp.question;
+document.getElementById('tick1').style.display = "block";
+document.getElementById('tick2').style.display = "block";
+document.getElementById('break').style.display = "block";
+document.getElementById('ticktable').style.display = "block";
+document.getElementById('mp3').style.display = "block";
+
+var audio = document.getElementById("mp3source");
+audio.src = temp.mp3url;
+
+document.getElementById('mp3').load();
+jQuery(function ($) {
+    var timeduration = temp.time,
+        display = $('#timer');
+    
+    var timer = timeduration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            timer = alert("timeout");
+        }
+    }, 1000);
+});
+}
+
 
 //alert(userinfo[0].badge);
 //var logoindex=userinfo[0].badge;
@@ -380,7 +420,7 @@ onLoad();
 <a id="imagelink" ><img hspace="10%" id="img" width="80%" style="display:none;"></img></a>
 <audio controls id="mp3" style="display:none;">
   
-  <source type="audio/mpeg">
+  <source id="mp3source" type="audio/mpeg" >
 </audio>
 <br id="break"style="display:none;"> 
 <table style="width:100%" style="display:none;" id="ticktable">
