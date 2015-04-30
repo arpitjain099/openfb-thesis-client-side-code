@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Include meta tag to ensure proper rendering and touch zooming -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+  <!-- Include jQuery Mobile stylesheets -->
+  <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
+  <!-- Include the jQuery library -->
+  <script src="jquery-1.11.1.min.js"></script>
+  <!-- Include the jQuery Mobile library -->
+  <script src="jquery.mobile-1.4.5.min.js"></script>
+  
+     <style>
+table, td {
+    border: 0px solid black;
+} 
+
+
+</style>
+<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+//check for location specific tasks
+
+
+$(document).ready(function () {
+
+console.log(Math.floor(Date.now() / 1000));
+});
+
+</script>
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+<div data-role="navbar" data-position="fixed">
+
+  <ul>
+    <li><a href="user_nav.html" data-icon="home" data-theme="b"></a></li>
+    <li><a href="notifications.html" data-icon="star" data-theme="a"></a></li>
+    <li> <a href="settings.html" data-icon="gear" data-theme="a"></a></li>
+  </ul>
+  
+  <h1 id="username"></h1>
+ 
+</div>
+</div>
+
+</body>
+</html>
