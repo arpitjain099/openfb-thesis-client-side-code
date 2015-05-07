@@ -79,22 +79,10 @@ for(i=0;i<notifications.length;i++)
 //alert(userinfo[0].badge);
 //var logoindex=userinfo[0].badge;
 //document.getElementById("badgeimage").src="badges/".concat(logoindex.toString()).concat('.png');
-onLoad();
-console.log(Math.floor(Date.now() / 1000));
+
 });
 
- function onLoad() {
-        document.addEventListener("deviceready", onDeviceReady, false);
-        
-        //alert("ada");
-    }
-
-    // device APIs are available
-    //
-    function onDeviceReady() {
-      alert("cordova working");
-        // Now safe to use device APIs
-    }
+ 
 
 </script>
 </head>
@@ -102,13 +90,11 @@ console.log(Math.floor(Date.now() / 1000));
 
 <div data-role="page" id="pageone">
 <div data-role="navbar" data-position="fixed">
-
-  <ul>
-    <li><a href="user_nav.html" data-icon="home" data-theme="b"></a></li>
-    <li><a href="notifications.html" data-icon="star" data-theme="a"></a></li>
-    <li> <a href="settings.html" data-icon="gear" data-theme="a"></a></li>
+<ul>
+    <li><button onclick='javascript:window.location.assign("user_nav.html");'  data-icon="home" data-theme="a"></button></li>
+    <li><button onclick='javascript:window.location.assign("notifications.html");' data-icon="star" data-theme="b"></button></li>
+    <li> <button onclick='javascript:window.location.assign("settings.html");' data-icon="gear" data-theme="a"></button></li>
   </ul>
-  
   <h1 id="username"></h1>
  
 </div>

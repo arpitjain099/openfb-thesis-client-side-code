@@ -174,7 +174,7 @@ onLoad();
       alert("cordova working");
         // Now safe to use device APIs
     }
-
+   
 </script>
 </head>
 <body>
@@ -183,9 +183,9 @@ onLoad();
 <div data-role="navbar" data-position="fixed">
 
   <ul>
-    <li><a href="user_nav.html" data-icon="home" data-theme="b"></a></li>
-    <li><a href="notifications.html" data-icon="star" data-theme="a"></a></li>
-    <li> <a href="settings.html" data-icon="gear" data-theme="a"></a></li>
+    <li><button onclick='javascript:window.location.assign("user_nav.html");'  data-icon="home" data-theme="a"></button></li>
+    <li><button onclick='javascript:window.location.assign("notifications.html");' data-icon="star" data-theme="a"></button></li>
+    <li> <button onclick='javascript:window.location.assign("settings.html");' data-icon="gear" data-theme="b"></button></li>
   </ul>
   
   <h1 id="username"></h1>

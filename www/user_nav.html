@@ -108,71 +108,8 @@ function startTimer(duration, display) {
 
 $(document).ready(function () {
 
-
-
-var json = [
-    {
-    "id":"John",
-    "value":1
-    }, 
-    {
-    "id":"John",
-    "value":2
-    }, 
-    {
-    "id":"John",
-    "value":3
-    }, 
-    {
-    "id":"John",
-    "value":4
-    }, 
-    {
-    "id":"John",
-    "value":5
-    }, 
-    {
-    "id":"John",
-    "value":6
-    }, 
-    {
-    "id":"John",
-    "value":7
-    }, 
-    {
-    "id":"John",
-    "value":8
-    }, 
-    {
-    "id":"John",
-    "value":9
-    }, 
-    {
-    "id":"John",
-    "value":10
-    }
-];
-var userinfo=[
-{
-"userid":"gogo",
-"badge":1
-},
-{
-"userid":"gogo",
-"badge":2
-},
-{
-"userid":"gogo",
-"badge":3
-},
-{
-"userid":"gogo",
-"badge":4
-}
-
-];
 var sampletask=[
-{"question":"question","taskid":"username+'_'+str(count)","username":"username","imgurl":"","textcontent":"","mp3url":"http://dw.mp3-funda.com/2013/Raanjhanaa-2013/[SongsPK.info]%2004%20-%20Ay%20Sakhi.mp3","img1":"","img2":"","heading":"","summary":"","tasksymbol":15,"dateofadding":"ffa", "time":2000}//,
+{"question":"Is this image profane or not?","taskid":"username+'_'+str(count)","username":"username","imgurl":"http://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Profanity.svg/200px-Profanity.svg.png","textcontent":"","mp3url":"","img1":"","img2":"","heading":"","summary":"","tasksymbol":1,"dateofadding":"ffa", "time":300}//,
 //{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
 //,
 //{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
@@ -363,34 +300,22 @@ jQuery(function ($) {
 //alert(userinfo[0].badge);
 //var logoindex=userinfo[0].badge;
 //document.getElementById("badgeimage").src="badges/".concat(logoindex.toString()).concat('.png');
-onLoad();
+
 }
+
 });
-
- function onLoad() {
-        document.addEventListener("deviceready", onDeviceReady, false);
-        
-        //alert("ada");
-    }
-
-    // device APIs are available
-    //
-    function onDeviceReady() {
-      alert("cordova working");
-        // Now safe to use device APIs
-    }
-
 </script>
 </head>
+
 <body>
 
 <div data-role="page" id="pageone">
 <div data-role="navbar" data-position="fixed">
 
-  <ul>
-    <li><a href="user_nav.html" data-icon="home" data-theme="b"></a></li>
-    <li><a href="notifications.html" data-icon="star" data-theme="a"></a></li>
-    <li> <a href="settings.html" data-icon="gear" data-theme="a"></a></li>
+   <ul>
+    <li><button onclick='javascript:window.location.assign("user_nav.html");'  data-icon="home" data-theme="b"></button></li>
+    <li><button onclick='javascript:window.location.assign("notifications.html");' data-icon="star" data-theme="a"></button></li>
+    <li> <button onclick='javascript:window.location.assign("settings.html");' data-icon="gear" data-theme="a"></button></li>
   </ul>
   
   <h1 id="username"></h1>
@@ -417,7 +342,7 @@ onLoad();
 <td><img hspace="10%" id="img2" width="50%" style="display:none;" onclick="img2onclick()"></img></td>
 </tr>
 </table>
-<a id="imagelink" ><img hspace="10%" id="img" width="80%" style="display:none;"></img></a>
+<a id="imagelink" ><center><img hspace="10%" id="img" width="40%" style="display:none;"></img></center></a>
 <audio controls id="mp3" style="display:none;">
   
   <source id="mp3source" type="audio/mpeg" >
@@ -425,9 +350,12 @@ onLoad();
 <br id="break"style="display:none;"> 
 <table style="width:100%" style="display:none;" id="ticktable">
 <tr>
-<td><img hspace="35%"id="tick1" width="30%" src="images/greentick.png"style="display:none;" onclick="submittick1click()"></img></td>
-<td><img hspace="35%"id="tick2" width="30%" src="images/redtick.png" style="display:none;" onclick="submittick2click()"></img></td></tr></table>
+<td><center>
+<img hspace="35%"id="tick1" width="30%" src="images/greentick.png"style="display:none;" onclick="submittick1click()"></img></td></center>
 
+<td><center>
+<img hspace="35%"id="tick2" width="30%" src="images/redtick.png" style="display:none;" onclick="submittick2click()"></img></td></center>
+</tr></table>
 <!--<button id="fivesmall1" width="15%" height="30%"></button>-->
 <script type="text/javascript">
   
