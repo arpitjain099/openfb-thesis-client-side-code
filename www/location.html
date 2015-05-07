@@ -50,56 +50,74 @@ table, td {
 
 
 
-$(document).ready(function () {
-function img1onclick(){
-  console.log("playpause image clicked");
-}
 
-function img2onclick(){
-  console.log("stop image clicked");
-}
 
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
-    // Cordova is ready
+    // device APIs are available
     //
     function onDeviceReady() {
-        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+        window.localStorage.setItem("gpsdata","");
+
+        //navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }
 
+    function img2onclick(){
+  console.log("stop image clicked");
+  //write code to send localstorage object to server
+}
+    function img1onclick(){   
+
+        setInterval(function(){
+            navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        console.log(window.localStorage.getItem("gpsdata"));
+
+
+        },5000);
+        
+      //alert(window.localStorage.getItem("gpsdata"));
+    }
     // onSuccess Geolocation
     //
     function onSuccess(position) {
+         //console.log("fa");
+                                //alert(window.localStorage.getItem("gpsdata"));
+                                //console.log(position.coords.latitude)   ;
+        var temp= window.localStorage.getItem("gpsdata");
+
+        var sts="{lt:";
+        sts=sts.concat(position.coords.latitude.toString());
+        sts=sts.concat(",lg:");
+        sts=sts.concat(position.coords.longitude.toString());
+        sts=sts.concat(",t:");
+        sts=sts.concat(position.timestamp.toString());
+        sts=sts.concat("},");
+        sts=temp.concat(sts);
+        //console.log(sts);
+      window.localStorage.setItem("gpsdata",sts);
+      
+    
         var element = document.getElementById('geolocation');
         element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
                             'Longitude: '          + position.coords.longitude             + '<br />' +
-                            'Altitude: '           + position.coords.altitude              + '<br />' +
+                          
                             'Accuracy: '           + position.coords.accuracy              + '<br />' +
-                            'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
-                            'Heading: '            + position.coords.heading               + '<br />' +
-                            'Speed: '              + position.coords.speed                 + '<br />' +
-                            'Timestamp: '          + 
- position.timestamp                    + '<br />';
+                            
+                            'Timestamp: '          + position.timestamp                    + '<br />';
+
     }
 
     // onError Callback receives a PositionError object
     //
     function onError(error) {
+      if(error.code=='PositionError.POSITION_UNAVAILABLE')
+        alert("Please allow location tracking from settings");
         alert('code: '    + error.code    + '\n' +
               'message: ' + error.message + '\n');
     }
 
-
-
-
-
-
-
-
-
-//console.log(Math.floor(Date.now() / 1000));
-});
 
 </script>
 
@@ -235,16 +253,16 @@ img#img2{
     <li><button onclick='javascript:window.location.assign("notifications.html");' data-icon="star" data-theme="a"></button></li>
     <li> <button onclick='javascript:window.location.assign("settings.html");' data-icon="gear" data-theme="b"></button></li>
   </ul>
-  <div id="geolocation">geolocation</div>
+  
   <h1 id="username"></h1>
  
 </div>
-
 <tr>
 <td><img id="img1" src="images/playpause.png" width="40%"  onclick="img1onclick()"></img></td>
 <td><img id="img2" src="images/stop.png" width="40%"  onclick="img2onclick()"></img></td>
 </tr>
 
+   <center> <p id="geolocation"></p></center>
   <script src="js/libs/gumby.min.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
