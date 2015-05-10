@@ -6,7 +6,7 @@
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
- 
+ 	<script type="text/javascript" src="url.js"></script>
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <meta name="author" content="humans.txt">
@@ -37,7 +37,81 @@
   <script src="jquery-1.11.1.min.js"></script>
   <!-- Include the jQuery Mobile library -->
   <script src="jquery.mobile-1.4.5.min.js"></script>
-  
+  <script type="text/javascript">
+$(document).ready(function () {
+	var sampleperson=
+{"email" : "arpitjain099", "name" : "arpit ", "phone" : "8960482697", "address" : "cs", "email" : "arpitjain799@gmail.com","photo":"http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg","level":1,"wallet":0};//,
+document.getElementById("name").innerHTML="Name: ".concat(sampleperson.name);
+document.getElementById("email").innerHTML="Email: ".concat(sampleperson.email);
+document.getElementById("phone").innerHTML="Phone: ".concat(sampleperson.phone);
+document.getElementById("wallet").innerHTML="Money in mCrowd wallet:Rs. ".concat(sampleperson.wallet);
+document.getElementById("profilephoto").src=sampleperson.photo;
+if(sampleperson.level==0)
+document.getElementById("badgephoto").src="badges/1.png";
+else if (sampleperson.level==1)
+document.getElementById("badgephoto").src="badges/2.png";
+else if (sampleperson.level==2)
+document.getElementById("badgephoto").src="badges/3.png";
+else if (sampleperson.level==3)
+document.getElementById("badgephoto").src="badges/4.png";
+else if (sampleperson.level==4)
+document.getElementById("badgephoto").src="badges/5.png";
+else if (sampleperson.level==5)
+document.getElementById("badgephoto").src="badges/6.png";
+else if (sampleperson.level==6)
+document.getElementById("badgephoto").src="badges/7.png";
+else if (sampleperson.level==7)
+document.getElementById("badgephoto").src="badges/8.png";
+else if (sampleperson.level==8)
+document.getElementById("badgephoto").src="badges/9.png";
+else if (sampleperson.level==9)
+document.getElementById("badgephoto").src="badges/10.png";
+else if (sampleperson.level==10)
+document.getElementById("badgephoto").src="badges/11.png";
+else if (sampleperson.level==11)
+document.getElementById("badgephoto").src="badges/12.png";
+else if (sampleperson.level==12)
+document.getElementById("badgephoto").src="badges/13.png";
+else if (sampleperson.level==13)
+document.getElementById("badgephoto").src="badges/14.png";
+else if (sampleperson.level==14)
+document.getElementById("badgephoto").src="badges/15.png";
+else if (sampleperson.level==15)
+document.getElementById("badgephoto").src="badges/16.png";
+else if (sampleperson.level==16)
+document.getElementById("badgephoto").src="badges/17.png";
+else if (sampleperson.level==17)
+document.getElementById("badgephoto").src="badges/18.png";
+else if (sampleperson.level==18)
+document.getElementById("badgephoto").src="badges/19.png";
+else if (sampleperson.level==19)
+document.getElementById("badgephoto").src="badges/20.png";
+else if (sampleperson.level==20)
+document.getElementById("badgephoto").src="badges/21.png";
+else if (sampleperson.level==21)
+document.getElementById("badgephoto").src="badges/22.jpg";
+else if (sampleperson.level==22)
+document.getElementById("badgephoto").src="badges/23.png";
+else if (sampleperson.level==23)
+document.getElementById("badgephoto").src="badges/24.png";
+else if (sampleperson.level==24)
+document.getElementById("badgephoto").src="badges/25.png";
+else if (sampleperson.level==25)
+document.getElementById("badgephoto").src="badges/26.png";
+else if (sampleperson.level==26)
+document.getElementById("badgephoto").src="badges/27.png";
+else if (sampleperson.level==27)
+document.getElementById("badgephoto").src="badges/28.png";
+else if (sampleperson.level==28)
+document.getElementById("badgephoto").src="badges/29.png";
+else if (sampleperson.level==29)
+document.getElementById("badgephoto").src="badges/30.png";
+
+//{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
+//,
+//{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
+});
+  </script>
      <style>
 table, td {
     border: 0px solid black;
@@ -46,18 +120,6 @@ table, td {
 
 </style>
 <script type="text/javascript" src="jquery-1.11.0.min.js"></script>
-<script type="text/javascript">
-function startTimer(duration, display) {
-    
-}
-
-
-$(document).ready(function () {
-
-console.log(Math.floor(Date.now() / 1000));
-});
-
-</script>
 </head>
 
 <style>
@@ -191,15 +253,16 @@ console.log(Math.floor(Date.now() / 1000));
 
  <div class="row">
     <div class="six columns special head">
-    <img src="http://img2.wikia.nocookie.net/__cb20090709062312/starwars/images/d/d6/Human_NEGAS.jpg"></img>
+    <img id="profilephoto" ></img>
     </div>
     <div class="six columns special head">
    
-       <div class="row">Name: Arpit Jain</div>
-       <div class="row">E-Mail: arpitjain099@gmail.com</div>
-       <div class="row">Phone: 8960482697</div>
+       <div id="name"class="row">Loading</div>
+       <div id="email"class="row">Loading</div>
+       <div id="phone" class="row">Loading</div>
+       <div id="wallet" class="row">Loading</div>
        <div class="row">Current badge:</div>
-       <div class="row"><img width="30%" src="badges/1.png"></img></div>
+       <div class="row"><img id="badgephoto" width="30%" ></img></div>
     </div>
   </div>
 </div>

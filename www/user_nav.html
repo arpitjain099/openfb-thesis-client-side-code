@@ -109,7 +109,7 @@ function startTimer(duration, display) {
 $(document).ready(function () {
 
 var sampletask=[
-{"question":"Is this image profane or not?","taskid":"username+'_'+str(count)","username":"username","imgurl":"http://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Profanity.svg/200px-Profanity.svg.png","textcontent":"","mp3url":"","img1":"","img2":"","heading":"","summary":"","tasksymbol":1,"dateofadding":"ffa", "time":300}//,
+{"question":"Is this image profane or not?","taskid":"username+'_'+str(count)","username":"username","imgurl":"","textcontent":"ada","mp3url":"","img1":"","img2":"","heading":"","summary":"xadadta","tasksymbol":5,"dateofadding":"ffa", "time":300}//,
 //{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
 //,
 //{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
@@ -191,14 +191,49 @@ jQuery(function ($) {
 });
 }
   
-else if (temp.tasksymbol==4 || temp.tasksymbol==5){
+else if (temp.tasksymbol==4){
 //alert("fa");
   
 //.toString();
 document.getElementById('heading').style.display = "block";
-document.getElementById("heading").innerHTML=temp.heading;
+document.getElementById("heading").innerHTML="Title: ".concat(temp.heading);
 document.getElementById('summary').style.display = "block";
 document.getElementById("summary").innerHTML="Summary: ".concat(temp.summary);
+document.getElementById('question').style.display = "block";
+document.getElementById("question").innerHTML=temp.question;
+document.getElementById('tick1').style.display = "block";
+document.getElementById('tick2').style.display = "block";
+document.getElementById('break').style.display = "block";
+document.getElementById('ticktable').style.display = "block";
+jQuery(function ($) {
+    var timeduration = temp.time,
+        display = $('#timer');
+    
+    var timer = timeduration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            timer = alert("timeout");
+        }
+    }, 1000);
+});
+}
+
+else if (temp.tasksymbol==5){
+//alert("fa");
+  
+//.toString();
+document.getElementById('heading').style.display = "block";
+document.getElementById("heading").innerHTML="Heading: ".concat(temp.heading);
+document.getElementById('summary').style.display = "block";
+document.getElementById("summary").innerHTML="Article: ".concat(temp.summary);
 document.getElementById('question').style.display = "block";
 document.getElementById("question").innerHTML=temp.question;
 document.getElementById('tick1').style.display = "block";

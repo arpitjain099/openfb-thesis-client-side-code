@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
+<script type="text/javascript" src="url.js"></script>
   <!-- Include jQuery Mobile stylesheets -->
   <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
   <!-- Include the jQuery library -->
@@ -54,71 +55,32 @@ if (document.getElementById("collegename").checked==true){
 
 });
 
-      
-        </script>
-    <script>
+
+
+</script>
+
+<script type="text/javascript">
+  
 function loadXMLDoc()
 {
 
 
-
-     //var re = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-     //alert(document.getElementById("signupform").elements[0].value);
-     //if(re.test(document.getElementById("signupform").elements[0].value))
-
-
-
-if (window.XMLHttpRequest)
-  {// code for IE7+, Firefox, Chrome, Opera, Safari
-  xmlhttp=new XMLHttpRequest();
-  }
-else
-  {// code for IE6, IE5
-  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-xmlhttp.onreadystatechange=function()
-  {
-  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-    {
-      alert(xmlhttp.responseText);
-      window.location.assign('index.html');
-
-    //if(xmlhttp.responseText=="user exists")
-    //document.getElementById("status").innerHTML="Wrong credentials entered. Please try again!";
-  //alert("Email ID already taken. Try a new one!");
-//window.location.assign('index.html');
-
-
-    //else if (xmlhttp.responseText=="user inserted"){
-     // alert("User registered. Proceed to login page.")
-      //window.location.assign('index.html');
-     
-     //else if(xmlhttp.responseText=="Exception caught")
-     //{
-      //alert("Some error occurred. Please try again!")
-      //window.location.assign('index.html');
-     //}
-    }
-  }
-xmlhttp.open("POST","http://172.27.30.129/thesis/freelancersignupsubmission.php",true);
-xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-//alert();
-
-//sts="username=".concat(document.getElementById("signupform").elements[0].value);
-sts="password=".concat(document.getElementById("signupform").elements[1].value);
-sts=sts.concat("&name=").concat(document.getElementById("signupform").elements[2].value);
-sts=sts.concat("&email=").concat(document.getElementById("signupform").elements[0].value);
-sts=sts.concat("&phonenumber=").concat(document.getElementById("signupform").elements[3].value);
-sts=sts.concat("&collegename=").concat(document.getElementById("signupform").elements[4].value);
-//alert(sts);
-xmlhttp.send(sts);
-
-
-
-
+$.post(url.concat("/thesis/freelancersubmssion.php"), { 
+  name: document.getElementById("signupform").elements[2].value,
+ password: document.getElementById("signupform").elements[1].value,
+  email:document.getElementById("signupform").elements[0].value,
+  phonenumer:document.getElementById("signupform").elements[3].value,
+  collegename:document.getElementById("signupform").elements[4].value} )
+.done(function( data ) {
+  if(data=='user exists'){alert("User already exists!");window.location.assign("freelancersignup.html");}
+  else if(data=='user inserted')
+    {alert("Signup successful");
+ window.location.assign("freelancer.html");
+}else{alert(data);}
+    
+    
+  });//alert(sts);
 }
-
-
 </script>
 </head>
 <body>
@@ -128,7 +90,7 @@ xmlhttp.send(sts);
 
 </script>
 <div data-role="fieldcontain">
-<form method="POST" class="squirrel" id="signupform">
+<form id="signupform">
 
 
     <label for="name">E-Mail *</label>
@@ -139,7 +101,6 @@ xmlhttp.send(sts);
 
     <label for="name">Name</label>
     <input type="text"  id="name" value=""/>
-
 
     <label for="name">Phone number (+91) </label>
     <input type="number"  id="phonenumber" value="" ></input>
@@ -157,7 +118,7 @@ xmlhttp.send(sts);
     </div>
     
     
-    <input type="submit" value="Sign up"onclick="loadXMLDoc()">
+    <input type="submit" value="Sign up" onclick="loadXMLDoc()">
   </form>
 
 </div>  

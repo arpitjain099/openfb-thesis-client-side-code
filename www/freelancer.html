@@ -2,6 +2,7 @@
 <html>
 <head>
   <!-- Include meta tag to ensure proper rendering and touch zooming -->
+  <script type="text/javascript" src="url.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
@@ -47,22 +48,24 @@ xmlhttp.onreadystatechange=function()
 location.reload();
 
 }
-    else {document.cookie="username=".concat(document.getElementById("loginform").elements[0].value);
-   console.log("cookie set");}
+    else {
+      window.localStorage.setItem("freelancercookie",document.getElementById("loginform").elements[0].value);
+   console.log("cookie set");
+   window.location.assign("user_nav.html")}
    //alert(readCookie("username"));
     }
   }
 
 
-xmlhttp.open("POST","172.27.20.232/thesis/checkcredentials.php",true);
+xmlhttp.open("POST",url.concat("/thesis/checkcredentials.php"),true);
 xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 //alert();
 xmlhttp.send("username=".concat(document.getElementById("loginform").elements[0].value).concat("&password=".concat(document.getElementById("loginform").elements[1].value)));
 
 //xmlhttp.send();
 }
-function recruitersignup() {
-    window.location.assign("recruitersignup.html")
+function freelancersignup() {
+    window.location.assign("freelancersignup.html")
 }
 </script>
 </head>
@@ -90,7 +93,7 @@ function recruitersignup() {
   </div>
   <div data-role="main" class="ui-content">
     
-    <input type="button" onclick="recruitersignup()"value="Signup">
+    <input type="button" onclick="freelancersignup()"value="Signup">
   </div>
 </div>
   
