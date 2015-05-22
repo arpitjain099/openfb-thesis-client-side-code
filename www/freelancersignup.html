@@ -65,18 +65,18 @@ function loadXMLDoc()
 {
 
 
-$.post(url.concat("/thesis/freelancersubmssion.php"), { 
+$.post(url.concat("/thesis/freelancersignupsubmission.php"), { 
   name: document.getElementById("signupform").elements[2].value,
  password: document.getElementById("signupform").elements[1].value,
-  email:document.getElementById("signupform").elements[0].value,
-  phonenumer:document.getElementById("signupform").elements[3].value,
+  emailid:document.getElementById("signupform").elements[0].value,
+  phonenumber:document.getElementById("signupform").elements[3].value,
   collegename:document.getElementById("signupform").elements[4].value} )
 .done(function( data ) {
-  if(data=='user exists'){alert("User already exists!");window.location.assign("freelancersignup.html");}
-  else if(data=='user inserted')
+  if(data=='User already exists! Try logging in!'){alert("User already exists!");window.location.assign("freelancersignup.html");}
+  else if(data=='User registered!')
     {alert("Signup successful");
- window.location.assign("freelancer.html");
-}else{alert(data);}
+ window.location.assign("index.html");
+}else{alert(data);window.location.assign("index.html");}
     
     
   });//alert(sts);
@@ -111,7 +111,7 @@ $.post(url.concat("/thesis/freelancersubmssion.php"), {
       
         <div id="studentcheck">
         <p>College name
-            <input type="text" name="parent_name" id = "colgname" />
+            <input type="text" id = "colgname" />
         </p>
         
         

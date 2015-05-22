@@ -63,14 +63,22 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
         //navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }
-
+var temporary;
     function img2onclick(){
-  console.log("stop image clicked");
+  console.log("stop image clicked");clearInterval(temporary);
+   $.post(url.concat("/thesis/getlocationdata.php"), { 
+  gpsdata: window.localStorage.getItem("gpsdata"),
+  emailid:window.localStorage.getItem("freelancercookie")
+})
+.done(function( data ) {
+  //write code to send localstorage object to server
+  console.log(data);
+});
   //write code to send localstorage object to server
 }
     function img1onclick(){   
-
-        setInterval(function(){
+console.log("play image clicked");
+        temporary=setInterval(function(){
             navigator.geolocation.getCurrentPosition(onSuccess, onError);
         console.log(window.localStorage.getItem("gpsdata"));
 
@@ -232,12 +240,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
   }
 
-img#img1{
-  padding-left: 10%;
-}
-img#img2{
-  padding-left: 10%;
-}
 </style>
 
 
@@ -257,12 +259,14 @@ img#img2{
   <h1 id="username"></h1>
  
 </div>
-Click on play button to start recording, click on stop when you are done. 
-<tr>
-<td><img id="img1" src="images/playpause.png" width="40%"  onclick="img1onclick()"></img></td>
-<td><img id="img2" src="images/stop.png" width="40%"  onclick="img2onclick()"></img></td>
-</tr>
+<center>Click on play button to start recording, click on stop when you are done. </center>
 
+<table width="100%">
+<tr>
+<td><center><img id="img1" src="images/playpause.png" width="40%"  onclick="img1onclick()"></center></img></td>
+<td><center><img id="img2" src="images/stop.png" width="20%"  onclick="img2onclick()"></center></img></td>
+</center></tr>
+</table>
    <center> <p id="geolocation"></p></center>
   <script src="js/libs/gumby.min.js"></script>
   <script src="js/plugins.js"></script>

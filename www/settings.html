@@ -237,7 +237,10 @@ onLoad();
    function redirecttoaboutus(){
      window.location.assign("aboutus.html");
   }
-
+  function logout(){
+    window.localStorage.setItem("freelancercookie","");
+    window.location.assign("index.html");
+  }
 //ToDO
 //function for logout()
   </script>

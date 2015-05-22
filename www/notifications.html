@@ -4,6 +4,7 @@
   <!-- Include meta tag to ensure proper rendering and touch zooming -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <script type="text/javascript" src="url.js"></script>
 <meta content="utf-8" http-equiv="encoding">
   <!-- Include jQuery Mobile stylesheets -->
   <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
@@ -27,12 +28,21 @@ function startTimer(duration, display) {
 
 
 $(document).ready(function () {
-var notifications=[
-{"notif":"INR 42 credited into your wallet","timestamp":1430349191},
-{"notif":"INR 32 credited into your wallet","timestamp":1430349190},
-{"notif":"INR 22 credited into your wallet","timestamp":1430349187}
-];
+  console.log(window.localStorage.getItem("freelancercookie"));
+$.post(url.concat("/thesis/getnotifications.php"), { 
+  emailid: window.localStorage.getItem("freelancercookie")
+})
 
+.done(function( data ) {//console.log(data);
+  //console.log(typeof(data));
+try {
+notifications=JSON.parse(data);
+console.log(notifications);
+      //  console.log(notifications.length);
+        if(notifications.length==0){
+          console.log("no new notifications found");
+        }
+       else{
 for(i=0;i<notifications.length;i++)
     {
 var table = document.getElementById("myTable");
@@ -49,6 +59,20 @@ var table = document.getElementById("myTable");
     cell1.innerHTML = sts;
     cell2.innerHTML = notifications[i].notif;
     }
+       }
+}
+catch (e) {
+      console.log(e);
+      alert("Something went wrong! We are working hard to fix it!")
+        console.log("failed");
+    }
+});
+});
+
+
+
+
+
   /*
 for(i=0;i<notifications.length;i++)
     {
@@ -80,7 +104,7 @@ for(i=0;i<notifications.length;i++)
 //var logoindex=userinfo[0].badge;
 //document.getElementById("badgeimage").src="badges/".concat(logoindex.toString()).concat('.png');
 
-});
+
 
  
 

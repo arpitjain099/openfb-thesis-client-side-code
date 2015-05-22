@@ -102,63 +102,31 @@ img#tick2{
 </style>
 <script type="text/javascript" src="jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
-if(window.localStorage.getItem("index")>0)
-  ;
-else
-  window.localStorage.setItem("index", 0);
-
-
-var sampletask;
-
-    function createtimer (sec){
-var countdown = document.getElementById("countdown");
-
-// update the tag with id "countdown" every 1 second
- timerhelp =setInterval(function () {
-var tempo=timerhelp;
-    sec--;
-    window.localStorage.setItem("time",sec);
-    // format countdown string + set tag value
-
-    countdown.innerHTML =  sec + "s";   
-    if(sec==0){
-      
-
-     var localvar=parseInt(window.localStorage.getItem("index"));
-      window.localStorage.setItem("index", localvar+1);clearInterval(tempo);
-
-   populatevalues();
-   window.location.reload();
-     
-      console.log(window.localStorage.getItem("index"));
-     // window.location.reload();
+function startTimer(duration, display) {
     
-      if(window.localStorage.getItem("index")>=sampletask.length){
-        alert("Time up");
-        //window.location.assign("index.html");
-      }
-      
-      
-      
-    }
-}, 1000);
-
 }
 
 
+$(document).ready(function () {
+  var sampletask;
+$.post(url.concat("/thesis/phpfiletogeneratejsondata.php"), { 
+  emailid: window.localStorage.getItem("freelancercookie")
+})
 
-function populatevalues( ){
-  console.log(sampletask.length);
-    if(window.localStorage.getItem("index")<sampletask.length)
-    {
+.done(function( data ) {//console.log(data);
+  //console.log(typeof(data));
+try {
+  console.log(data);
+        sampletask=JSON.parse(data);
+        console.log(sampletask);
+        for(i=0;i<sampletask.length;i++)
 
-    //alert(sampletask.length);
-    var i=window.localStorage.getItem("index");
-    //console.log(sampletask[i]);
-  var temp=sampletask[i];
-  console.log(temp);
-  if(temp.tasksymbol==1){
-  //done
+  //loadXMLDoc();
+//document.getElementById("username").innerHTML="Hello " + document.cookie+"!";//.toString();
+//document.getElementById("mission").innerHTML=json.length;
+{
+  var temp=sampletask[i];console.log(temp);
+  if(temp.tasksymbol==1 || temp.tasksymbol==3 || temp.tasksymbol==6 || temp.tasksymbol==9){
   document.getElementById('imagelink').style.display = "block";
   //document.getElementById('imagelink').href = "http://www.google.com";
   
@@ -170,15 +138,32 @@ document.getElementById('tick1').style.display = "block";
 document.getElementById('tick2').style.display = "block";
 document.getElementById('break').style.display = "block";
 document.getElementById('ticktable').style.display = "block";
-createtimer(temp.time+1);
+jQuery(function ($) {
+    var timeduration = temp.time,
+        display = $('#timer');
+    
+    var timer = timeduration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
 
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            timer = alert("timeout");
+        }
+    }, 1000);
+});
 }
 //if tasksymbol is 15 then - document.getElementById('welcomeDiv').style.display = "block";
 
 
 
 //post={"question":question,"taskid":username+'_'+str(count),"username":username,"imgurl":"","textcontent":row[1],"mp3url":"","img1":"","img2":"","heading":"","summary":"","tasksymbol":2,"dateofadding":str(strftime("%d-%m-%Y %H:%M:%S", gmtime()))}
-else if (temp.tasksymbol==4){//done
+else if (temp.tasksymbol==2 || temp.tasksymbol==10 ||temp.tasksymbol==11 || temp.tasksymbol==12){
   
   
 document.getElementById('question').style.display = "block";
@@ -189,29 +174,98 @@ document.getElementById('tick1').style.display = "block";
 document.getElementById('tick2').style.display = "block";
 document.getElementById('break').style.display = "block";
 document.getElementById('ticktable').style.display = "block";
-createtimer(temp.time+1);
+jQuery(function ($) {
+    var timeduration = temp.time,
+        display = $('#timer');
+    
+    var timer = timeduration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            timer = alert("timeout");
+        }
+    }, 1000);
+});
 }
   
-
-
-else if (temp.tasksymbol==5){//done
+else if (temp.tasksymbol==4){
 //alert("fa");
   
 //.toString();
 document.getElementById('heading').style.display = "block";
-document.getElementById("heading").innerHTML=temp.heading;
+document.getElementById("heading").innerHTML="Title: ".concat(temp.heading);
 document.getElementById('summary').style.display = "block";
-document.getElementById("summary").innerHTML=temp.summary;
+document.getElementById("summary").innerHTML="Summary: ".concat(temp.summary);
 document.getElementById('question').style.display = "block";
 document.getElementById("question").innerHTML=temp.question;
 document.getElementById('tick1').style.display = "block";
 document.getElementById('tick2').style.display = "block";
 document.getElementById('break').style.display = "block";
 document.getElementById('ticktable').style.display = "block";
-createtimer(temp.time+1);
+jQuery(function ($) {
+    var timeduration = temp.time,
+        display = $('#timer');
+    
+    var timer = timeduration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            timer = alert("timeout");
+        }
+    }, 1000);
+});
 }
 
-else if (temp.tasksymbol==2){//done
+else if (temp.tasksymbol==5){
+//alert("fa");
+  
+//.toString();
+document.getElementById('heading').style.display = "block";
+document.getElementById("heading").innerHTML="Heading: ".concat(temp.heading);
+document.getElementById('summary').style.display = "block";
+document.getElementById("summary").innerHTML="Article: ".concat(temp.summary);
+document.getElementById('question').style.display = "block";
+document.getElementById("question").innerHTML=temp.question;
+document.getElementById('tick1').style.display = "block";
+document.getElementById('tick2').style.display = "block";
+document.getElementById('break').style.display = "block";
+document.getElementById('ticktable').style.display = "block";
+jQuery(function ($) {
+    var timeduration = temp.time,
+        display = $('#timer');
+    
+    var timer = timeduration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            timer = alert("timeout");
+        }
+    }, 1000);
+});
+}
+
+else if (temp.tasksymbol==7 || temp.tasksymbol==8 || temp.tasksymbol==13 || temp.tasksymbol==14){
 //alert("fa");
   
 //.toString();
@@ -223,10 +277,28 @@ document.getElementById('img2').style.display = "block";
 document.getElementById('img1').src = temp.img1;
 document.getElementById('img2').src = temp.img2;
 document.getElementById('imageoptiontable').style.display = "block";
-createtimer(temp.time+1);
+jQuery(function ($) {
+    var timeduration = temp.time,
+        display = $('#timer');
+    
+    var timer = timeduration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            timer = alert("timeout");
+        }
+    }, 1000);
+});
 }
 
-else if (temp.tasksymbol==6){//done
+else if (temp.tasksymbol==15){
 //alert("fa");
   
 //.toString();
@@ -242,71 +314,55 @@ var audio = document.getElementById("mp3source");
 audio.src = temp.mp3url;
 
 document.getElementById('mp3').load();
-createtimer(temp.time+1);
-}
+jQuery(function ($) {
+    var timeduration = temp.time,
+        display = $('#timer');
+    
+    var timer = timeduration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
 
-else if (temp.tasksymbol==3){//done
-//alert("fa");
-  
-//.toString();
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
 
-document.getElementById('question').style.display = "block";
-document.getElementById("question").innerHTML=temp.question;
-document.getElementById('img1').style.display = "block";
-document.getElementById('img2').style.display = "block";
-document.getElementById('img1').src = temp.img1;
-document.getElementById('img2').src = temp.img2;
-document.getElementById('summary').style.display = "block";
-document.getElementById("summary").innerHTML=temp.summary;
-document.getElementById('imageoptiontable').style.display = "block";
-createtimer(temp.time+1);
-}
+        display.text(minutes + ":" + seconds);
 
-    }
- 
-}
-
-
-
-$(document).ready(function () {
-
-
-  
-$.post(url.concat("/thesis/phpfiletogeneratejsondata.php"), { 
-  emailid: window.localStorage.getItem("freelancercookie")
-})
-
-.done(function( data ) {//console.log(data);
-  //console.log(typeof(data));
-try {
-
-
-
-
-
-  //console.log(data);
-        sampletask=JSON.parse(data);
-        //console.log(sampletask.length);
-        console.log(window.localStorage.getItem("index"));
-        if(sampletask.length==0){
-        	alert("Nothing in store right now, please come back later!");
+        if (--timer < 0) {
+            timer = alert("timeout");
         }
-       else if(window.localStorage.getItem("index")<sampletask.length)
-        {
-        	populatevalues();
-        }
-        
+    }, 1000);
+});
+}
 
-  //loadXMLDoc();
-//document.getElementById("username").innerHTML="Hello " + document.cookie+"!";//.toString();
-//document.getElementById("mission").innerHTML=json.length;
+
+//alert(userinfo[0].badge);
+//var logoindex=userinfo[0].badge;
+//document.getElementById("badgeimage").src="badges/".concat(logoindex.toString()).concat('.png');
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     } catch (e) {
       console.log(e);
       alert("Something went wrong! We are working hard to fix it!")
         console.log("failed");
     }
 });
-});
+
 
 //console.log(sampletask);
 //sampletask=[{"question":"Is this image profane or not?","taskid":"username+'_'+str(count)","username":"username","imgurl":"","textcontent":"ada","mp3url":"","img1":"","img2":"","heading":"","summary":"xadadta","tasksymbol":5,"dateofadding":"ffa", "time":300}//,
@@ -315,7 +371,7 @@ try {
 //{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
 //];
 
-
+});
 </script>
 </head>
 
@@ -336,15 +392,15 @@ try {
 
 
 
-<div id="parent_div">
+
 <div data-role="fieldcontain" id="mission">
-  <center><div id="countdown"></div></center>
+  <div id="timer"></div>
 
 
 </div>  
 <!--<center><img id="badgeimage" width="10%" height="10%"></img> </center>-->
-
-<h3><div id="heading" style="display:none;"></div></h3>
+<div id="timer"></div>
+<div id="heading" style="display:none;"></div>
 <div id="summary" style="display:none;"></div>
 <div id="question" style="display:none;"></div> 
 <div id="textcontent" style="display:none;"></div> 
@@ -368,143 +424,35 @@ try {
 <td><center>
 <img hspace="35%"id="tick2" width="30%" src="images/redtick.png" style="display:none;" onclick="submittick2click()"></img></td></center>
 </tr></table>
-</div>
 <!--<button id="fivesmall1" width="15%" height="30%"></button>-->
 <script type="text/javascript">
   
   function submittick1click(){
-if(window.localStorage.getItem('index')>=sampletask.length)
-    {
-      console.log("index count exceeded");
-      alert("Click on refresh button to get more tasks");
-    }
-  else{
+
     //send data to our server
 console.log("tick1 clicked");
-clearInterval(timerhelp);
-//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
-//console.log(sampletask[window.localStorage.getItem("index")].taskid);
-//console.log(window.localStorage.getItem("freelancercookie"));
-
-   $.post(url.concat("/thesis/handler.php"), { 
-  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
-  taskid:sampletask[window.localStorage.getItem("index")].taskid,
-  response: "1",
-  emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[window.localStorage.getItem("index")].username
-})
-   
-.done(function( data ) {
-  //write code to send localstorage object to server
-//  console.log(data);
-var localvar=parseInt(window.localStorage.getItem("index"));
-      window.localStorage.setItem("index", localvar+1);populatevalues();
-
-window.location.reload();
-
-});
-
-
 //xml http call to server to dump results
 }
-}
+
  function submittick2click(){
-if(window.localStorage.getItem('index')>=sampletask.length)
-    console.log("index count exceeded");
-  else{
+
+    //send data to our server
 console.log("tick2 clicked");
-clearInterval(timerhelp);
-//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
-//console.log(sampletask[window.localStorage.getItem("index")].taskid);
-//console.log(1);
-//console.log(window.localStorage.getItem("freelancercookie"));
-
-   $.post(url.concat("/thesis/handler.php"), { 
-  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
-  taskid:sampletask[window.localStorage.getItem("index")].taskid,
-  response: "2",
-  emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[window.localStorage.getItem("index")].username
-})
-   
-.done(function( data ) {
-  //write code to send localstorage object to server
-  //console.log(data);
-var localvar=parseInt(window.localStorage.getItem("index"));
-      window.localStorage.setItem("index", localvar+1);populatevalues();
-
-window.location.reload();
-
-});
+//xml http call to server to dump results
 }
-}
+
  function img1onclick(){
-  if(window.localStorage.getItem('index')>=sampletask.length)
-    console.log("index count exceeded");
-  else{
 
     //send data to our server
 console.log("img1 clicked");
-
-clearInterval(timerhelp);
-//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
-//console.log(sampletask[window.localStorage.getItem("index")].taskid);
-//console.log(1);
-//console.log(window.localStorage.getItem("freelancercookie"));
-
-   $.post(url.concat("/thesis/handler.php"), { 
-  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
-  taskid:sampletask[window.localStorage.getItem("index")].taskid,
-  response: "1",
-  emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[window.localStorage.getItem("index")].username
-})
-   
-.done(function( data ) {
-  //write code to send localstorage object to server
-  //console.log(data);
-var localvar=parseInt(window.localStorage.getItem("index"));
-      window.localStorage.setItem("index", localvar+1);populatevalues();
-window.location.reload();
-
-
-});
 //xml http call to server to dump results
-}
 }
 
  function img2onclick(){
 
     //send data to our server
-    if(window.localStorage.getItem('index')>=sampletask.length)
-    console.log("index count exceeded");
-  else{
-//console.log("img2 clicked");
-clearInterval(timerhelp);
-//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
-//console.log(sampletask[window.localStorage.getItem("index")].taskid);
-//console.log(1);
-//console.log(window.localStorage.getItem("freelancercookie"));
-
-   $.post(url.concat("/thesis/handler.php"), { 
-  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
-  taskid:sampletask[window.localStorage.getItem("index")].taskid,
-  response: "2",
-  emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[window.localStorage.getItem("index")].username
-})
-   
-.done(function( data ) {
-  //write code to send localstorage object to server
-  //console.log(data);
-var localvar=parseInt(window.localStorage.getItem("index"));
-      window.localStorage.setItem("index", localvar+1);populatevalues();
-window.location.reload();
-
-
-});
+console.log("img2 clicked");
 //xml http call to server to dump results
-}
 }
 </script>
 </div>

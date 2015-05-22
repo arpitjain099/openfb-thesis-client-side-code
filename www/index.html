@@ -6,6 +6,7 @@
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
 <meta charset="utf-8">
+<script type="text/javascript" src="url.js"></script>
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   <!-- Include jQuery Mobile stylesheets -->
   <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
@@ -21,46 +22,68 @@
  
 function loadXMLDoc()
 {
+$.post(url.concat("/thesis/checkcredentials.php"), { 
+  emailid: document.getElementById("loginform").elements[0].value,
+  password:document.getElementById("loginform").elements[1].value
+})
 
-  if (window.XMLHttpRequest)
-  {// code for IE7+, Firefox, Chrome, Opera, Safari
-  xmlhttp=new XMLHttpRequest();
-  }
-else
-  {// code for IE6, IE5
-  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-
-
-
-
-xmlhttp.onreadystatechange=function()
-  {
-  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-    {
-    
-   if(xmlhttp.responseText=="wrong credentials")
-    {//document.getElementById("status").innerHTML="Wrong credentials entered. Please try again!";
-  alert("Wrong credentials entered. Please try again!");
+.done(function( data ) {//console.log(data);
+  //console.log(typeof(data));
+try {
+  console.log(data);
+if(data=="wrong credentials")
+{
+ alert("Wrong credentials entered. Please try again!");
 location.reload();
-
 }
-    else {document.cookie="email=".concat(document.getElementById("loginform").elements[0].value);
-    //alert("da");
-   console.log("cookie set");
+else{
+  console.log("cookie set");
    //alert("Login successful");
    window.location.assign('notifications.html');
-
- }
-   //alert(readCookie("username"));
+}
+      //  console.log(notifications.length);
+       
+}
+catch (e) {
+      console.log(e);
+      alert("Something went wrong! We are working hard to fix it!")
+        console.log("failed");
     }
-  }
+});
 
 
-xmlhttp.open("POST","http://172.27.30.129/thesis/checkcredentials.php",true);
-xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-//alert();
-xmlhttp.send("email=".concat(document.getElementById("loginform").elements[0].value).concat("&password=".concat(document.getElementById("loginform").elements[1].value)));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //xmlhttp.send();
 }

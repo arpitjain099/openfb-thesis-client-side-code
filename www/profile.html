@@ -39,10 +39,17 @@
   <script src="jquery.mobile-1.4.5.min.js"></script>
   <script type="text/javascript">
 $(document).ready(function () {
-	var sampleperson=
-{"email" : "arpitjain099", "name" : "arpit ", "phone" : "8960482697", "address" : "cs", "email" : "arpitjain799@gmail.com","photo":"http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg","level":1,"wallet":0};//,
+$.post(url.concat("/thesis/getprofile.php"), { 
+  emailid: window.localStorage.getItem("freelancercookie")
+})
+.done(function( data ) {
+  //var sampleperson=JSON.parse(data);//,
+  console.log(data);
+  sa=JSON.parse(data);
+  sampleperson=sa[0];
+  console.log(sampleperson.length);
 document.getElementById("name").innerHTML="Name: ".concat(sampleperson.name);
-document.getElementById("email").innerHTML="Email: ".concat(sampleperson.email);
+document.getElementById("email").innerHTML="Email: ".concat(sampleperson.emailid);
 document.getElementById("phone").innerHTML="Phone: ".concat(sampleperson.phone);
 document.getElementById("wallet").innerHTML="Money in mCrowd wallet:Rs. ".concat(sampleperson.wallet);
 document.getElementById("profilephoto").src=sampleperson.photo;
@@ -107,9 +114,9 @@ document.getElementById("badgephoto").src="badges/29.png";
 else if (sampleperson.level==29)
 document.getElementById("badgephoto").src="badges/30.png";
 
-//{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
-//,
-//{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
+}
+);//alert(sts);
+
 });
   </script>
      <style>
