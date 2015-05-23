@@ -39,6 +39,7 @@
   <script src="jquery.mobile-1.4.5.min.js"></script>
   <script type="text/javascript">
 $(document).ready(function () {
+  console.log(window.localStorage.getItem("freelancercookie"));
 $.post(url.concat("/thesis/getprofile.php"), { 
   emailid: window.localStorage.getItem("freelancercookie")
 })
@@ -46,73 +47,73 @@ $.post(url.concat("/thesis/getprofile.php"), {
   //var sampleperson=JSON.parse(data);//,
   console.log(data);
   sa=JSON.parse(data);
-  sampleperson=sa[0];
-  console.log(sampleperson.length);
+  sampleperson=sa;
+ 
 document.getElementById("name").innerHTML="Name: ".concat(sampleperson.name);
 document.getElementById("email").innerHTML="Email: ".concat(sampleperson.emailid);
 document.getElementById("phone").innerHTML="Phone: ".concat(sampleperson.phone);
 document.getElementById("wallet").innerHTML="Money in mCrowd wallet:Rs. ".concat(sampleperson.wallet);
 document.getElementById("profilephoto").src=sampleperson.photo;
 if(sampleperson.level==0)
-document.getElementById("badgephoto").src="badges/1.png";
+{document.getElementById("badgephoto").src="badges/1.png";document.getElementById("badgedescription").innerHTML="Novice";}
 else if (sampleperson.level==1)
-document.getElementById("badgephoto").src="badges/2.png";
+{document.getElementById("badgephoto").src="badges/2.png";document.getElementById("badgedescription").innerHTML="Novice";}
 else if (sampleperson.level==2)
-document.getElementById("badgephoto").src="badges/3.png";
+{document.getElementById("badgephoto").src="badges/3.png";document.getElementById("badgedescription").innerHTML="Badge of honor";}
 else if (sampleperson.level==3)
-document.getElementById("badgephoto").src="badges/4.png";
+{document.getElementById("badgephoto").src="badges/4.png";document.getElementById("badgedescription").innerHTML="Leader";}
 else if (sampleperson.level==4)
-document.getElementById("badgephoto").src="badges/5.png";
+{document.getElementById("badgephoto").src="badges/5.png";document.getElementById("badgedescription").innerHTML="Outstanding";}
 else if (sampleperson.level==5)
-document.getElementById("badgephoto").src="badges/6.png";
+{document.getElementById("badgephoto").src="badges/6.png";document.getElementById("badgedescription").innerHTML="Rockstar";}
 else if (sampleperson.level==6)
-document.getElementById("badgephoto").src="badges/7.png";
+{document.getElementById("badgephoto").src="badges/7.png";document.getElementById("badgedescription").innerHTML="Brainy";}
 else if (sampleperson.level==7)
-document.getElementById("badgephoto").src="badges/8.png";
+{document.getElementById("badgephoto").src="badges/8.png";document.getElementById("badgedescription").innerHTML="Scholar";}
 else if (sampleperson.level==8)
-document.getElementById("badgephoto").src="badges/9.png";
+{document.getElementById("badgephoto").src="badges/9.png";document.getElementById("badgedescription").innerHTML="Time master";}
 else if (sampleperson.level==9)
-document.getElementById("badgephoto").src="badges/10.png";
+{document.getElementById("badgephoto").src="badges/10.png";document.getElementById("badgedescription").innerHTML="Outstanding";}
 else if (sampleperson.level==10)
-document.getElementById("badgephoto").src="badges/11.png";
+{document.getElementById("badgephoto").src="badges/11.png";document.getElementById("badgedescription").innerHTML="Awesome";}
 else if (sampleperson.level==11)
-document.getElementById("badgephoto").src="badges/12.png";
+{document.getElementById("badgephoto").src="badges/12.png";document.getElementById("badgedescription").innerHTML="In history's books";}
 else if (sampleperson.level==12)
-document.getElementById("badgephoto").src="badges/13.png";
+{document.getElementById("badgephoto").src="badges/14.png";document.getElementById("badgedescription").innerHTML="Having the cool";}
 else if (sampleperson.level==13)
-document.getElementById("badgephoto").src="badges/14.png";
+{document.getElementById("badgephoto").src="badges/15.png";document.getElementById("badgedescription").innerHTML="High growth";}
 else if (sampleperson.level==14)
-document.getElementById("badgephoto").src="badges/15.png";
+{document.getElementById("badgephoto").src="badges/16.png";document.getElementById("badgedescription").innerHTML="Hungry for more";}
 else if (sampleperson.level==15)
-document.getElementById("badgephoto").src="badges/16.png";
+{document.getElementById("badgephoto").src="badges/17.png";document.getElementById("badgedescription").innerHTML="Made for this game";}
 else if (sampleperson.level==16)
-document.getElementById("badgephoto").src="badges/17.png";
+{document.getElementById("badgephoto").src="badges/18.png";document.getElementById("badgedescription").innerHTML="Talk of the town";}
 else if (sampleperson.level==17)
-document.getElementById("badgephoto").src="badges/18.png";
+{document.getElementById("badgephoto").src="badges/19.png";document.getElementById("badgedescription").innerHTML="Star";}
 else if (sampleperson.level==18)
-document.getElementById("badgephoto").src="badges/19.png";
+{document.getElementById("badgephoto").src="badges/20.png";document.getElementById("badgedescription").innerHTML="Trophy";}
 else if (sampleperson.level==19)
-document.getElementById("badgephoto").src="badges/20.png";
+{document.getElementById("badgephoto").src="badges/21.png";document.getElementById("badgedescription").innerHTML="Entertainer";}
 else if (sampleperson.level==20)
-document.getElementById("badgephoto").src="badges/21.png";
+{document.getElementById("badgephoto").src="badges/22.jpg";document.getElementById("badgedescription").innerHTML="Leader";}
 else if (sampleperson.level==21)
-document.getElementById("badgephoto").src="badges/22.jpg";
+{document.getElementById("badgephoto").src="badges/23.png";document.getElementById("badgedescription").innerHTML="Cunning";}
 else if (sampleperson.level==22)
-document.getElementById("badgephoto").src="badges/23.png";
+{document.getElementById("badgephoto").src="badges/24.png";document.getElementById("badgedescription").innerHTML="International master";}
 else if (sampleperson.level==23)
-document.getElementById("badgephoto").src="badges/24.png";
+{document.getElementById("badgephoto").src="badges/25.png";document.getElementById("badgedescription").innerHTML="Crown holder";}
 else if (sampleperson.level==24)
-document.getElementById("badgephoto").src="badges/25.png";
+{document.getElementById("badgephoto").src="badges/26.png";document.getElementById("badgedescription").innerHTML="World explorer";}
 else if (sampleperson.level==25)
-document.getElementById("badgephoto").src="badges/26.png";
+{document.getElementById("badgephoto").src="badges/27.png";document.getElementById("badgedescription").innerHTML="Ninja";}
 else if (sampleperson.level==26)
-document.getElementById("badgephoto").src="badges/27.png";
+{document.getElementById("badgephoto").src="badges/28.png";document.getElementById("badgedescription").innerHTML="World explorer";}
 else if (sampleperson.level==27)
-document.getElementById("badgephoto").src="badges/28.png";
+{document.getElementById("badgephoto").src="badges/29.png";document.getElementById("badgedescription").innerHTML="Professional";}
 else if (sampleperson.level==28)
-document.getElementById("badgephoto").src="badges/29.png";
+{document.getElementById("badgephoto").src="badges/30.png";document.getElementById("badgedescription").innerHTML="Conqueror";}
 else if (sampleperson.level==29)
-document.getElementById("badgephoto").src="badges/30.png";
+{document.getElementById("badgephoto").src="badges/30.png";document.getElementById("badgedescription").innerHTML="Master";}
 
 }
 );//alert(sts);
@@ -268,8 +269,9 @@ table, td {
        <div id="email"class="row">Loading</div>
        <div id="phone" class="row">Loading</div>
        <div id="wallet" class="row">Loading</div>
-       <div class="row">Current badge:</div>
+       <div class="row">Current badge:</div><div id="badgedescription"></div>
        <div class="row"><img id="badgephoto" width="30%" ></img></div>
+       
     </div>
   </div>
 </div>

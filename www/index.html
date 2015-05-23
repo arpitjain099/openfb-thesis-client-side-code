@@ -38,8 +38,9 @@ location.reload();
 }
 else{
   console.log("cookie set");
+   window.localStorage.setItem("freelancercookie", document.getElementById("loginform").elements[0].value);
    //alert("Login successful");
-   window.location.assign('notifications.html');
+   window.location.assign('user_nav.html');
 }
       //  console.log(notifications.length);
        

@@ -102,9 +102,8 @@ img#tick2{
 </style>
 <script type="text/javascript" src="jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
-if(window.localStorage.getItem("index")>0)
-  ;
-else
+
+
   window.localStorage.setItem("index", 0);
 
 
@@ -126,8 +125,24 @@ var tempo=timerhelp;
 
      var localvar=parseInt(window.localStorage.getItem("index"));
       window.localStorage.setItem("index", localvar+1);clearInterval(tempo);
+   $.post(url.concat("/thesis/handler.php"), { 
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
+  response: "NA",
+  emailid:window.localStorage.getItem("freelancercookie"),
+  username:sampletask[window.localStorage.getItem("index")].username
+})
+   
+.done(function( data ) {
+  //write code to send localstorage object to server
+  //console.log(data);
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
 
-   populatevalues();
+window.location.reload();
+
+});
+   
    window.location.reload();
      
       console.log(window.localStorage.getItem("index"));
