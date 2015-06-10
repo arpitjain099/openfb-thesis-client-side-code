@@ -52,6 +52,7 @@ $.post(url.concat("/thesis/getprofile.php"), {
 document.getElementById("name").innerHTML="Name: ".concat(sampleperson.name);
 document.getElementById("email").innerHTML="Email: ".concat(sampleperson.emailid);
 document.getElementById("phone").innerHTML="Phone: ".concat(sampleperson.phone);
+document.getElementById("level").innerHTML="Level: ".concat(sampleperson.level);
 document.getElementById("wallet").innerHTML="Money in mCrowd wallet:Rs. ".concat(sampleperson.wallet);
 document.getElementById("profilephoto").src=sampleperson.photo;
 if(sampleperson.level==0)
@@ -269,6 +270,7 @@ table, td {
        <div id="email"class="row">Loading</div>
        <div id="phone" class="row">Loading</div>
        <div id="wallet" class="row">Loading</div>
+       <div id="level" class="row">Loading</div>
        <div class="row">Current badge:</div><div id="badgedescription"></div>
        <div class="row"><img id="badgephoto" width="30%" ></img></div>
        
