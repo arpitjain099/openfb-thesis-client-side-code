@@ -90,20 +90,9 @@ audio#mp3{
     text-align: center;
 }
 
-
-
-
-
 body{
   background: #000;
 }
-
-
-
-
-
-
-
 
 label.star {
 vertical-align: center;
@@ -122,17 +111,6 @@ label.star:before{
   content:'\f006';
   font-family: FontAwesome;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 div#timer{
    padding-left: 5%;
@@ -171,6 +149,46 @@ img#tick2{
 
 
 var sampletask;
+$.post(url.concat("/thesis/phpfiletogeneratejsondata.php"), { 
+  emailid: window.localStorage.getItem("freelancercookie")
+})
+
+.done(function( data ) {//console.log(data);
+  //console.log(typeof(data));
+try {
+
+
+
+
+
+  //console.log(data);
+        sampletask=JSON.parse(data);
+        //console.log(sampletask.length);
+      
+        if(sampletask.length==0){
+          document.getElementById("askforrefresh").innerHTML="Nothing in store right now, please come back later!";
+//          alert("Nothing in store right now, please come back later!");
+          //document.getElementById('imgrefresh').style.display = "block";
+        }
+       else if(0<sampletask.length)
+        {console.log("value of sampletask.length is greater than 0");
+          populatevalues();
+        }
+        
+
+  //loadXMLDoc();
+//document.getElementById("username").innerHTML="Hello " + document.cookie+"!";//.toString();
+//document.getElementById("mission").innerHTML=json.length;
+    } catch (e) {
+      console.log(e);
+      alert("Something went wrong! We are working hard to fix it!")
+        console.log("failed");
+    }
+
+});
+
+
+
 
     function createtimer (sec){
 var countdown = document.getElementById("countdown");
@@ -325,47 +343,11 @@ createtimer(temp.time+1);
 
 
 
-$(document).ready(function () {
 
 
   
-$.post(url.concat("/thesis/phpfiletogeneratejsondata.php"), { 
-  emailid: window.localStorage.getItem("freelancercookie")
-})
-
-.done(function( data ) {//console.log(data);
-  //console.log(typeof(data));
-try {
 
 
-
-
-
-  //console.log(data);
-        sampletask=JSON.parse(data);
-        //console.log(sampletask.length);
-      
-        if(sampletask.length==0){
-          document.getElementById("askforrefresh").innerHTML="Nothing in store right now, please come back later!";
-//          alert("Nothing in store right now, please come back later!");
-          //document.getElementById('imgrefresh').style.display = "block";
-        }
-       else if(0<sampletask.length)
-        {
-          populatevalues();
-        }
-        
-
-  //loadXMLDoc();
-//document.getElementById("username").innerHTML="Hello " + document.cookie+"!";//.toString();
-//document.getElementById("mission").innerHTML=json.length;
-    } catch (e) {
-      console.log(e);
-      alert("Something went wrong! We are working hard to fix it!")
-        console.log("failed");
-    }
-});
-});
 
 //console.log(sampletask);
 //sampletask=[{"question":"Is this image profane or not?","taskid":"username+'_'+str(count)","username":"username","imgurl":"","textcontent":"ada","mp3url":"","img1":"","img2":"","heading":"","context":"xadadta","tasksymbol":5,"dateofadding":"ffa", "time":300}//,
@@ -384,7 +366,7 @@ try {
 <div data-role="navbar" data-position="fixed">
 
    <ul>
-    <li><button onclick='javascript:window.location.assign("user_nav.html");'  data-icon="home" data-theme="b"></button></li>
+    <li><button onclick='javascript:window.location.reload();'  data-icon="home" data-theme="b"></button></li>
     <li><button onclick='javascript:window.location.assign("notifications.html");' data-icon="star" data-theme="a"></button></li>
     <li> <button onclick='javascript:window.location.assign("settings.html");' data-icon="gear" data-theme="a"></button></li>
   </ul>
@@ -453,7 +435,7 @@ try {
 
 <center>
   <form id="reviewform" style="display:none;">
-<textarea style="display:none;" id="reviewtextarea" rows="4" cols="50" name="firstname"></textarea>
+<textarea style="display:none;" id="reviewtextarea" rows="4" cols="50"></textarea>
 <button id="reviewbutton" style="display:none;" onclick="reviewbutton_onsubmit()">Submit</button>
 <button id="skipbutton" style="display:none;" onclick="skipbuttonaction()">Skip!</button>
 </form>
@@ -478,7 +460,6 @@ function skipbuttonaction(){
   //write code to send localstorage object to server
   //console.log(data);
 
-window.location.assign("user_nav.html");
 window.location.reload();
 
 });
@@ -509,7 +490,6 @@ console.log("review button submit button clicked");
 .done(function( data ) {
   //write code to send localstorage object to server
 
-window.location.assign("user_nav.html");
 window.location.reload();
 });
 
@@ -543,10 +523,9 @@ clearInterval(timerhelp);
   //write code to send localstorage object to server
 //  console.log(data);
 
-      populatevalues();
+ 
 
 window.location.reload();
-
 });
 
 

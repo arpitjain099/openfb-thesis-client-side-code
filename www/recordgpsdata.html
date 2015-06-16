@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Include meta tag to ensure proper rendering and touch zooming -->
   <meta charset="utf-8">
 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>Profile</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <script type="text/javascript" src="url.js"></script>
+ 
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <meta name="author" content="humans.txt">
 
   <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+
   <meta property="fb:page_id" content="" />
   <meta property="og:image" content="" />
   <meta property="og:description" content=""/>
   <meta property="og:title" content=""/>
 
-
   <meta itemprop="name" content="">
   <meta itemprop="description" content="">
   <meta itemprop="image" content="">
-
+  <title>Location based task</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
   <link rel="stylesheet" href="css/gumby.css">
 
+
   <script src="js/libs/modernizr-2.6.2.min.js"></script>
+  <!-- Include meta tag to ensure proper rendering and touch zooming -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
@@ -35,7 +37,102 @@
   <script src="jquery-1.11.1.min.js"></script>
   <!-- Include the jQuery Mobile library -->
   <script src="jquery.mobile-1.4.5.min.js"></script>
-  <style>
+  
+     <style>
+table, td {
+    border: 0px solid black;
+} 
+
+
+</style>
+<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+window.localStorage.setItem("gpsdata","");
+
+
+
+
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+
+        window.localStorage.setItem("gpsdata","");
+
+        //navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    }
+var temporary;
+    function img2onclick(){
+  console.log("stop image clicked");clearInterval(temporary);
+   $.post(url.concat("/thesis/getlocationdata.php"), { 
+  gpsdata: window.localStorage.getItem("gpsdata"),
+  emailid:window.localStorage.getItem("freelancercookie")
+})
+.done(function( data ) {
+  //write code to send localstorage object to server
+  console.log(data);
+});
+  //write code to send localstorage object to server
+}
+    function img1onclick(){   
+console.log("play image clicked");
+        temporary=setInterval(function(){
+            navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        console.log(window.localStorage.getItem("gpsdata"));
+
+
+        },5000);
+        
+      //alert(window.localStorage.getItem("gpsdata"));
+    }
+    // onSuccess Geolocation
+    //
+    function onSuccess(position) {
+         //console.log("fa");
+                                //alert(window.localStorage.getItem("gpsdata"));
+                                //console.log(position.coords.latitude)   ;
+        var temp= window.localStorage.getItem("gpsdata");
+
+        var sts="{lt:";
+        sts=sts.concat(position.coords.latitude.toString());
+        sts=sts.concat(",lg:");
+        sts=sts.concat(position.coords.longitude.toString());
+        sts=sts.concat(",t:");
+        sts=sts.concat(position.timestamp.toString());
+        sts=sts.concat("},");
+        sts=temp.concat(sts);
+        //console.log(sts);
+      window.localStorage.setItem("gpsdata",sts);
+      
+    
+        var element = document.getElementById('geolocation');
+        element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
+                            'Longitude: '          + position.coords.longitude             + '<br />' +
+                          
+                            'Accuracy: '           + position.coords.accuracy              + '<br />' +
+                            
+                            'Timestamp: '          + position.timestamp                    + '<br />';
+
+    }
+
+    // onError Callback receives a PositionError object
+    //
+    function onError(error) {
+      if(error.code=='PositionError.POSITION_UNAVAILABLE')
+        alert("Please allow location tracking from settings");
+        alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+    }
+
+
+</script>
+
+</head>
+
+<style>
+
   html, body {
     background: #fefefe;
   }
@@ -143,40 +240,11 @@
 
   }
 
-table, td {
-    border: 0px solid black;
-} 
-
-
 </style>
-<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
-<script type="text/javascript">
-function startTimer(duration, display) {
-    
-}
 
 
-$(document).ready(function () {
 
-onLoad();
 
-});
-
- function onLoad() {
-        document.addEventListener("deviceready", onDeviceReady, false);
-        
-        //alert("ada");
-    }
-
-    // device APIs are available
-    //
-    function onDeviceReady() {
-      alert("cordova working");
-        // Now safe to use device APIs
-    }
-   
-</script>
-</head>
 <body>
 
 <div data-role="page" id="pageone">
@@ -190,72 +258,17 @@ onLoad();
   
   <h1 id="username"></h1>
  
+</div>
+<center>Click on play button to start recording, click on stop when you are done. </center>
 
-
-  <div class="row">
-    <div class="twelve columns">
-      <p onclick="redirecttoprofile()">Profile</p>
-    </div>
-  </div>
-  
-  <div class="row">
-    <div class="twelve columns">
-      <p onclick="redirecttolocation()">Location specific tasks</p>
-    </div>
-  </div>
-
-   <div class="row">
-    <div class="twelve columns">
-      <p onclick="redirecttorecordgpsdata()">Record GPS data</p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="twelve columns">
-      <p onclick="redirecttobadges()">Badges</p>
-    </div>
-  </div>
-
-    <div class="row">
-    <div class="twelve columns">
-      <p onclick="redirecttoaboutus()">About us</p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="twelve columns">
-      <p onclick="logout()">Logout</p>
-    </div>
-  </div>
-  
-  <b><center>All rights reserved.</center></b>
-  </section>
-  <script>
-  function redirecttoprofile(){
-     window.location.assign("profile.html");
-  }
- function redirecttolocation(){
-     window.location.assign("location.html");
-  }
-  
-   function redirecttobadges(){
-     window.location.assign("badges.html");
-  }
-   function redirecttoaboutus(){
-     window.location.assign("aboutus.html");
-  }
-  function logout(){
-    window.localStorage.setItem("freelancercookie","");
-    window.location.assign("index.html");
-  }
-
-  function redirecttorecordgpsdata(){
-    window.location.assign("recordgpsdata.html");
-  }
-//ToDO
-//function for logout()
-  </script>
-<script src="js/libs/gumby.min.js"></script>
+<table width="100%">
+<tr>
+<td><center><img id="img1" src="images/playpause.png" width="40%"  onclick="img1onclick()"></center></img></td>
+<td><center><img id="img2" src="images/stop.png" width="20%"  onclick="img2onclick()"></center></img></td>
+</center></tr>
+</table>
+   <center> <p id="geolocation"></p></center>
+  <script src="js/libs/gumby.min.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
 </body>
