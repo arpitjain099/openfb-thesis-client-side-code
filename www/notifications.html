@@ -39,7 +39,9 @@ $.post(url.concat("/thesis/getnotifications.php"), {
 .done(function( data ) {//console.log(data);
   //console.log(typeof(data));
 try {
+  console.log(data);
 notifications=JSON.parse(data);
+if(notifications.length==0)alert("a");
 console.log(notifications);
       //  console.log(notifications.length);
         if(notifications.length==0){

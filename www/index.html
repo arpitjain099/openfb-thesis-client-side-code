@@ -22,6 +22,12 @@
  
 function loadXMLDoc()
 {
+var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+console.log(document.getElementById("loginform").elements[0].value);
+    if(pattern.test(document.getElementById("loginform").elements[0].value))
+        {
+ 
+
 $.post(url.concat("/thesis/checkcredentials.php"), { 
   emailid: document.getElementById("loginform").elements[0].value,
   password:document.getElementById("loginform").elements[1].value
@@ -51,42 +57,11 @@ catch (e) {
         console.log("failed");
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//xmlhttp.send();
+}
+   else 
+      {
+        alert("E-mail check failed! Try again.");
+}
 }
 function recruitersignup() {
     window.location.assign("freelancersignup.html")
@@ -108,6 +83,7 @@ function recruitersignup() {
 
     <label for="name">Password *</label>
     <input type="password"  id="password" value="" required />
+    <a href="forgotpassword.html" target="_blank">Forgot your password?</a>
     <input type="submit" value="Login"onclick="loadXMLDoc()">
   </form>
 
@@ -147,61 +123,33 @@ function recruitersignup() {
             path: '/me',
             success: function(data) {
                 console.log(JSON.stringify(data));
-                //alert(data.email);
-                //document.getElementById("userPic").src = 'http://graph.facebook.com/' + data.id + '/picture?type=small';
 
+$.post(url.concat("/thesis/freelancerfacebooksubmission.php"), { 
+  name: data.name.toString(),
+  emailid: data.email.toString(),
+  photo:'http://graph.facebook.com/' + data.id + '/picture?type=small'
+})
 
-
-                
-                if (window.XMLHttpRequest)
-  {// code for IE7+, Firefox, Chrome, Opera, Safari
-  xmlhttp=new XMLHttpRequest();
-  }
-else
-  {// code for IE6, IE5
-  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-xmlhttp.onreadystatechange=function()
-  {
-  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-    {
-    if(xmlhttp.responseText=="user exists")
-    {//document.getElementById("status").innerHTML="Wrong credentials entered. Please try again!";
-  //alert("Username already taken. Try a new one!");
-  window.location.assign('notifications.html');
-
-
+.done(function( data ) {//console.log(data);
+  //console.log(typeof(data));
+try {
+  console.log(data);
+if(data=="user exists")
+{
+console.log("cookie set");
+   window.localStorage.setItem("freelancercookie", data.email.toString());
+   //alert("Login successful");
+   window.location.assign('user_nav.html');
 }
-    else if (xmlhttp.responseText=="user inserted"){
-      alert("User registered!");
-      document.cookie="email=".concat(data.email.toString());
-      window.location.assign('activityarea.html');
-
-     }
-     else {
-      alert("Something bad happened! Please try again!!")
-      window.location.assign('index.html');
-     }
+      //  console.log(notifications.length);
+       
+}
+catch (e) {
+      console.log(e);
+      alert("Something went wrong! We are working hard to fix it!")
+        console.log("failed");
     }
-  }
-xmlhttp.open("POST","http://172.27.30.129/thesis/freelancerfacebooksubmission.php",true);
-xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-//alert();
-
-sts="name=".concat(data.name.toString());
-
-
-sts=sts.concat("&email=").concat(data.email.toString());
-sts=sts.concat("&photo=").concat('http://graph.facebook.com/' + data.id + '/picture?type=small');
-//alert(sts);
-
-//'http://graph.facebook.com/' + data.id + '/picture?type=small';
-xmlhttp.send(sts);
-
-
-
-
-
+});
 
             },
             error: errorHandler});

@@ -170,6 +170,10 @@ img#tick2{
 <script type="text/javascript">
 
 
+
+  window.localStorage.setItem("index", 0);
+
+
 var sampletask;
 
     function createtimer (sec){
@@ -186,20 +190,21 @@ var tempo=timerhelp;
     if(sec==0){
       
 
-     
-      clearInterval(tempo);
+     var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);clearInterval(tempo);
    $.post(url.concat("/thesis/handler.php"), { 
-  time: parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")),
-  taskid:sampletask[0].taskid,
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
   response: "NA",
   emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[0].username
+  username:sampletask[window.localStorage.getItem("index")].username
 })
    
 .done(function( data ) {
   //write code to send localstorage object to server
   //console.log(data);
-      populatevalues();
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
 
 window.location.reload();
 
@@ -207,12 +212,12 @@ window.location.reload();
    
    window.location.reload();
      
-  
+      console.log(window.localStorage.getItem("index"));
      // window.location.reload();
     
-      if(sampletask.length==0){
+      if(window.localStorage.getItem("index")>=sampletask.length){
         alert("Time up");
-        
+        //window.location.assign("index.html");
       }
       
       
@@ -226,10 +231,13 @@ window.location.reload();
 
 function populatevalues( ){
   console.log(sampletask.length);
-    if(sampletask.length>0)
+    if(window.localStorage.getItem("index")<sampletask.length)
     {
 
-  var temp=sampletask[0];
+    //alert(sampletask.length);
+    var i=window.localStorage.getItem("index");
+    //console.log(sampletask[i]);
+  var temp=sampletask[i];
   console.log(temp);
   document.getElementById('title').style.display = "block";
 document.getElementById("title").innerHTML=temp.title;
@@ -298,6 +306,7 @@ createtimer(temp.time+1);
   //document.getElementById('starrating').style.display = "block";
   //startable
  
+reviewbutton
   document.getElementById("reviewform").style.display = "block";
   document.getElementById("reviewtextarea").style.display = "block";
   document.getElementById("reviewbutton").style.display = "block";
@@ -344,13 +353,13 @@ try {
   //console.log(data);
         sampletask=JSON.parse(data);
         //console.log(sampletask.length);
-      
+        console.log(window.localStorage.getItem("index"));
         if(sampletask.length==0){
           document.getElementById("askforrefresh").innerHTML="Nothing in store right now, please come back later!";
 //          alert("Nothing in store right now, please come back later!");
           //document.getElementById('imgrefresh').style.display = "block";
         }
-       else if(0<sampletask.length)
+       else if(window.localStorage.getItem("index")<sampletask.length)
         {
           populatevalues();
         }
@@ -464,53 +473,57 @@ try {
 </div>
 <!--<button id="fivesmall1" width="15%" height="30%"></button>-->
 <script type="text/javascript">
-var starttime=Math.floor(Date.now() / 1000);
+console.log(window.localStorage.getItem("index"));
 function skipbuttonaction(){
    $.post(url.concat("/thesis/handler.php"), { 
   time: 0,
-  taskid:sampletask[0].taskid,
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
   response: "NA",
   emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[0].username
+  username:sampletask[window.localStorage.getItem("index")].username
 })
    
 .done(function( data ) {
   //write code to send localstorage object to server
   //console.log(data);
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
 
-window.location.assign("user_nav.html");
 window.location.reload();
 
 });
 }
 
 function reviewbutton_onsubmit(){
-      if(0>=sampletask.length)
+      if(window.localStorage.getItem('index')>=sampletask.length)
     {
-     
+      console.log("index count exceeded");
       alert("Click on refresh button to get more tasks");
     }
   else{
     //send data to our server
 console.log("review button submit button clicked");
 
-//console.log(parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")));
-//console.log(sampletask[0].taskid);
+//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
+//console.log(sampletask[window.localStorage.getItem("index")].taskid);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
    $.post(url.concat("/thesis/handler.php"), { 
-  time: Math.floor(Date.now() / 1000)-starttime,
-  taskid:sampletask[0].taskid,
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
   response: document.getElementById("reviewtextarea").value,
   emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[0].username
+  username:sampletask[window.localStorage.getItem("index")].username
 })
    
 .done(function( data ) {
   //write code to send localstorage object to server
+  console.log(data);
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
 
-window.location.assign("user_nav.html");
 window.location.reload();
+
 });
 
 
@@ -518,32 +531,32 @@ window.location.reload();
 }
 }
   function star5click(){
-    if(0>=sampletask.length)
+    if(window.localStorage.getItem('index')>=sampletask.length)
     {
-    
+      console.log("index count exceeded");
       alert("Click on refresh button to get more tasks");
     }
   else{
     //send data to our server
 console.log("star5 clicked");
 clearInterval(timerhelp);
-//console.log(parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")));
-//console.log(sampletask[0].taskid);
+//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
+//console.log(sampletask[window.localStorage.getItem("index")].taskid);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
    $.post(url.concat("/thesis/handler.php"), { 
-  time: parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")),
-  taskid:sampletask[0].taskid,
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
   response: "5",
   emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[0].username
+  username:sampletask[window.localStorage.getItem("index")].username
 })
    
 .done(function( data ) {
   //write code to send localstorage object to server
 //  console.log(data);
-
-      populatevalues();
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
 
 window.location.reload();
 
@@ -555,30 +568,32 @@ window.location.reload();
   }
 
   function star4click(){
-    if(0>=sampletask.length)
+    if(window.localStorage.getItem('index')>=sampletask.length)
     {
+      console.log("index count exceeded");
       alert("Click on refresh button to get more tasks");
     }
   else{
     //send data to our server
 console.log("star4 clicked");
 clearInterval(timerhelp);
-//console.log(parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")));
-//console.log(sampletask[0].taskid);
+//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
+//console.log(sampletask[window.localStorage.getItem("index")].taskid);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
    $.post(url.concat("/thesis/handler.php"), { 
-  time: parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")),
-  taskid:sampletask[0].taskid,
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
   response: "4",
   emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[0].username
+  username:sampletask[window.localStorage.getItem("index")].username
 })
    
 .done(function( data ) {
   //write code to send localstorage object to server
 //  console.log(data);
-      populatevalues();
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
 
 window.location.reload();
 
@@ -591,32 +606,32 @@ window.location.reload();
 
 
 function star3click(){
-    if(0>=sampletask.length)
+    if(window.localStorage.getItem('index')>=sampletask.length)
     {
-   
+      console.log("index count exceeded");
       alert("Click on refresh button to get more tasks");
     }
   else{
     //send data to our server
 console.log("star3 clicked");
 clearInterval(timerhelp);
-//console.log(parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")));
-//console.log(sampletask[0].taskid);
+//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
+//console.log(sampletask[window.localStorage.getItem("index")].taskid);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
    $.post(url.concat("/thesis/handler.php"), { 
-  time: parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")),
-  taskid:sampletask[0].taskid,
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
   response: "3",
   emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[0].username
+  username:sampletask[window.localStorage.getItem("index")].username
 })
    
 .done(function( data ) {
   //write code to send localstorage object to server
 //  console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
 
 window.location.reload();
 
@@ -626,32 +641,32 @@ window.location.reload();
 //xml http call to server to dump results
 }
   }function star2click(){
-    if(0>=sampletask.length)
+    if(window.localStorage.getItem('index')>=sampletask.length)
     {
-     
+      console.log("index count exceeded");
       alert("Click on refresh button to get more tasks");
     }
   else{
     //send data to our server
 console.log("star2 clicked");
 clearInterval(timerhelp);
-//console.log(parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")));
-//console.log(sampletask[0].taskid);
+//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
+//console.log(sampletask[window.localStorage.getItem("index")].taskid);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
    $.post(url.concat("/thesis/handler.php"), { 
-  time: parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")),
-  taskid:sampletask[0].taskid,
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
   response: "2",
   emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[0].username
+  username:sampletask[window.localStorage.getItem("index")].username
 })
    
 .done(function( data ) {
   //write code to send localstorage object to server
 //  console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
 
 window.location.reload();
 
@@ -663,32 +678,32 @@ window.location.reload();
   }
 
 function star1click(){
-    if(0>=sampletask.length)
+    if(window.localStorage.getItem('index')>=sampletask.length)
     {
- 
+      console.log("index count exceeded");
       alert("Click on refresh button to get more tasks");
     }
   else{
     //send data to our server
 console.log("star1 clicked");
 clearInterval(timerhelp);
-//console.log(parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")));
-//console.log(sampletask[0].taskid);
+//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
+//console.log(sampletask[window.localStorage.getItem("index")].taskid);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
    $.post(url.concat("/thesis/handler.php"), { 
-  time: parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")),
-  taskid:sampletask[0].taskid,
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
   response: "1",
   emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[0].username
+  username:sampletask[window.localStorage.getItem("index")].username
 })
    
 .done(function( data ) {
   //write code to send localstorage object to server
 //  console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
 
 window.location.reload();
 
@@ -700,32 +715,32 @@ window.location.reload();
   }
 
   function submittick1click(){
-if(0>=sampletask.length)
+if(window.localStorage.getItem('index')>=sampletask.length)
     {
-    
+      console.log("index count exceeded");
       alert("Click on refresh button to get more tasks");
     }
   else{
     //send data to our server
 console.log("tick1 clicked");
 clearInterval(timerhelp);
-//console.log(parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")));
-//console.log(sampletask[0].taskid);
+//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
+//console.log(sampletask[window.localStorage.getItem("index")].taskid);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
    $.post(url.concat("/thesis/handler.php"), { 
-  time: parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")),
-  taskid:sampletask[0].taskid,
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
   response: "1",
   emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[0].username
+  username:sampletask[window.localStorage.getItem("index")].username
 })
    
 .done(function( data ) {
   //write code to send localstorage object to server
 //  console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
 
 window.location.reload();
 
@@ -736,29 +751,29 @@ window.location.reload();
 }
 }
  function submittick2click(){
-if(0>=sampletask.length)
-   {}
+if(window.localStorage.getItem('index')>=sampletask.length)
+    console.log("index count exceeded");
   else{
 console.log("tick2 clicked");
 clearInterval(timerhelp);
-//console.log(parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")));
-//console.log(sampletask[0].taskid);
+//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
+//console.log(sampletask[window.localStorage.getItem("index")].taskid);
 //console.log(1);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
    $.post(url.concat("/thesis/handler.php"), { 
-  time: parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")),
-  taskid:sampletask[0].taskid,
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
   response: "2",
   emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[0].username
+  username:sampletask[window.localStorage.getItem("index")].username
 })
    
 .done(function( data ) {
   //write code to send localstorage object to server
   //console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
 
 window.location.reload();
 
@@ -768,32 +783,32 @@ window.location.reload();
 
 
 function text1click(){
-if(0>=sampletask.length)
+if(window.localStorage.getItem('index')>=sampletask.length)
     {
-     
+      console.log("index count exceeded");
       alert("Click on refresh button to get more tasks");
     }
   else{
     //send data to our server
 console.log("text1 clicked");
 clearInterval(timerhelp);
-//console.log(parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")));
-//console.log(sampletask[0].taskid);
+//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
+//console.log(sampletask[window.localStorage.getItem("index")].taskid);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
    $.post(url.concat("/thesis/handler.php"), { 
-  time: parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")),
-  taskid:sampletask[0].taskid,
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
   response: "1",
   emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[0].username
+  username:sampletask[window.localStorage.getItem("index")].username
 })
    
 .done(function( data ) {
   //write code to send localstorage object to server
 //  console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
 
 window.location.reload();
 
@@ -804,29 +819,29 @@ window.location.reload();
 }
 }
  function text2click(){
-if(0>=sampletask.length)
-    {}
+if(window.localStorage.getItem('index')>=sampletask.length)
+    console.log("index count exceeded");
   else{
 console.log("text2 clicked");
 clearInterval(timerhelp);
-//console.log(parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")));
-//console.log(sampletask[0].taskid);
+//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
+//console.log(sampletask[window.localStorage.getItem("index")].taskid);
 //console.log(1);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
    $.post(url.concat("/thesis/handler.php"), { 
-  time: parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")),
-  taskid:sampletask[0].taskid,
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
   response: "2",
   emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[0].username
+  username:sampletask[window.localStorage.getItem("index")].username
 })
    
 .done(function( data ) {
   //write code to send localstorage object to server
   //console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
 
 window.location.reload();
 
@@ -836,32 +851,32 @@ window.location.reload();
 
 
  function img1onclick(){
-  if(0>=sampletask.length)
-   {}
+  if(window.localStorage.getItem('index')>=sampletask.length)
+    console.log("index count exceeded");
   else{
 
     //send data to our server
 console.log("img1 clicked");
 
 clearInterval(timerhelp);
-//console.log(parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")));
-//console.log(sampletask[0].taskid);
+//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
+//console.log(sampletask[window.localStorage.getItem("index")].taskid);
 //console.log(1);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
    $.post(url.concat("/thesis/handler.php"), { 
-  time: parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")),
-  taskid:sampletask[0].taskid,
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
   response: "1",
   emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[0].username
+  username:sampletask[window.localStorage.getItem("index")].username
 })
    
 .done(function( data ) {
   //write code to send localstorage object to server
   //console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
 window.location.reload();
 
 
@@ -873,29 +888,29 @@ window.location.reload();
  function img2onclick(){
 
     //send data to our server
-    if(0>=sampletask.length)
-    {}
+    if(window.localStorage.getItem('index')>=sampletask.length)
+    console.log("index count exceeded");
   else{
 //console.log("img2 clicked");
 clearInterval(timerhelp);
-//console.log(parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")));
-//console.log(sampletask[0].taskid);
+//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
+//console.log(sampletask[window.localStorage.getItem("index")].taskid);
 //console.log(1);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
    $.post(url.concat("/thesis/handler.php"), { 
-  time: parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")),
-  taskid:sampletask[0].taskid,
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
   response: "2",
   emailid:window.localStorage.getItem("freelancercookie"),
-  username:sampletask[0].username
+  username:sampletask[window.localStorage.getItem("index")].username
 })
    
 .done(function( data ) {
   //write code to send localstorage object to server
   //console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
 window.location.reload();
 
 

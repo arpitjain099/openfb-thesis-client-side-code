@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Include meta tag to ensure proper rendering and touch zooming -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<script type="text/javascript" src="url.js"></script>
+  <!-- Include jQuery Mobile stylesheets -->
+  <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
+  <!-- Include the jQuery library -->
+  <script src="jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="pulltorefresh.js"></script>
+  <!-- Include the jQuery Mobile library -->
+  <script src="jquery.mobile-1.4.5.min.js"></script>
+  
+     <style type="text/css">
+     div#question {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+div#heading {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+
+
+div#summary {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+div#textcontent {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+div#question {
+  
+    text-align: center;
+}
+
+img#img1{
+   width: 100%;
+    height: auto;
+    
+}
+
+
+img#img2{
+   
+    width: 100%;
+    height: auto;
+  
+}
+
+/*
+
+img#img{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+*/
+audio { width: 80%;
+padding-left: 10%;
+padding-right: 10%; }
+audio#mp3{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+div#timer{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+img {
+   width: 100%;
+    height: auto;
+
+}
+table{
+  border-collapse: collapse;
+}
+/*
+img#tick1{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+img#tick2{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+*/
+</style>
+<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+
+
+
+  window.localStorage.setItem("index", 0);
+
+
+var sampletask;
+
+    function createtimer (sec){
+var countdown = document.getElementById("countdown");
+
+// update the tag with id "countdown" every 1 second
+ timerhelp =setInterval(function () {
+var tempo=timerhelp;
+    sec--;
+    window.localStorage.setItem("time",sec);
+    // format countdown string + set tag value
+
+    countdown.innerHTML =  sec + "s";   
+    if(sec==0){
+      
+
+     var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);clearInterval(tempo);
+   $.post(url.concat("/thesis/handler.php"), { 
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
+  response: "NA",
+  emailid:window.localStorage.getItem("freelancercookie"),
+  username:sampletask[window.localStorage.getItem("index")].username
+})
+   
+.done(function( data ) {
+  //write code to send localstorage object to server
+  //console.log(data);
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
+
+window.location.reload();
+
+});
+   
+   window.location.reload();
+     
+      console.log(window.localStorage.getItem("index"));
+     // window.location.reload();
+    
+      if(window.localStorage.getItem("index")>=sampletask.length){
+        alert("Time up");
+        //window.location.assign("index.html");
+      }
+      
+      
+      
+    }
+}, 1000);
+
+}
+
+
+
+function populatevalues( ){
+  console.log(sampletask.length);
+    if(window.localStorage.getItem("index")<sampletask.length)
+    {
+
+    //alert(sampletask.length);
+    var i=window.localStorage.getItem("index");
+    //console.log(sampletask[i]);
+  var temp=sampletask[i];
+  console.log(temp);
+  if(temp.tasksymbol==1){
+  //done
+  document.getElementById('imagelink').style.display = "block";
+  //document.getElementById('imagelink').href = "http://www.google.com";
+  
+document.getElementById('question').style.display = "block";
+document.getElementById("question").innerHTML=temp.question;//.toString();
+document.getElementById("img").style.display = "block";
+document.getElementById("img").src=temp.imgurl;
+document.getElementById('tick1').style.display = "block";
+document.getElementById('tick2').style.display = "block";
+document.getElementById('break').style.display = "block";
+document.getElementById('ticktable').style.display = "block";
+createtimer(temp.time+1);
+
+}
+
+else if (temp.tasksymbol==2){//done
+//alert("fa");
+  
+//.toString();
+
+document.getElementById('question').style.display = "block";
+document.getElementById("question").innerHTML=temp.question;
+document.getElementById('img1').style.display = "block";
+document.getElementById('img2').style.display = "block";
+document.getElementById('img1').src = temp.img1;
+document.getElementById('img2').src = temp.img2;
+document.getElementById('imageoptiontable').style.display = "block";
+document.getElementById("tick2").style.display = "none";
+document.getElementById("tick1").style.display = "none";
+document.getElementById("ticktable").style.display = "none";
+createtimer(temp.time+1);
+}
+//if tasksymbol is 15 then - document.getElementById('welcomeDiv').style.display = "block";
+
+else if (temp.tasksymbol==3){//done
+//alert("fa");
+  
+//.toString();
+
+document.getElementById('question').style.display = "block";
+document.getElementById("question").innerHTML=temp.question;
+document.getElementById('img1').style.display = "block";
+document.getElementById('img2').style.display = "block";
+document.getElementById('img1').src = temp.img1;
+document.getElementById('img2').src = temp.img2;
+document.getElementById('summary').style.display = "block";
+document.getElementById("summary").innerHTML=temp.summary;
+document.getElementById('imageoptiontable').style.display = "block";
+document.getElementById("tick2").style.display = "none";
+document.getElementById("tick1").style.display = "none";
+document.getElementById("ticktable").style.display = "none";
+createtimer(temp.time+1);
+}
+
+//post={"question":question,"taskid":username+'_'+str(count),"username":username,"imgurl":"","textcontent":row[1],"mp3url":"","img1":"","img2":"","heading":"","summary":"","tasksymbol":2,"dateofadding":str(strftime("%d-%m-%Y %H:%M:%S", gmtime()))}
+else if (temp.tasksymbol==4){//done
+  
+  
+document.getElementById('question').style.display = "block";
+document.getElementById("question").innerHTML=temp.question;//.toString();
+document.getElementById('textcontent').style.display = "block";
+document.getElementById("textcontent").innerHTML=temp.textcontent;
+document.getElementById('tick1').style.display = "block";
+document.getElementById('tick2').style.display = "block";
+document.getElementById('break').style.display = "block";
+document.getElementById('ticktable').style.display = "block";
+createtimer(temp.time+1);
+}
+  
+
+
+else if (temp.tasksymbol==5){//done
+//alert("fa");
+  
+//.toString();
+document.getElementById('heading').style.display = "block";
+document.getElementById("heading").innerHTML=temp.heading;
+document.getElementById('summary').style.display = "block";
+document.getElementById("summary").innerHTML=temp.summary;
+document.getElementById('question').style.display = "block";
+document.getElementById("question").innerHTML=temp.question;
+document.getElementById('tick1').style.display = "block";
+document.getElementById('tick2').style.display = "block";
+document.getElementById('break').style.display = "block";
+document.getElementById('ticktable').style.display = "block";
+createtimer(temp.time+1);
+}
+
+
+
+else if (temp.tasksymbol==6){//done
+//alert("fa");
+  
+//.toString();
+document.getElementById('question').style.display = "block";
+document.getElementById("question").innerHTML=temp.question;
+document.getElementById('tick1').style.display = "block";
+document.getElementById('tick2').style.display = "block";
+document.getElementById('break').style.display = "block";
+document.getElementById('ticktable').style.display = "block";
+document.getElementById('mp3').style.display = "block";
+
+var audio = document.getElementById("mp3source");
+audio.src = temp.mp3url;
+
+document.getElementById('mp3').load();
+createtimer(temp.time+1);
+}
+
+
+
+    }
+ 
+}
+
+
+
+$(document).ready(function () {
+
+
+  
+$.post(url.concat("/thesis/phpfiletogeneratejsondata.php"), { 
+  emailid: window.localStorage.getItem("freelancercookie")
+})
+
+.done(function( data ) {//console.log(data);
+  //console.log(typeof(data));
+try {
+
+
+
+
+
+  //console.log(data);
+        sampletask=JSON.parse(data);
+        //console.log(sampletask.length);
+        console.log(window.localStorage.getItem("index"));
+        if(sampletask.length==0){
+          document.getElementById("askforrefresh").innerHTML="Nothing in store right now, please come back later!";
+//        	alert("Nothing in store right now, please come back later!");
+          //document.getElementById('imgrefresh').style.display = "block";
+        }
+       else if(window.localStorage.getItem("index")<sampletask.length)
+        {
+        	populatevalues();
+        }
+        
+
+  //loadXMLDoc();
+//document.getElementById("username").innerHTML="Hello " + document.cookie+"!";//.toString();
+//document.getElementById("mission").innerHTML=json.length;
+    } catch (e) {
+      console.log(e);
+      alert("Something went wrong! We are working hard to fix it!")
+        console.log("failed");
+    }
+});
+});
+
+//console.log(sampletask);
+//sampletask=[{"question":"Is this image profane or not?","taskid":"username+'_'+str(count)","username":"username","imgurl":"","textcontent":"ada","mp3url":"","img1":"","img2":"","heading":"","summary":"xadadta","tasksymbol":5,"dateofadding":"ffa", "time":300}//,
+//{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
+//,
+//{  "username" : "arpitjain099", "dateofadding" : "19-04-2015 07:07:21", "textcontent" : "", "img2" : "", "img1" : "", "mp3url" : "", "imgurl" : "http://cdn-www.i-am-bored.com/media/thumbnails/apple_for-diabetics[1].jpg", "question" : "is this image profane or not?", "summary" : "", "tasksymbol" : 1, "taskid" : "arpitjain099_2", "heading" : "", "time":2000 }
+//];
+
+
+</script>
+</head>
+
+<body>
+
+<div data-role="page" id="pageone">
+<div data-role="navbar" data-position="fixed">
+
+   <ul>
+    <li><button onclick='javascript:window.location.assign("user_nav.html");'  data-icon="home" data-theme="b"></button></li>
+    <li><button onclick='javascript:window.location.assign("notifications.html");' data-icon="star" data-theme="a"></button></li>
+    <li> <button onclick='javascript:window.location.assign("settings.html");' data-icon="gear" data-theme="a"></button></li>
+  </ul>
+  
+  <h1 id="username"></h1>
+ 
+</div>
+
+
+
+<div id="parent_div">
+<div data-role="fieldcontain" id="mission">
+  <center><div id="countdown"></div></center>
+
+
+</div>  
+<!--<center><img id="badgeimage" width="10%" height="10%"></img> </center>-->
+
+<h3><div id="heading" style="display:none;"></div></h3>
+
+<div id="question" style="display:none;"></div> <br>
+
+<div id="summary" style="display:none;"></div>
+<div id="textcontent" style="display:none;"></div> 
+<table width="100%" id="imageoptiontable" style="display:none;">
+<tr>
+<td align="center"><img align="center" id="img1" style="display:none;" onclick="img1onclick()"></img></td>
+<td align="center"><img align="center" id="img2"  style="display:none;" onclick="img2onclick()"></img></td>
+</tr>
+</table>
+<a id="imagelink" ><center><img id="img" width="40%" style="display:none;"></img></center></a>
+<center><div id="askforrefresh"></div></center>
+
+<audio controls id="mp3" style="display:none;">
+  
+  <source id="mp3source" type="audio/mpeg" >
+</audio>
+<br id="break"style="display:none;"> 
+<table style="display:none;" id="ticktable">
+<tr>
+<td align="center">
+<img   align="center" id="tick1" style="width:40%" src="images/greentick.png" style="display:none;" onclick="submittick1click()"></img></td>
+
+<td align="center">
+<img  align="center" id="tick2" style="width:40%" src="images/redtick.png" style="display:none;" onclick="submittick2click()"></img></td>
+</tr></table>
+</div>
+<!--<button id="fivesmall1" width="15%" height="30%"></button>-->
+<script type="text/javascript">
+  
+  function submittick1click(){
+if(window.localStorage.getItem('index')>=sampletask.length)
+    {
+      console.log("index count exceeded");
+      alert("Click on refresh button to get more tasks");
+    }
+  else{
+    //send data to our server
+console.log("tick1 clicked");
+clearInterval(timerhelp);
+//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
+//console.log(sampletask[window.localStorage.getItem("index")].taskid);
+//console.log(window.localStorage.getItem("freelancercookie"));
+
+   $.post(url.concat("/thesis/handler.php"), { 
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
+  response: "1",
+  emailid:window.localStorage.getItem("freelancercookie"),
+  username:sampletask[window.localStorage.getItem("index")].username
+})
+   
+.done(function( data ) {
+  //write code to send localstorage object to server
+//  console.log(data);
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
+
+window.location.reload();
+
+});
+
+
+//xml http call to server to dump results
+}
+}
+ function submittick2click(){
+if(window.localStorage.getItem('index')>=sampletask.length)
+    console.log("index count exceeded");
+  else{
+console.log("tick2 clicked");
+clearInterval(timerhelp);
+//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
+//console.log(sampletask[window.localStorage.getItem("index")].taskid);
+//console.log(1);
+//console.log(window.localStorage.getItem("freelancercookie"));
+
+   $.post(url.concat("/thesis/handler.php"), { 
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
+  response: "2",
+  emailid:window.localStorage.getItem("freelancercookie"),
+  username:sampletask[window.localStorage.getItem("index")].username
+})
+   
+.done(function( data ) {
+  //write code to send localstorage object to server
+  //console.log(data);
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
+
+window.location.reload();
+
+});
+}
+}
+
+
+ function img1onclick(){
+  if(window.localStorage.getItem('index')>=sampletask.length)
+    console.log("index count exceeded");
+  else{
+
+    //send data to our server
+console.log("img1 clicked");
+
+clearInterval(timerhelp);
+//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
+//console.log(sampletask[window.localStorage.getItem("index")].taskid);
+//console.log(1);
+//console.log(window.localStorage.getItem("freelancercookie"));
+
+   $.post(url.concat("/thesis/handler.php"), { 
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
+  response: "1",
+  emailid:window.localStorage.getItem("freelancercookie"),
+  username:sampletask[window.localStorage.getItem("index")].username
+})
+   
+.done(function( data ) {
+  //write code to send localstorage object to server
+  //console.log(data);
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
+window.location.reload();
+
+
+});
+//xml http call to server to dump results
+}
+}
+
+ function img2onclick(){
+
+    //send data to our server
+    if(window.localStorage.getItem('index')>=sampletask.length)
+    console.log("index count exceeded");
+  else{
+//console.log("img2 clicked");
+clearInterval(timerhelp);
+//console.log(parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")));
+//console.log(sampletask[window.localStorage.getItem("index")].taskid);
+//console.log(1);
+//console.log(window.localStorage.getItem("freelancercookie"));
+
+   $.post(url.concat("/thesis/handler.php"), { 
+  time: parseInt(sampletask[window.localStorage.getItem('index')].time)-parseInt(window.localStorage.getItem("time")),
+  taskid:sampletask[window.localStorage.getItem("index")].taskid,
+  response: "2",
+  emailid:window.localStorage.getItem("freelancercookie"),
+  username:sampletask[window.localStorage.getItem("index")].username
+})
+   
+.done(function( data ) {
+  //write code to send localstorage object to server
+  //console.log(data);
+var localvar=parseInt(window.localStorage.getItem("index"));
+      window.localStorage.setItem("index", localvar+1);populatevalues();
+window.location.reload();
+
+
+});
+//xml http call to server to dump results
+}
+}
+
+</script>
+</div>
+
+  
+</div> 
+
+</body>
+</html>
