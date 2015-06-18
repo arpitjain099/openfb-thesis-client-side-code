@@ -172,6 +172,8 @@ try {
         }
        else if(0<sampletask.length)
         {console.log("value of sampletask.length is greater than 0");
+      console.log("value of sampletask.length is");
+      console.log(sampletask.length);
           populatevalues();
         }
         
@@ -249,6 +251,7 @@ function populatevalues( ){
 
   var temp=sampletask[0];
   console.log(temp);
+
   document.getElementById('title').style.display = "block";
 document.getElementById("title").innerHTML=temp.title;
   document.getElementById('question').style.display = "block";
@@ -323,6 +326,7 @@ createtimer(temp.time+1);
   
 
  }
+
 else{
 document.getElementById("ticktable").style.display = "block";
     document.getElementById('tick1').style.display = "block";
@@ -884,6 +888,8 @@ window.location.reload();
 }
 
 </script>
+
+
 </div>
 
   

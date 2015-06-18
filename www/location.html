@@ -24,6 +24,7 @@
   <title>Location based task</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
   <link rel="stylesheet" href="css/gumby.css">
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
 
   <script src="js/libs/modernizr-2.6.2.min.js"></script>
@@ -42,79 +43,59 @@
 table, td {
     border: 0px solid black;
 } 
-
-
 </style>
 <script type="text/javascript" src="jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
-window.localStorage.setItem("gpsdata","");
 
 
-
-
-
-document.addEventListener("deviceready", onDeviceReady, false);
+    // device APIs are available
+    //
+  document.addEventListener("deviceready", onDeviceReady, false);
 
     // device APIs are available
     //
     function onDeviceReady() {
 
-        window.localStorage.setItem("gpsdata","");
+       navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
 
         //navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }
-var temporary;
-    function img2onclick(){
-  console.log("stop image clicked");clearInterval(temporary);
-   $.post(url.concat("/thesis/getlocationdata.php"), { 
-  gpsdata: window.localStorage.getItem("gpsdata"),
-  emailid:window.localStorage.getItem("freelancercookie")
-})
-.done(function( data ) {
-  //write code to send localstorage object to server
-  console.log(data);
-});
-  //write code to send localstorage object to server
-}
-    function img1onclick(){   
-console.log("play image clicked");
-        temporary=setInterval(function(){
-            navigator.geolocation.getCurrentPosition(onSuccess, onError);
-        console.log(window.localStorage.getItem("gpsdata"));
 
-
-        },5000);
         
-      //alert(window.localStorage.getItem("gpsdata"));
-    }
+        //navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    
+ 
+   
     // onSuccess Geolocation
     //
     function onSuccess(position) {
-         //console.log("fa");
-                                //alert(window.localStorage.getItem("gpsdata"));
-                                //console.log(position.coords.latitude)   ;
-        var temp= window.localStorage.getItem("gpsdata");
+        console.log(window.localStorage.getItem("freelancercookie"));
+        console.log(position.coords.latitude);
+        console.log(position.coords.longitude);
+        console.log(url.concat("/thesis/phpfiletogeneratelocationbasedtasks.php"));
+$.post("http://localhost/thesis/phpfiletogeneratelocationbasedtasks.php", { 
+  emailid: window.localStorage.getItem("freelancercookie"),
+  lat:position.coords.latitude,
+  longd:position.coords.longitude
+})
+.done(function( data2 ) {//console.log(data);
+ 
+  console.log(data2);
+data=JSON.parse(data2);
+  //document.getElementById('dvMap').style.display = "block";
+  console.log(data.gps_coordinate);
+  var lat1=data.gps_coordinate.split(",")[0];
+  var long1=data.gps_coordinate.split(",")[1];
+  console.log(lat1);
+  var lat2=position.coords.latitude;
+  var long2=position.coords.longitude;
+drawmap(lat1,long1,lat2,long2);
 
-        var sts="{lt:";
-        sts=sts.concat(position.coords.latitude.toString());
-        sts=sts.concat(",lg:");
-        sts=sts.concat(position.coords.longitude.toString());
-        sts=sts.concat(",t:");
-        sts=sts.concat(position.timestamp.toString());
-        sts=sts.concat("},");
-        sts=temp.concat(sts);
-        //console.log(sts);
-      window.localStorage.setItem("gpsdata",sts);
-      
-    
-        var element = document.getElementById('geolocation');
-        element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
-                            'Longitude: '          + position.coords.longitude             + '<br />' +
-                          
-                            'Accuracy: '           + position.coords.accuracy              + '<br />' +
-                            
-                            'Timestamp: '          + position.timestamp                    + '<br />';
+})
 
+
+;
     }
 
     // onError Callback receives a PositionError object
@@ -128,7 +109,136 @@ console.log("play image clicked");
 
 
 </script>
+ <style type="text/css">
+     div#question {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
 
+div#heading {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+
+
+div#context {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+div#textcontent {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+div#question {
+  
+    text-align: center;
+}
+
+img#img1{
+   width: 100%;
+    height: auto;
+    
+}
+
+
+img#img2{
+   
+    width: 100%;
+    height: auto;
+  
+}
+
+div#text1{
+   width: 100%;
+    height: auto;
+}
+
+div#text2{
+   width: 100%;
+    height: auto;
+}
+
+/*
+
+img#img{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+*/
+audio { width: 80%;
+padding-left: 10%;
+padding-right: 10%; }
+audio#mp3{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+body{
+  background: #000;
+}
+
+label.star {
+vertical-align: center;
+  font-size: 36px;
+  color: #444;
+  transition: all .2s;
+}
+
+input.star:checked ~ label.star:before {
+  content:'\f005';
+  color: #FD4;
+  transition: all .25s;
+}
+
+label.star:before{
+  content:'\f006';
+  font-family: FontAwesome;
+}
+
+div#timer{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+img {
+   width: 100%;
+    height: auto;
+
+}
+table{
+  border-collapse: collapse;
+}
+
+label {display: inline;}
+display:inline;
+
+/*
+img#tick1{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+
+img#tick2{
+   padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+*/
+</style>
 </head>
 
 <style>
@@ -259,17 +369,147 @@ console.log("play image clicked");
   <h1 id="username"></h1>
  
 </div>
-<center>Click on play button to start recording, click on stop when you are done. </center>
+<center><h3><div id="title" style="display:none;"></div></h3></center>
 
-<table width="100%">
+<center><div id="question" style="display:none;"></div> </center>
+<center><div id="dvMap" style="width: 300px; height: 300px" ></center>
+   <center><h5><div id="heading" style="display:none;"></div></h5></center>
+<div id="context" style="display:none;"></div>
+<a id="imagelink" ><center><img id="img" width="40%" style="display:none;"></img></center></a>
+<table width="100%" id="imageoptiontable" style="display:none;">
 <tr>
-<td><center><img id="img1" src="images/playpause.png" width="40%"  onclick="img1onclick()"></center></img></td>
-<td><center><img id="img2" src="images/stop.png" width="20%"  onclick="img2onclick()"></center></img></td>
-</center></tr>
+<td align="center"><img align="center" id="img1" style="display:none;" onclick="img1onclick()"></img></td>
+<td align="center"><img align="center" id="img2"  style="display:none;" onclick="img2onclick()"></img></td>
+</tr>
 </table>
-   <center> <p id="geolocation"></p></center>
+
+<center><div id="askforrefresh"></div></center>
+<button style="display:none;" id="photobutton" onclick="clickandsendphoto()">Upload</button>
+<br id="break"style="display:none;"> 
+<center>
+<table width="100%" border="1" style="width:100%" style="display:none;" id="texttable">
+<tr>
+<td align="center" id="text1" style="display:none;" onclick="text1click()"></td>
+<td align="center" id="text2" style="display:none;" onclick="text2click()"></td>
+</tr>
+</table>
+</center>
+<table width="100%" style="display:none;" id="ticktable">
+<tr>
+<td align="center">
+<img   align="center" id="tick1" style="width:40%" src="images/greentick.png" style="display:none;" onclick="submittick1click()"></img></td>
+
+<td align="center">
+<img  align="center" id="tick2" style="width:40%" src="images/redtick.png" style="display:none;" onclick="submittick2click()"></img></td>
+</tr></table>
+<center>
+<table align="center" style="display:none;" id="startable" width="100%">
+<tr align="center">
+  <td align="center"><label align="center" id="star-5" onclick="star5click()" style="display:none;"class="star star-5" for="star-5" ></label>
+</td>
+  <td align="center"><label align="center" id="star-4" onclick="star4click()" style="display:none;"class="star star-4" for="star-4"></label>
+</td>
+ <td align="center"> <label  align="center"id="star-3" onclick="star3click()" style="display:none;"class="star star-3" for="star-3"></label>
+</td>
+  <td align="center"><label align="center"id="star-2" onclick="star2click()"style="display:none;"class="star star-2" for="star-2"></label>
+</td>
+  <td align="center"><label align="center"id="star-1" onclick="star1click()" style="display:none;"class="star star-1" for="star-1"></label>
+  </td></tr>
+  </table>
+</center>
+
+<center>
+  <form id="reviewform" style="display:none;">
+<textarea style="display:none;" id="reviewtextarea" rows="4" cols="50"></textarea>
+<button id="reviewbutton" style="display:none;" onclick="reviewbutton_onsubmit()">Submit</button>
+<button id="skipbutton" style="display:none;" onclick="skipbuttonaction()">Skip!</button>
+</form>
+
+</center>
   <script src="js/libs/gumby.min.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
+  <script type="text/javascript">
+    function drawmap(lat1,long1,lat2,long2){
+      var markers = [
+            {
+               
+                "lat": lat1,
+                "lng": long1,
+                
+            }
+        ,
+            {
+                
+                "lat": lat2,
+                "lng": long2,
+                
+            }
+
+    ];
+
+        var mapOptions = {
+            center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+            zoom: 10,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+        var infoWindow = new google.maps.InfoWindow();
+        var lat_lng = new Array();
+        var latlngbounds = new google.maps.LatLngBounds();
+        for (i = 0; i < markers.length; i++) {
+            var data = markers[i]
+            var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+            lat_lng.push(myLatlng);
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+               
+            });
+            latlngbounds.extend(marker.position);
+            (function (marker, data) {
+                google.maps.event.addListener(marker, "click", function (e) {
+                    
+                    infoWindow.open(map, marker);
+                });
+            })(marker, data);
+        }
+        map.setCenter(latlngbounds.getCenter());
+        map.fitBounds(latlngbounds);
+ 
+        //***********ROUTING****************//
+ 
+        //Initialize the Path Array
+        var path = new google.maps.MVCArray();
+ 
+        //Initialize the Direction Service
+        var service = new google.maps.DirectionsService();
+ 
+        //Set the Path Stroke Color
+        var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
+ 
+        //Loop and Draw Path Route between the Points on MAP
+        for (var i = 0; i < lat_lng.length; i++) {
+            if ((i + 1) < lat_lng.length) {
+                var src = lat_lng[i];
+                var des = lat_lng[i + 1];
+                path.push(src);
+                poly.setPath(path);
+                service.route({
+                    origin: src,
+                    destination: des,
+                    travelMode: google.maps.DirectionsTravelMode.DRIVING
+                }, function (result, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
+                            path.push(result.routes[0].overview_path[i]);
+                        }
+                    }
+                });
+            }
+        }
+    }
+    
+</script>
 </body>
 </html>
