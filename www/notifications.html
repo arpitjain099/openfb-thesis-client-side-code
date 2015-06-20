@@ -41,7 +41,9 @@ $.post(url.concat("/thesis/getnotifications.php"), {
 try {
   console.log(data);
 notifications=JSON.parse(data);
-if(notifications.length==0){alert("No notifications found");}
+if(notifications.length==0){
+  document.getElementById("askforrefresh").innerHTML="No notifications found!";
+}
 console.log(notifications);
       //  console.log(notifications.length);
         if(notifications.length==0){
@@ -129,7 +131,7 @@ for(i=0;i<notifications.length;i++)
 </div>
 
 
-
+<center><div id="askforrefresh"></div></center>
 <!--<div id="div1"></div>-->
 <center>
 <table id="myTable">

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,7 +7,7 @@
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <script type="text/javascript" src="url.js"></script>
- 
+
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <meta name="author" content="humans.txt">
@@ -28,6 +29,7 @@
 
 
   <script src="js/libs/modernizr-2.6.2.min.js"></script>
+
   <!-- Include meta tag to ensure proper rendering and touch zooming -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
@@ -38,49 +40,49 @@
   <script src="jquery-1.11.1.min.js"></script>
   <!-- Include the jQuery Mobile library -->
   <script src="jquery.mobile-1.4.5.min.js"></script>
-  
+
      <style>
 table, td {
     border: 0px solid black;
-} 
+}
 </style>
 <script type="text/javascript" src="jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
-
-
-    // device APIs are available
-    //
-  document.addEventListener("deviceready", onDeviceReady, false);
+window.localStorage.setItem("freelancercookie","arpitjain099@gmail.com");
 
     // device APIs are available
     //
-    function onDeviceReady() {
+  //document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    //function onDeviceReady() {
 
        navigator.geolocation.getCurrentPosition(onSuccess, onError);
 
 
         //navigator.geolocation.getCurrentPosition(onSuccess, onError);
-    }
+    //}
 
-        
+
         //navigator.geolocation.getCurrentPosition(onSuccess, onError);
-    
- 
-   
+
+
+
     // onSuccess Geolocation
     //
     function onSuccess(position) {
-        console.log(window.localStorage.getItem("freelancercookie"));
+console.log(window.localStorage.getItem("freelancercookie"));
         console.log(position.coords.latitude);
         console.log(position.coords.longitude);
-        console.log(url.concat("/thesis/phpfiletogeneratelocationbasedtasks.php"));
-$.post("http://localhost/thesis/phpfiletogeneratelocationbasedtasks.php", { 
+console.log(url.concat("/thesis/phpfiletogeneratelocationbasedtasks.php"));
+$.post(url.concat("/thesis/phpfiletogeneratelocationbasedtasks.php"), {
   emailid: window.localStorage.getItem("freelancercookie"),
   lat:position.coords.latitude,
   longd:position.coords.longitude
 })
 .done(function( data ) {//console.log(data);
- 
+
   console.log(data);
   var temp=JSON.parse(data);
 sampletask=JSON.parse(JSON.stringify(temp));
@@ -88,17 +90,10 @@ sampletask=JSON.parse(JSON.stringify(temp));
 //alert(sampletask[0].taskid);
 //alert(sampletask.length);
 console.log(sampletask);
-console.log(sampletask[0]);
-  //document.getElementById('dvMap').style.display = "block";
-  console.log(sampletask[0].gps_coordinate);
-  var lat1=sampletask[0].gps_coordinate.split(",")[0];
-  var long1=sampletask[0].gps_coordinate.split(",")[1];
-  console.log(lat1);
-  var lat2=position.coords.latitude;
-  var long2=position.coords.longitude;
-drawmap(lat1,long1,lat2,long2);
+console.log(sampletask[0].length);
 if(sampletask[0].length==0){
-          document.getElementById("askforrefresh").innerHTML="Nothing in store right now, please come back later!";
+  //alert("Nothing in store right now, please come back later!");
+document.getElementById("askforrefresh").innerHTML="Nothing in store right now, <br>please come back later!";
 //          alert("Nothing in store right now, please come back later!");
           //document.getElementById('imgrefresh').style.display = "block";
         }
@@ -108,7 +103,20 @@ if(sampletask[0].length==0){
       console.log(sampletask.length);
           console.log("calling populatevalues");
           populatevalues();
+           console.log(sampletask[0].gps_coordinate);
+  var lat1=sampletask[0].gps_coordinate.split(",")[0];
+  var long1=sampletask[0].gps_coordinate.split(",")[1];
+  console.log(lat1);
+  var lat2=position.coords.latitude;
+  var long2=position.coords.longitude;
+drawmap(lat1,long1,lat2,long2);
         }
+  //document.getElementById('dvMap').style.display = "block";
+
+
+})
+.fail(function( data ) {
+  alert(data);
 });
 
 
@@ -116,7 +124,7 @@ if(sampletask[0].length==0){
 
         function populatevalues( ){
           console.log( "populatevalues called");
-  console.log(sampletask.length);
+ console.log(sampletask.length);
     if(sampletask.length>0)
     {
 
@@ -153,7 +161,7 @@ document.getElementById("text1").innerHTML=temp.text1;
 document.getElementById("text2").style.display = "block";
 document.getElementById("text2").innerHTML=temp.text2;
   }
-  
+
 }
 else if( (temp.img1url=="" && temp.img2url!="") || (temp.img2url=="" && temp.img1url!=""))
 {
@@ -173,7 +181,7 @@ document.getElementById('tick2').style.display = "block";
 document.getElementById("img").style.display = "block";
 document.getElementById("img").src=temp.img1url;
   }
- 
+
 }
 else if (temp.rating=="y"|| temp.rating=="Y"){
   //document.getElementById('starrating').style.display = "block";
@@ -190,18 +198,18 @@ else if (temp.rating=="y"|| temp.rating=="Y"){
  else if (temp.review=="y"|| temp.review=="Y"){
   //document.getElementById('starrating').style.display = "block";
   //startable
- 
+
   document.getElementById("reviewform").style.display = "block";
   document.getElementById("reviewtextarea").style.display = "block";
   document.getElementById("reviewbutton").style.display = "block";
   document.getElementById("skipbutton").style.display = "block";
-  
+
 
  }
  else if (temp.photo_upload_on=="y"|| temp.photo_upload_on=="Y"){
   //document.getElementById('starrating').style.display = "block";
   //startable
- 
+
   document.getElementById("image-upload").style.display = "block";
   document.getElementById("picture_msg").style.display = "block";
   document.getElementById("skipbutton").style.display = "block";
@@ -214,15 +222,15 @@ document.getElementById("ticktable").style.display = "block";
 document.getElementById('tick2').style.display = "block";
 }
 
-  
 
 
- 
+
+
 
 
 
     }
- 
+
 }
     }
 
@@ -237,7 +245,7 @@ document.getElementById('tick2').style.display = "block";
         {alert("POSITION_UNAVAILABLE Please allow location tracking from settings");
         alert('code: '    + error.code    + '\n' +
               'message: ' + error.message + '\n');}
-    
+
     else if(error.code=='PositionError.PERMISSION_DENIED')
         {alert("PERMISSION_DENIED Please allow location tracking from settings");
         alert('code: '    + error.code    + '\n' +
@@ -279,22 +287,22 @@ div#textcontent {
 
 
 div#question {
-  
+
     text-align: center;
 }
 
 img#img1{
    width: 100%;
     height: auto;
-    
+
 }
 
 
 img#img2{
-   
+
     width: 100%;
     height: auto;
-  
+
 }
 
 div#text1{
@@ -496,14 +504,15 @@ img#tick2{
 <div data-role="navbar" data-position="fixed">
 
   <ul>
-    <li><button onclick='javascript:window.location.assign("user_nav.html");'  data-icon="home" data-theme="a"></button></li>
+    <li><button onclick='javascript:window.location.assign("user_nav.html");' data-icon="home" data-theme="a"></button></li>
     <li><button onclick='javascript:window.location.assign("notifications.html");' data-icon="star" data-theme="a"></button></li>
     <li> <button onclick='javascript:window.location.assign("settings.html");' data-icon="gear" data-theme="b"></button></li>
   </ul>
-  
+
   <h1 id="username"></h1>
- 
+
 </div>
+<center><div id="askforrefresh"></div></center>
 <center><h3><div id="title" style="display:none;"></div></h3></center>
 
 <center><div id="question" style="display:none;"></div> </center>
@@ -514,14 +523,15 @@ img#tick2{
 <table width="100%" id="imageoptiontable" style="display:none;">
 <tr>
 <td align="center"><img align="center" id="img1" style="display:none;" onclick="img1onclick()"></img></td>
-<td align="center"><img align="center" id="img2"  style="display:none;" onclick="img2onclick()"></img></td>
+<td align="center"><img align="center" id="img2" style="display:none;" onclick="img2onclick()"></img></td>
 </tr>
 </table>
 
-<center><div id="askforrefresh"></div></center>
+
+
 <button id="image-upload" onClick="uploadImage()" style="display:none;"> Upload!</button>
                 <div id="picture_msg" style="display:none;"><center>Tap on Image to upload photo</center></div>
-<br id="break"style="display:none;"> 
+<br id="break"style="display:none;">
 <center>
 <table width="100%" border="1" style="width:100%" style="display:none;" id="texttable">
 <tr>
@@ -539,18 +549,19 @@ img#tick2{
 <img  align="center" id="tick2" style="width:40%" src="images/redtick.png" style="display:none;" onclick="submittick2click()"></img></td>
 </tr></table>
 <center>
-<table align="center" style="display:none;" id="startable" width="100%">
+<table align="center"  id="startable" width="100%" style="display:none;">
 <tr align="center">
-  <td align="center"><label align="center" id="star-1" onclick="star1click()" style="display:none;"class="star star-1" for="star-1" ></label>
-</td>
-  <td align="center"><label align="center" id="star-2" onclick="star2click()" style="display:none;"class="star star-2" for="star-2"></label>
-</td>
- <td align="center"> <label  align="center"id="star-3" onclick="star3click()" style="display:none;"class="star star-3" for="star-3"></label>
-</td>
-  <td align="center"><label align="center"id="star-4" onclick="star4click()"style="display:none;"class="star star-4" for="star-4"></label>
-</td>
-  <td align="center"><label align="center"id="star-5" onclick="star5click()" style="display:none;"class="star star-5" for="star-5"></label>
-  </td></tr>
+<td align="center">
+<img  align="center" id="star-1" style="width:20%" src="images/star.jpg" style="display:none;"onclick="star1click()"></img></td>
+<td align="center">
+<img  align="center" id="star-2" style="width:20%" src="images/star.jpg" style="display:none;"onclick="star2click()"></img></td>
+<td align="center">
+<img  align="center" id="star-3" style="width:20%" src="images/star.jpg" style="display:none;"onclick="star3click()"></img></td>
+<td align="center">
+<img  align="center" id="star-4" style="width:20%" src="images/star.jpg" style="display:none;"onclick="star4click()"></img></td>
+<td align="center">
+<img  align="center" id="star-5" style="width:20%" src="images/star.jpg" style="display:none;"onclick="star5click()"></img></td>
+</tr>
   </table>
 </center>
 
@@ -569,17 +580,17 @@ img#tick2{
     function drawmap(lat1,long1,lat2,long2){
       var markers = [
             {
-               
+
                 "lat": lat1,
                 "lng": long1,
-                
+
             }
         ,
             {
-                
+
                 "lat": lat2,
                 "lng": long2,
-                
+
             }
 
     ];
@@ -600,30 +611,30 @@ img#tick2{
             var marker = new google.maps.Marker({
                 position: myLatlng,
                 map: map,
-               
+
             });
             latlngbounds.extend(marker.position);
             (function (marker, data) {
                 google.maps.event.addListener(marker, "click", function (e) {
-                    
+
                     infoWindow.open(map, marker);
                 });
             })(marker, data);
         }
         map.setCenter(latlngbounds.getCenter());
         map.fitBounds(latlngbounds);
- 
+
         //***********ROUTING****************//
- 
+
         //Initialize the Path Array
         var path = new google.maps.MVCArray();
- 
+
         //Initialize the Direction Service
         var service = new google.maps.DirectionsService();
- 
+
         //Set the Path Stroke Color
         var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
- 
+
         //Loop and Draw Path Route between the Points on MAP
         for (var i = 0; i < lat_lng.length; i++) {
             if ((i + 1) < lat_lng.length) {
@@ -638,23 +649,23 @@ img#tick2{
                 }, function (result, status) {
                     if (status == google.maps.DirectionsStatus.OK) {
                         for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
-                            path.push(result.routes[0].overview_path[i]);
+path.push(result.routes[0].overview_path[i]);
                         }
                     }
                 });
             }
         }
     }
-    
+
 function skipbuttonaction(){
-   $.post(url.concat("/thesis/handler.php"), { 
+   $.post(url.concat("/thesis/handler.php"), {
   time: 0,
   taskid:sampletask[0].taskid,
   response: "NA",
   emailid:window.localStorage.getItem("freelancercookie"),
   username:sampletask[0].username
 })
-   
+
 .done(function( data ) {
   //write code to send localstorage object to server
   //console.log(data);
@@ -665,12 +676,7 @@ window.location.reload();
 }
 
 function reviewbutton_onsubmit(){
-      if(0>=sampletask.length)
-    {
-     
-      alert("Click on refresh button to get more tasks");
-    }
-  else{
+
     //send data to our server
 console.log("review button submit button clicked");
 
@@ -678,7 +684,7 @@ console.log("review button submit button clicked");
 //console.log(sampletask[0].taskid);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
-   $.post(url.concat("/thesis/handler.php"), { 
+   $.post(url.concat("/thesis/handler.php"), {
   time: "NA",
 
   taskid:sampletask[0].taskid,
@@ -686,24 +692,23 @@ console.log("review button submit button clicked");
   emailid:window.localStorage.getItem("freelancercookie"),
   username:sampletask[0].username
 })
-   
+
 .done(function( data ) {
   //write code to send localstorage object to server
 
 window.location.reload();
-});
+})
+.fail(function( data ) {
+  alert("failed");
+}
+  );
 
 
 //xml http call to server to dump results
 }
-}
+
   function star5click(){
-    if(0>=sampletask.length)
-    {
-    
-      alert("Click on refresh button to get more tasks");
-    }
-  else{
+
     //send data to our server
 console.log("star5 clicked");
 
@@ -711,34 +716,34 @@ console.log("star5 clicked");
 //console.log(sampletask[0].taskid);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
-   $.post(url.concat("/thesis/handler.php"), { 
+   $.post(url.concat("/thesis/handler.php"), {
   time: "NA",
   taskid:sampletask[0].taskid,
   response: "5",
   emailid:window.localStorage.getItem("freelancercookie"),
   username:sampletask[0].username
 })
-   
+
 .done(function( data ) {
   //write code to send localstorage object to server
 //  console.log(data);
 
- 
+
 
 window.location.reload();
-});
+})
+.fail(function( data ) {
+  alert("failed");
+}
+  );
 
 
 //xml http call to server to dump results
 }
-  }
+
 
   function star4click(){
-    if(0>=sampletask.length)
-    {
-      alert("Click on refresh button to get more tasks");
-    }
-  else{
+
     //send data to our server
 console.log("star4 clicked");
 console.log(sampletask[0].username);
@@ -748,36 +753,35 @@ console.log(window.localStorage.getItem("freelancercookie"));
 //console.log(sampletask[0].taskid);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
-   $.post(url.concat("/thesis/handler.php"), { 
+   $.post(url.concat("/thesis/handler.php"), {
   time: "NA",
   taskid:sampletask[0].taskid,
   response: "4",
   emailid:window.localStorage.getItem("freelancercookie"),
   username:sampletask[0].username
 })
-   
+
 .done(function( data ) {
   //write code to send localstorage object to server
 //  console.log(data);
-      populatevalues();
+
 
 window.location.reload();
 
-});
+})
+.fail(function( data ) {
+  alert("failed");
+}
+  );
 
 
 //xml http call to server to dump results
 }
-  }
+
 
 
 function star3click(){
-    if(0>=sampletask.length)
-    {
-   
-      alert("Click on refresh button to get more tasks");
-    }
-  else{
+
     //send data to our server
 console.log("star3 clicked");
 
@@ -785,34 +789,32 @@ console.log("star3 clicked");
 //console.log(sampletask[0].taskid);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
-   $.post(url.concat("/thesis/handler.php"), { 
+   $.post(url.concat("/thesis/handler.php"), {
   time: "NA",
   taskid:sampletask[0].taskid,
   response: "3",
   emailid:window.localStorage.getItem("freelancercookie"),
   username:sampletask[0].username
 })
-   
+
 .done(function( data ) {
   //write code to send localstorage object to server
 //  console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
 
 window.location.reload();
 
-});
+})
+.fail(function( data ) {
+  alert("failed");
+}
+  );
 
 
 //xml http call to server to dump results
 }
-  }function star2click(){
-    if(0>=sampletask.length)
-    {
-     
-      alert("Click on refresh button to get more tasks");
-    }
-  else{
+
+  function star2click(){
+
     //send data to our server
 console.log("star2 clicked");
 
@@ -820,36 +822,33 @@ console.log("star2 clicked");
 //console.log(sampletask[0].taskid);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
-   $.post(url.concat("/thesis/handler.php"), { 
+   $.post(url.concat("/thesis/handler.php"), {
   time: "NA",
   taskid:sampletask[0].taskid,
   response: "2",
   emailid:window.localStorage.getItem("freelancercookie"),
   username:sampletask[0].username
 })
-   
+
 .done(function( data ) {
   //write code to send localstorage object to server
 //  console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
 
 window.location.reload();
 
-});
+})
+.fail(function( data ) {
+  alert("failed");
+}
+  );
 
 
 //xml http call to server to dump results
 }
-  }
+
 
 function star1click(){
-    if(0>=sampletask.length)
-    {
- 
-      alert("Click on refresh button to get more tasks");
-    }
-  else{
+
     //send data to our server
 console.log("star1 clicked");
 
@@ -857,36 +856,35 @@ console.log("star1 clicked");
 //console.log(sampletask[0].taskid);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
-   $.post(url.concat("/thesis/handler.php"), { 
+   $.post(url.concat("/thesis/handler.php"), {
   time: "NA",
   taskid:sampletask[0].taskid,
   response: "1",
   emailid:window.localStorage.getItem("freelancercookie"),
   username:sampletask[0].username
 })
-   
+
 .done(function( data ) {
   //write code to send localstorage object to server
 //  console.log(data);
 var localvar=parseInt(0);
-      populatevalues();
+
 
 window.location.reload();
 
-});
+})
+.fail(function( data ) {
+  alert("failed");
+}
+  );
 
 
 //xml http call to server to dump results
 }
-  }
+
 
   function submittick1click(){
-if(0>=sampletask.length)
-    {
-    
-      alert("Click on refresh button to get more tasks");
-    }
-  else{
+
     //send data to our server
 console.log("tick1 clicked");
 
@@ -894,32 +892,32 @@ console.log("tick1 clicked");
 //console.log(sampletask[0].taskid);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
-   $.post(url.concat("/thesis/handler.php"), { 
+   $.post(url.concat("/thesis/handler.php"), {
   time: "NA",
   taskid:sampletask[0].taskid,
   response: "1",
   emailid:window.localStorage.getItem("freelancercookie"),
   username:sampletask[0].username
 })
-   
+
 .done(function( data ) {
   //write code to send localstorage object to server
 //  console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
 
 window.location.reload();
 
-});
+})
+.fail(function( data ) {
+  alert("failed");
+}
+  );
 
 
 //xml http call to server to dump results
 }
-}
+
  function submittick2click(){
-if(0>=sampletask.length)
-   {}
-  else{
+
 console.log("tick2 clicked");
 
 //console.log(parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")));
@@ -927,34 +925,27 @@ console.log("tick2 clicked");
 //console.log(1);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
-   $.post(url.concat("/thesis/handler.php"), { 
+   $.post(url.concat("/thesis/handler.php"), {
   time: "NA",
   taskid:sampletask[0].taskid,
   response: "2",
   emailid:window.localStorage.getItem("freelancercookie"),
   username:sampletask[0].username
 })
-   
+
 .done(function( data ) {
   //write code to send localstorage object to server
   //console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
 
 window.location.reload();
 
 });
-}
+
 }
 
 
 function text1click(){
-if(0>=sampletask.length)
-    {
-     
-      alert("Click on refresh button to get more tasks");
-    }
-  else{
+
     //send data to our server
 console.log("text1 clicked");
 
@@ -962,19 +953,17 @@ console.log("text1 clicked");
 //console.log(sampletask[0].taskid);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
-   $.post(url.concat("/thesis/handler.php"), { 
+   $.post(url.concat("/thesis/handler.php"), {
   time: "NA",
   taskid:sampletask[0].taskid,
   response: "1",
   emailid:window.localStorage.getItem("freelancercookie"),
   username:sampletask[0].username
 })
-   
+
 .done(function( data ) {
   //write code to send localstorage object to server
 //  console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
 
 window.location.reload();
 
@@ -983,11 +972,9 @@ window.location.reload();
 
 //xml http call to server to dump results
 }
-}
+
  function text2click(){
-if(0>=sampletask.length)
-    {}
-  else{
+
 console.log("text2 clicked");
 
 //console.log(parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")));
@@ -995,31 +982,27 @@ console.log("text2 clicked");
 //console.log(1);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
-   $.post(url.concat("/thesis/handler.php"), { 
+   $.post(url.concat("/thesis/handler.php"), {
   time: "NA",
   taskid:sampletask[0].taskid,
   response: "2",
   emailid:window.localStorage.getItem("freelancercookie"),
   username:sampletask[0].username
 })
-   
+
 .done(function( data ) {
   //write code to send localstorage object to server
   //console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
 
 window.location.reload();
 
 });
-}
+
 }
 
 
  function img1onclick(){
-  if(0>=sampletask.length)
-   {}
-  else{
+
 
     //send data to our server
 console.log("img1 clicked");
@@ -1030,33 +1013,29 @@ console.log("img1 clicked");
 //console.log(1);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
-   $.post(url.concat("/thesis/handler.php"), { 
+   $.post(url.concat("/thesis/handler.php"), {
   time: "NA",
   taskid:sampletask[0].taskid,
   response: "1",
   emailid:window.localStorage.getItem("freelancercookie"),
   username:sampletask[0].username
 })
-   
+
 .done(function( data ) {
   //write code to send localstorage object to server
   //console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
 window.location.reload();
 
 
 });
 //xml http call to server to dump results
 }
-}
+
 
  function img2onclick(){
 
     //send data to our server
-    if(0>=sampletask.length)
-    {}
-  else{
+
 //console.log("img2 clicked");
 
 //console.log(parseInt(sampletask[0].time)-parseInt(window.localStorage.getItem("time")));
@@ -1064,31 +1043,29 @@ window.location.reload();
 //console.log(1);
 //console.log(window.localStorage.getItem("freelancercookie"));
 
-   $.post(url.concat("/thesis/handler.php"), { 
+   $.post(url.concat("/thesis/handler.php"), {
   time: "NA",
   taskid:sampletask[0].taskid,
   response: "2",
   emailid:window.localStorage.getItem("freelancercookie"),
   username:sampletask[0].username
 })
-   
+
 .done(function( data ) {
   //write code to send localstorage object to server
   //console.log(data);
-var localvar=parseInt(0);
-      populatevalues();
 window.location.reload();
 
 
 });
 //xml http call to server to dump results
-}
+
 }
 
 </script>
         <script type="text/javascript">
-            
-         
+
+
             /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -1157,15 +1134,15 @@ function uploadImage() {
                     // Specify transfer options
                     var options = new FileUploadOptions();
                     options.fileKey="file";
-                    options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
                     options.mimeType="image/jpeg";
                     options.chunkedMode = false;
-                                
+
                     // Transfer picture to server
                     var ft = new FileTransfer();
                     ft.upload(imageURI, server, function(r) {
-                        document.getElementById('picture_msg').innerHTML = "Upload successful: "+r.bytesSent+" bytes uploaded.";
-                        $.post("http://172.27.20.239/thesis/acceptrequest.php", {
+document.getElementById('picture_msg').innerHTML = "Upload successful: "+r.bytesSent+" bytes uploaded.";
+$.post("http://172.27.20.239/thesis/acceptrequest.php", {
   emailid: window.localStorage.getItem("emailid"),
   uri:uri,
   taskid:window.localStorage.getItem("taskid"),
@@ -1178,13 +1155,13 @@ function uploadImage() {
 .fail(function(){
     alert("failed");
 }
-    ); 
+    );
                         img.src = uri;
                         img.width = 100;
                         img.height = 100;
                     },
                     function(error) {
-                        document.getElementById('picture_msg').innerHTML = "Upload failed: Code = "+error.code;
+document.getElementById('picture_msg').innerHTML = "Upload failed: Code = "+error.code;
                     }, options);
                 }
                 else {
