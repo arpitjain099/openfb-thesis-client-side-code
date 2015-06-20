@@ -121,11 +121,16 @@ console.log("play image clicked");
     //
     function onError(error) {
       if(error.code=='PositionError.POSITION_UNAVAILABLE')
-        alert("Please allow location tracking from settings");
+        {alert("Please allow location tracking from settings");
+        alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');}
+    
+    else if(error.code=='PositionError.PERMISSION_DENIED')
+        {alert("Please allow location tracking from settings");
         alert('code: '    + error.code    + '\n' +
               'message: ' + error.message + '\n');
     }
-
+  }
 
 </script>
 

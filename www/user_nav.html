@@ -129,6 +129,45 @@ table{
 label {display: inline;}
 display:inline;
 
+
+
+
+.event {
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    color:#FFFFFF;
+    font-size:12px;
+    margin:0px 30px;
+    padding:2px 0px;
+}
+
+.event.listening {
+    background-color:#333333;
+    display:block;
+}
+
+.event.received {
+    background-color:#4B946A;
+    display:none;
+}
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
+
 /*
 img#tick1{
    padding-left: 5%;
@@ -326,7 +365,16 @@ createtimer(temp.time+1);
   
 
  }
+ else if (temp.photo_upload_on=="y"|| temp.photo_upload_on=="Y"){
+  //document.getElementById('starrating').style.display = "block";
+  //startable
+ 
+  document.getElementById("image-upload").style.display = "block";
+  document.getElementById("picture_msg").style.display = "block";
+  document.getElementById("skipbutton").style.display = "block";
+  console.log("photoupload task");
 
+ }
 else{
 document.getElementById("ticktable").style.display = "block";
     document.getElementById('tick1').style.display = "block";
@@ -403,7 +451,8 @@ createtimer(temp.time+1);
 </table>
 
 <center><div id="askforrefresh"></div></center>
-<button style="display:none;" id="photobutton" onclick="clickandsendphoto()">Upload</button>
+<button id="image-upload" onClick="uploadImage()" style="display:none;"> Upload!</button>
+                <div id="picture_msg" style="display:none;"><center>Tap on Image to upload photo</center></div>
 <br id="break"style="display:none;"> 
 <center>
 <table width="100%" border="1" style="width:100%" style="display:none;" id="texttable">
@@ -424,15 +473,15 @@ createtimer(temp.time+1);
 <center>
 <table align="center" style="display:none;" id="startable" width="100%">
 <tr align="center">
-  <td align="center"><label align="center" id="star-5" onclick="star5click()" style="display:none;"class="star star-5" for="star-5" ></label>
+  <td align="center"><label align="center" id="star-1" onclick="star1click()" style="display:none;"class="star star-1" for="star-1" ></label>
 </td>
-  <td align="center"><label align="center" id="star-4" onclick="star4click()" style="display:none;"class="star star-4" for="star-4"></label>
+  <td align="center"><label align="center" id="star-2" onclick="star2click()" style="display:none;"class="star star-2" for="star-2"></label>
 </td>
  <td align="center"> <label  align="center"id="star-3" onclick="star3click()" style="display:none;"class="star star-3" for="star-3"></label>
 </td>
-  <td align="center"><label align="center"id="star-2" onclick="star2click()"style="display:none;"class="star star-2" for="star-2"></label>
+  <td align="center"><label align="center"id="star-4" onclick="star4click()"style="display:none;"class="star star-4" for="star-4"></label>
 </td>
-  <td align="center"><label align="center"id="star-1" onclick="star1click()" style="display:none;"class="star star-1" for="star-1"></label>
+  <td align="center"><label align="center"id="star-5" onclick="star5click()" style="display:none;"class="star star-5" for="star-5"></label>
   </td></tr>
   </table>
 </center>
@@ -441,9 +490,9 @@ createtimer(temp.time+1);
   <form id="reviewform" style="display:none;">
 <textarea style="display:none;" id="reviewtextarea" rows="4" cols="50"></textarea>
 <button id="reviewbutton" style="display:none;" onclick="reviewbutton_onsubmit()">Submit</button>
-<button id="skipbutton" style="display:none;" onclick="skipbuttonaction()">Skip!</button>
-</form>
 
+</form>
+<button id="skipbutton" style="display:none;" onclick="skipbuttonaction()">Skip!</button>
 </center>
 </div>
 </div>
@@ -888,7 +937,128 @@ window.location.reload();
 }
 
 </script>
+        <script type="text/javascript">
+            
+         
+            /*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+var app = {
+    // Application Constructor
+    initialize: function() {
+        this.bindEvents();
+    },
+    // Bind Event Listeners
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    // deviceready Event Handler
+    //
+    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+    // function, we must explicity call 'app.receivedEvent(...);'
+    onDeviceReady: function() {
+        app.receivedEvent('deviceready');
+    },
+    // Update DOM on a Received Event
+    receivedEvent: function(id) {
+       /* var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        var receivedElement = parentElement.querySelector('.received');
 
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');*/
+
+        console.log('Received Event: ' + id);
+    }
+};
+app.initialize();
+function uploadImage() {
+    document.getElementById('picture_msg').innerHTML = "";
+    // Get URI of picture to upload
+    navigator.camera.getPicture(
+        function(uri) {
+            try {
+                var imageURI = uri;
+                if (!imageURI) {
+                    document.getElementById('picture_msg').innerHTML = "Tap on picture to select image from gallery.";
+                    return;
+                }
+                // Verify server has been entered
+                server = "http://172.27.20.239/phonegapuploads/pushfiles.php";
+                console.log("Server "+server);
+                if (server) {
+                    // Specify transfer options
+                    var options = new FileUploadOptions();
+                    options.fileKey="file";
+                    options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+                    options.mimeType="image/jpeg";
+                    options.chunkedMode = false;
+                                
+                    // Transfer picture to server
+                    var ft = new FileTransfer();
+                    ft.upload(imageURI, server, function(r) {
+                        document.getElementById('picture_msg').innerHTML = "Upload successful: "+r.bytesSent+" bytes uploaded.";
+                        $.post("http://172.27.20.239/thesis/acceptrequest.php", {
+  emailid: window.localStorage.getItem("emailid"),
+  uri:uri,
+  taskid:window.localStorage.getItem("taskid"),
+  username:sampletask[0].username
+})
+.done(function( data ) {
+    console.log(data);
+  //console.log(typeof(data));
+ })
+.fail(function(){
+    alert("failed");
+}
+    ); 
+                        img.src = uri;
+                        img.width = 100;
+                        img.height = 100;
+                    },
+                    function(error) {
+                        document.getElementById('picture_msg').innerHTML = "Upload failed: Code = "+error.code;
+                    }, options);
+                }
+                else {
+                    document.getElementById('picture_msg').innerHTML = "Server Not Found";
+                }
+            }
+            catch(exce) {
+                alert(exce);
+            }
+        },
+        function(e) {
+            console.log("Error getting picture: " + e);
+            document.getElementById('picture_msg').innerHTML = "No Image Found";
+        },
+        {
+            quality: 50,
+            destinationType: navigator.camera.DestinationType.FILE_URI,
+            sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+        }
+    );
+}
+
+        </script>
 
 </div>
 
