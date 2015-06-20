@@ -343,9 +343,11 @@ document.getElementById("img").src=temp.img1url;
   }
   createtimer(temp.time+1);
 }
-else if (temp.rating=="y"|| temp.rating=="Y"){
+var flag=0;
+if (temp.rating=="y"|| temp.rating=="Y"){
   //document.getElementById('starrating').style.display = "block";
   //startable
+  flag=1;
   document.getElementById("startable").style.display = "block";
   document.getElementById("star-5").style.display = "block";
  document.getElementById("star-4").style.display = "block";
@@ -354,28 +356,27 @@ else if (temp.rating=="y"|| temp.rating=="Y"){
     document.getElementById("star-1").style.display = "block";
 createtimer(temp.time+1);
  }
- else if (temp.review=="y"|| temp.review=="Y"){
+if (temp.review=="y"|| temp.review=="Y"){
   //document.getElementById('starrating').style.display = "block";
   //startable
- 
-  document.getElementById("reviewform").style.display = "block";
+ flag=1;
   document.getElementById("reviewtextarea").style.display = "block";
   document.getElementById("reviewbutton").style.display = "block";
   document.getElementById("skipbutton").style.display = "block";
   
 
  }
- else if (temp.photo_upload_on=="y"|| temp.photo_upload_on=="Y"){
+if (temp.photo_upload_on=="y"|| temp.photo_upload_on=="Y"){
   //document.getElementById('starrating').style.display = "block";
   //startable
- 
+ flag=1;
   document.getElementById("image-upload").style.display = "block";
   document.getElementById("picture_msg").style.display = "block";
   document.getElementById("skipbutton").style.display = "block";
   console.log("photoupload task");
 
  }
-else{
+if(flag==0){
 document.getElementById("ticktable").style.display = "block";
     document.getElementById('tick1').style.display = "block";
 document.getElementById('tick2').style.display = "block";
@@ -487,11 +488,10 @@ createtimer(temp.time+1);
 </center>
 
 <center>
-  <form id="reviewform" style="display:none;">
+ 
 <textarea style="display:none;" id="reviewtextarea" rows="4" cols="50"></textarea>
 <button id="reviewbutton" style="display:none;" onclick="reviewbutton_onsubmit()">Submit</button>
 
-</form>
 <button id="skipbutton" style="display:none;" onclick="skipbuttonaction()">Skip!</button>
 </center>
 </div>
