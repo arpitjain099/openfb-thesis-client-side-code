@@ -299,13 +299,14 @@ document.getElementById("question").innerHTML=temp.question;
 document.getElementById("heading").innerHTML=temp.heading;
  document.getElementById('context').style.display = "block";
 document.getElementById("context").innerHTML=temp.context;
+var flag=0;
 if(temp.photobutton=='Y' || temp.photobutton=='y'){
   document.getElementById('photobutton').style.display = "block";
 }
 
 //document.getElementById("photobutton").innerHTML=temp.photo_upload_on;//.toString();
 if( (temp.img1url!="" &&temp.img2url!="" )||(temp.text1!="" &&temp.text1!="" ))
-{
+{flag=1;
   if( temp.img1url!="" &&temp.img2url!="" ){
     document.getElementById("imageoptiontable").style.display = "block";
     document.getElementById("img1").style.display = "block";
@@ -343,7 +344,28 @@ document.getElementById("img").src=temp.img1url;
   }
   createtimer(temp.time+1);
 }
-var flag=0;
+
+else if( (temp.text1=="" && temp.text2!="") || (temp.text2=="" && temp.text1!=""))
+{
+
+  if (temp.text1=="" && temp.text2!="")
+  {
+    document.getElementById("ticktable").style.display = "block";
+    document.getElementById('tick1').style.display = "block";
+document.getElementById('tick2').style.display = "block";
+    document.getElementById("context").style.display = "block";
+
+  }
+  else {
+    document.getElementById("ticktable").style.display = "block";
+    document.getElementById('tick1').style.display = "block";
+document.getElementById('tick2').style.display = "block";
+document.getElementById("context").style.display = "block";
+
+  }
+  createtimer(temp.time+1);
+}
+
 if (temp.rating=="y"|| temp.rating=="Y"){
   //document.getElementById('starrating').style.display = "block";
   //startable
@@ -472,19 +494,16 @@ createtimer(temp.time+1);
 <img  align="center" id="tick2" style="width:40%" src="images/redtick.png" style="display:none;" onclick="submittick2click()"></img></td>
 </tr></table>
 <center>
-<table align="center" style="display:none;" id="startable" width="100%">
-<tr align="center">
-  <td align="center"><label align="center" id="star-1" onclick="star1click()" style="display:none;"class="star star-1" for="star-1" ></label>
-</td>
-  <td align="center"><label align="center" id="star-2" onclick="star2click()" style="display:none;"class="star star-2" for="star-2"></label>
-</td>
- <td align="center"> <label  align="center"id="star-3" onclick="star3click()" style="display:none;"class="star star-3" for="star-3"></label>
-</td>
-  <td align="center"><label align="center"id="star-4" onclick="star4click()"style="display:none;"class="star star-4" for="star-4"></label>
-</td>
-  <td align="center"><label align="center"id="star-5" onclick="star5click()" style="display:none;"class="star star-5" for="star-5"></label>
-  </td></tr>
-  </table>
+<table align="center" width="100%" id="startable" style="display:none;">
+<tr>
+<td align="center"><img src="images/star.jpg"align="center" id="star-1" style="display:none;" onclick="star1click()"></img></td>
+<td align="center"><img src="images/star.jpg"align="center" id="star-2" style="display:none;" onclick="star2click()"></img></td>
+<td align="center"><img src="images/star.jpg"align="center" id="star-3" style="display:none;" onclick="star3click()"></img></td>
+<td align="center"><img src="images/star.jpg"align="center" id="star-4" style="display:none;" onclick="star4click()"></img></td>
+<td align="center"><img src="images/star.jpg"align="center" id="star-5" style="display:none;" onclick="star5click()"></img></td>
+</tr>
+</table>
+
 </center>
 
 <center>

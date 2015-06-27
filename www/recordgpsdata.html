@@ -59,13 +59,16 @@ document.addEventListener("deviceready", onDeviceReady, false);
     //
     function onDeviceReady() {
 
-        window.localStorage.setItem("gpsdata","");
+        window.localStorage.setItem("gpsdata","{");
 
         //navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }
 var temporary;
     function img2onclick(){
   console.log("stop image clicked");clearInterval(temporary);
+  var temp= window.localStorage.getItem("gpsdata");
+  temp=temp.concat("}");
+  localStorage.setItem("gpsdata",temp);
    $.post(url.concat("/thesis/getlocationdata.php"), { 
   gpsdata: window.localStorage.getItem("gpsdata"),
   emailid:window.localStorage.getItem("freelancercookie")
@@ -100,7 +103,7 @@ console.log("play image clicked");
         sts=sts.concat(",lg:");
         sts=sts.concat(position.coords.longitude.toString());
         sts=sts.concat(",t:");
-        sts=sts.concat(position.timestamp.toString());
+        sts=sts.concat(((position.timestamp)/1000).toString());
         sts=sts.concat("},");
         sts=temp.concat(sts);
         //console.log(sts);
